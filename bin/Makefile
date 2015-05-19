@@ -1,10 +1,8 @@
 build-busybox:
-	pushd busybox/
-	make defconfig
-	sed -i "s/.*CONFIG_STATIC.*/CONFIG_STATIC=y/" .config
-	sed -e 's/.*CONFIG_FEATURE_HAVE_RPC.*/CONFIG_FEATURE_HAVE_RPC=n/' -i .config
-	sed -e 's/.*CONFIG_FEATURE_INETD_RPC.*/CONFIG_FEATURE_INETD_RPC=n/' -i .config
-	make busybox
-	popd
+	make -C busybox/ O=../../obj/bin/busybox/  defconfig
+	sed -i "s/.*CONFIG_STATIC.*/CONFIG_STATIC=y/" ../obj/bin/busybox/.config
+	sed -e 's/.*CONFIG_FEATURE_HAVE_RPC.*/CONFIG_FEATURE_HAVE_RPC=n/' -i ../obj/bin/busybox/.config
+	sed -e 's/.*CONFIG_FEATURE_INETD_RPC.*/CONFIG_FEATURE_INETD_RPC=n/' -i ../obj/bin/busybox/.config
+	make -C ../obj/bin/busybox/ 
 
 build: build-busybox
