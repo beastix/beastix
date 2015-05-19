@@ -1,3 +1,19 @@
-An attempt at a BSD-style base system with the linux kernel.
+This is an attempt at a BSD-style base system for linux.
 
-Just to make you cry.
+The root makefile contains 2 targets:
+    make buildworld
+    make buildkernel
+
+Project is structured as follows:
+
+bin/busybox/
+   A local copy of the busybox source tree
+kernel/
+   The linux kernel
+obj/
+   A build directory, everything builds into here by default
+   To clean the tree, just wipe obj/ and then update
+rootfs/
+   The basic root directory
+sbin/
+   Root-user only tools (currently empty)

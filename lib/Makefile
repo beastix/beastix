@@ -1,6 +1,5 @@
 build-musl:
-	pushd musl/
+	cd musl
 	./configure --prefix=../../obj/
 	make
-	popd
 build: build-musl
