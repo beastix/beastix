@@ -9,3 +9,4 @@ iso: initrd
 	cd ../obj/kernel/; sed -i 's/mkisofs/genisoimage/g' arch/x86/boot/Makefile; make isoimage FDINITRD=../../releng/release/rootfs.cpio.gz; cp arch/x86/boot/image.iso ../../releng/release
 
 release: iso
+	cp ../obj/kernel/arch/x86/boot/isoimage/linux release/
