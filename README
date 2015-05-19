@@ -3,6 +3,7 @@ This is an attempt at a BSD-style base system for linux.
 The root makefile contains 2 targets:
     make buildworld
     make buildkernel
+    make release
 
 Project is structured as follows:
 

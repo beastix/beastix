@@ -1,0 +1,8 @@
+How a release is built:
+
+1 - Create a temporary root directory
+2 - Export the contents of rootfs/ into this directory
+3 - Copy the contents of obj/bin/busybox/_install into the directory and make appropriate cleanup changes
+4 - Compress the directory
+5 - Build a live ISO using the compressed tarball as an initrd
+
