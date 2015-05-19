@@ -1,0 +1,7 @@
+#!/bin/sh
+
+ip addr add \$ip/\$mask dev \$interface
+
+if [ -n "$router"]; then
+  ip route add default via \$router dev \$interface
+fi

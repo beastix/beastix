@@ -1,0 +1,11 @@
+::sysinit:/etc/rc.init
+::restart:/sbin/init
+::ctrlaltdel:/sbin/reboot
+::once:cat /etc/announce
+::respawn:/bin/cttyhack /bin/sh
+tty2::once:cat /etc/announce
+tty2::respawn:/bin/login
+tty3::once:cat /etc/announce
+tty3::respawn:/bin/login
+tty4::once:cat /etc/announce
+tty4::respawn:/bin/login
