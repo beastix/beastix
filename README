@@ -1,9 +1,9 @@
 This is an attempt at a BSD-style base system for linux.
 
 The root makefile contains 2 targets:
-    make buildworld
     make buildkernel
-    make release
+    make buildworld
+You should execute them in that order and then cd into releng/ and do "make release" to get a bootable live ISO image
 
 Project is structured as follows:
 
