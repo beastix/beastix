@@ -7,7 +7,7 @@ build-busybox:
 	make -C ../obj/bin/busybox  PREFIX=. install
 
 build-binutils:
-	cd ../obj/bin/binutils; ../../bin/binutils/configure --prefix="." --with-sysroot --disable-nls --disable-werror
+	cd ../obj/bin/binutils; ../../../bin/binutils/configure --prefix=`pwd` --with-sysroot --disable-nls --disable-werror
 	make -C ../obj/bin/binutils
 	make -C ../obj/bin/binutils PREFIX=. install
 
