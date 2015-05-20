@@ -18,3 +18,12 @@ release: initrd src
 	mv release/rootfs.tar.gz release/base.tgz
 	mv release/rootfs.cpio.gz release/initrd_live.img
 	cd release/; md5sum * >MD5SUMS
+	mkdir isoroot
+	cp -Rv release/* isoroot/
+	make -C ../obj/kernel isoimage
+	cp ../obj/kernel/arch/x86/boot/isoimage/isolinux.bin isoroot/
+	cp -Rv cd_templ/* isoroot/
+	mkdir isoroot/images
+	mv isoroot/*.img isoroot/images
+	genisoimage -l -J -r -o release/beastix.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table isoroot
+	isohybrid release/beastix.iso

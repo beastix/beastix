@@ -1,0 +1,7 @@
+
+	Welcome to Beastix-0.1-CURRENT!
+
+	To get started with the rescue/live system, press 1 and hit enter
+	To install, press 2 and hit enter
+
+

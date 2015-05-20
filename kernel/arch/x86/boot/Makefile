@@ -173,7 +173,6 @@ isoimage: $(obj)/bzImage
 		-no-emul-boot -boot-load-size 4 -boot-info-table \
 		$(obj)/isoimage
 	isohybrid $(obj)/image.iso 2>/dev/null || true
-	rm -rf $(obj)/isoimage
 
 bzlilo: $(obj)/bzImage
 	if [ -f $(INSTALL_PATH)/vmlinuz ]; then mv $(INSTALL_PATH)/vmlinuz $(INSTALL_PATH)/vmlinuz.old; fi
