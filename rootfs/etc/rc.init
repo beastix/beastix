@@ -10,4 +10,3 @@ ip link set lo up
 ip link set eth0 up
 udhcpc -b -i eth0 -s /etc/rc.dhcp
 
-/bin/login
