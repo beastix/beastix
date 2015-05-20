@@ -1,4 +1,3 @@
-foo:
 	# range check
 	sb       $s3,4($t0)
 	sw       $s3,8($t0)

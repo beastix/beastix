@@ -1394,7 +1394,7 @@ load_expression (int targreg,
 		    gas_assert (insn.nfixups + 1 <= MAX_INSN_FIXUPS);
 		    insn.fixups[insn.nfixups].reloc = BFD_RELOC_ALPHA_NOP;
 		    ensym = symbol_find_or_make (ensymname);
-		    symbol_mark_used (ensym);
+		    ensym->sy_used = 1;
 		    /* The fixup must be the same as the BFD_RELOC_ALPHA_BOH
 		       case in emit_jsrjmp.  See B.4.5.2 of the OpenVMS Linker
 		       Utility Manual.  */
@@ -1426,7 +1426,7 @@ load_expression (int targreg,
 		    gas_assert (insn.nfixups + 1 <= MAX_INSN_FIXUPS);
 		    insn.fixups[insn.nfixups].reloc = BFD_RELOC_ALPHA_LDA;
 		    psym = symbol_find_or_make (psymname);
-		    symbol_mark_used (psym);
+		    psym->sy_used = 1;
 		    insn.fixups[insn.nfixups].exp.X_op = O_subtract;
 		    insn.fixups[insn.nfixups].exp.X_add_symbol = psym;
 		    insn.fixups[insn.nfixups].exp.X_op_symbol = alpha_evax_proc->symbol;
@@ -3602,7 +3602,7 @@ s_alpha_comm (int ignore ATTRIBUTE_UNUSED)
       frag_align (log_align, 0, 0);
       record_alignment (bss_section, log_align);
 
-      symbol_set_frag (symbolP, frag_now);
+      symbolP->sy_frag = frag_now;
       pfrag = frag_var (rs_org, 1, 1, (relax_substateT)0, symbolP,
                         size, NULL);
       *pfrag = 0;
@@ -4435,7 +4435,6 @@ static void
 s_alpha_frame (int ignore ATTRIBUTE_UNUSED)
 {
   long val;
-  int ra;
 
   alpha_evax_proc->framereg = tc_get_register (1);
 
@@ -4451,10 +4450,7 @@ s_alpha_frame (int ignore ATTRIBUTE_UNUSED)
 
   alpha_evax_proc->framesize = val;
 
-  ra = tc_get_register (1);
-  if (ra != AXP_REG_RA)
-    as_warn (_("Bad RA (%d) register for .frame"), ra);
-
+  (void) tc_get_register (1);
   SKIP_WHITESPACE ();
   if (*input_line_pointer++ != ',')
     {
@@ -4471,12 +4467,13 @@ s_alpha_frame (int ignore ATTRIBUTE_UNUSED)
 static void
 s_alpha_prologue (int ignore ATTRIBUTE_UNUSED)
 {
+  get_absolute_expression ();
   demand_empty_rest_of_line ();
   alpha_prologue_label = symbol_new
     (FAKE_LABEL_NAME, now_seg, (valueT) frag_now_fix (), frag_now);
 }
 
-/* Parse .pdesc <entry_name>,{null|stack|reg}
+/* Parse .pdesc <entry_name>.
    Insert a procedure descriptor.  */
 
 static void
@@ -5302,7 +5299,7 @@ maybe_set_gp (asection *sec)
 
   if (!sec)
     return;
-  vma = bfd_get_section_vma (sec->owner, sec);
+  vma = bfd_get_section_vma (foo, sec);
   if (vma && vma < alpha_gp_value)
     alpha_gp_value = vma;
 }

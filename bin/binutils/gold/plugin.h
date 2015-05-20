@@ -493,9 +493,8 @@ class Sized_pluginobj : public Pluginobj
   do_section_name(unsigned int shndx);
 
   // Return a view of the contents of a section.
-  const unsigned char*
-  do_section_contents(unsigned int shndx, section_size_type* plen,
-		      bool cache);
+  Object::Location
+  do_section_contents(unsigned int shndx);
 
   // Return section flags.
   uint64_t

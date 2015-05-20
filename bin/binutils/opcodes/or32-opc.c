@@ -1,6 +1,5 @@
 /* Table of opcodes for the OpenRISC 1000 ISA.
-   Copyright 2002, 2004, 2005, 2007, 2008, 2009, 2012
-   Free Software Foundation, Inc.
+   Copyright 2002, 2004, 2005, 2007, 2008, 2009 Free Software Foundation, Inc.
    Contributed by Damjan Lampret (lampret@opencores.org).
    
    This file is part of the GNU opcodes library.
@@ -20,16 +19,17 @@
    Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston,
    MA 02110-1301, USA.  */
 
-#include "sysdep.h"
+/* We treat all letters the same in encode/decode routines so
+   we need to assign some characteristics to them like signess etc.  */
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "safe-ctype.h"
 #include "ansidecl.h"
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
 #include "opcode/or32.h"
-
-/* We treat all letters the same in encode/decode routines so
-   we need to assign some characteristics to them like signess etc.  */
 
 const struct or32_letter or32_letters[] =
 {

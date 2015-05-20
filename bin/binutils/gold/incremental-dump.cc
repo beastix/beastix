@@ -52,9 +52,6 @@ find_input_containing_global(
     unsigned int* symndx)
 {
   typedef Incremental_inputs_reader<size, big_endian> Inputs_reader;
-  static const unsigned int global_sym_entry_size =
-      Incremental_inputs_reader<size, big_endian>::global_sym_entry_size;
-
   for (unsigned int i = 0; i < incremental_inputs.input_file_count(); ++i)
     {
       typename Inputs_reader::Incremental_input_entry_reader input_file =
@@ -66,8 +63,7 @@ find_input_containing_global(
       if (offset >= input_file.get_symbol_offset(0)
           && offset < input_file.get_symbol_offset(nsyms))
 	{
-	  *symndx = ((offset - input_file.get_symbol_offset(0))
-		     / global_sym_entry_size);
+	  *symndx = (offset - input_file.get_symbol_offset(0)) / 20;
 	  return input_file;
 	}
     }
@@ -96,7 +92,7 @@ dump_incremental_inputs(const char* argv0, const char* filename,
   Incremental_inputs_reader<size, big_endian>
       incremental_inputs(inc->inputs_reader());
 
-  if (incremental_inputs.version() != 2)
+  if (incremental_inputs.version() != 1)
     {
       fprintf(stderr, "%s: %s: unknown incremental version %d\n", argv0,
               filename, incremental_inputs.version());

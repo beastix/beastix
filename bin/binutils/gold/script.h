@@ -90,28 +90,20 @@ class Expression
   // the section address.  If RESULT_ALIGNMENT is not NULL, this sets
   // *RESULT_ALIGNMENT to the alignment of the value of that alignment
   // is larger than *RESULT_ALIGNMENT; this will only be non-zero if
-  // this is an ALIGN expression.  If IS_SECTION_DOT_ASSIGMENT is true,
-  // we are evaluating an assignment to dot within an output section,
-  // and an absolute value should be interpreted as an offset within
-  // the section.
+  // this is an ALIGN expression.
   uint64_t
   eval_with_dot(const Symbol_table*, const Layout*, bool check_assertions,
 		uint64_t dot_value, Output_section* dot_section,
-		Output_section** result_section, uint64_t* result_alignment,
-		bool is_section_dot_assignment);
+		Output_section** result_section, uint64_t* result_alignment);
 
   // Return the value of an expression which may or may not be
   // permitted to refer to the dot symbol, depending on
-  // is_dot_available.  If IS_SECTION_DOT_ASSIGMENT is true,
-  // we are evaluating an assignment to dot within an output section,
-  // and an absolute value should be interpreted as an offset within
-  // the section.
+  // is_dot_available.
   uint64_t
   eval_maybe_dot(const Symbol_table*, const Layout*, bool check_assertions,
 		 bool is_dot_available, uint64_t dot_value,
 		 Output_section* dot_section,
-		 Output_section** result_section, uint64_t* result_alignment,
-		 bool is_section_dot_assignment);
+		 Output_section** result_section, uint64_t* result_alignment);
 
   // Print the expression to the FILE.  This is for debugging.
   virtual void
@@ -347,12 +339,12 @@ class Symbol_assignment
   finalize_with_dot(Symbol_table*, const Layout*, uint64_t dot_value,
 		    Output_section* dot_section);
 
-  // Set the symbol value, but only if the value is absolute or relative to
-  // DOT_SECTION.  This is used while processing a SECTIONS clause.
-  // We assume that dot is an absolute value here.  We do not check assertions.
+  // Set the symbol value, but only if the value is absolute.  This is
+  // used while processing a SECTIONS clause.  We assume that dot is
+  // an absolute value here.  We do not check assertions.
   void
   set_if_absolute(Symbol_table*, const Layout*, bool is_dot_available,
-		  uint64_t dot_value, Output_section* dot_section);
+		  uint64_t dot_value);
 
   const std::string&
   name() const

@@ -1,4 +1,4 @@
-	.text
+	.section ".text"
 start:
 	add.	4,5,6
 	add	4,5,6

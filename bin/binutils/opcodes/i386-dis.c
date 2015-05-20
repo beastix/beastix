@@ -108,9 +108,6 @@ static void OP_3DNowSuffix (int, int);
 static void CMP_Fixup (int, int);
 static void BadOp (void);
 static void REP_Fixup (int, int);
-static void HLE_Fixup1 (int, int);
-static void HLE_Fixup2 (int, int);
-static void HLE_Fixup3 (int, int);
 static void CMPXCHG8B_Fixup (int, int);
 static void XMM_Fixup (int, int);
 static void CRC32_Fixup (int, int);
@@ -415,14 +412,6 @@ fetch_data (struct disassemble_info *info, bfd_byte *addr)
 #define ALr { REP_Fixup, al_reg }
 #define eAXr { REP_Fixup, eAX_reg }
 
-/* Used handle HLE prefix for lockable instructions.  */
-#define Ebh1 { HLE_Fixup1, b_mode }
-#define Evh1 { HLE_Fixup1, v_mode }
-#define Ebh2 { HLE_Fixup2, b_mode }
-#define Evh2 { HLE_Fixup2, v_mode }
-#define Ebh3 { HLE_Fixup3, b_mode }
-#define Evh3 { HLE_Fixup3, v_mode }
-
 #define cond_jump_flag { NULL, cond_jump_mode }
 #define loop_jcxz_flag { NULL, loop_jcxz_mode }
 
@@ -653,8 +642,6 @@ enum
 enum
 {
   MOD_8D = 0,
-  MOD_C6_REG_7,
-  MOD_C7_REG_7,
   MOD_0F01_REG_0,
   MOD_0F01_REG_1,
   MOD_0F01_REG_2,
@@ -743,9 +730,7 @@ enum
 
 enum
 {
-  RM_C6_REG_7 = 0,
-  RM_C7_REG_7,
-  RM_0F01_REG_0,
+  RM_0F01_REG_0 = 0,
   RM_0F01_REG_1,
   RM_0F01_REG_2,
   RM_0F01_REG_3,
@@ -851,7 +836,6 @@ enum
   PREFIX_0F38DF,
   PREFIX_0F38F0,
   PREFIX_0F38F1,
-  PREFIX_0F38F6,
   PREFIX_0F3A08,
   PREFIX_0F3A09,
   PREFIX_0F3A0A,
@@ -1319,14 +1303,6 @@ enum
   VEX_LEN_0F3A7F_P_2,
   VEX_LEN_0F3ADF_P_2,
   VEX_LEN_0F3AF0_P_3,
-  VEX_LEN_0FXOP_08_CC,
-  VEX_LEN_0FXOP_08_CD,
-  VEX_LEN_0FXOP_08_CE,
-  VEX_LEN_0FXOP_08_CF,
-  VEX_LEN_0FXOP_08_EC,
-  VEX_LEN_0FXOP_08_ED,
-  VEX_LEN_0FXOP_08_EE,
-  VEX_LEN_0FXOP_08_EF,
   VEX_LEN_0FXOP_09_80,
   VEX_LEN_0FXOP_09_81
 };
@@ -1670,8 +1646,8 @@ struct dis386 {
 
 static const struct dis386 dis386[] = {
   /* 00 */
-  { "addB",		{ Ebh1, Gb } },
-  { "addS",		{ Evh1, Gv } },
+  { "addB",		{ Eb, Gb } },
+  { "addS",		{ Ev, Gv } },
   { "addB",		{ Gb, EbS } },
   { "addS",		{ Gv, EvS } },
   { "addB",		{ AL, Ib } },
@@ -1679,8 +1655,8 @@ static const struct dis386 dis386[] = {
   { X86_64_TABLE (X86_64_06) },
   { X86_64_TABLE (X86_64_07) },
   /* 08 */
-  { "orB",		{ Ebh1, Gb } },
-  { "orS",		{ Evh1, Gv } },
+  { "orB",		{ Eb, Gb } },
+  { "orS",		{ Ev, Gv } },
   { "orB",		{ Gb, EbS } },
   { "orS",		{ Gv, EvS } },
   { "orB",		{ AL, Ib } },
@@ -1688,8 +1664,8 @@ static const struct dis386 dis386[] = {
   { X86_64_TABLE (X86_64_0D) },
   { Bad_Opcode },	/* 0x0f extended opcode escape */
   /* 10 */
-  { "adcB",		{ Ebh1, Gb } },
-  { "adcS",		{ Evh1, Gv } },
+  { "adcB",		{ Eb, Gb } },
+  { "adcS",		{ Ev, Gv } },
   { "adcB",		{ Gb, EbS } },
   { "adcS",		{ Gv, EvS } },
   { "adcB",		{ AL, Ib } },
@@ -1697,8 +1673,8 @@ static const struct dis386 dis386[] = {
   { X86_64_TABLE (X86_64_16) },
   { X86_64_TABLE (X86_64_17) },
   /* 18 */
-  { "sbbB",		{ Ebh1, Gb } },
-  { "sbbS",		{ Evh1, Gv } },
+  { "sbbB",		{ Eb, Gb } },
+  { "sbbS",		{ Ev, Gv } },
   { "sbbB",		{ Gb, EbS } },
   { "sbbS",		{ Gv, EvS } },
   { "sbbB",		{ AL, Ib } },
@@ -1706,8 +1682,8 @@ static const struct dis386 dis386[] = {
   { X86_64_TABLE (X86_64_1E) },
   { X86_64_TABLE (X86_64_1F) },
   /* 20 */
-  { "andB",		{ Ebh1, Gb } },
-  { "andS",		{ Evh1, Gv } },
+  { "andB",		{ Eb, Gb } },
+  { "andS",		{ Ev, Gv } },
   { "andB",		{ Gb, EbS } },
   { "andS",		{ Gv, EvS } },
   { "andB",		{ AL, Ib } },
@@ -1715,8 +1691,8 @@ static const struct dis386 dis386[] = {
   { Bad_Opcode },	/* SEG ES prefix */
   { X86_64_TABLE (X86_64_27) },
   /* 28 */
-  { "subB",		{ Ebh1, Gb } },
-  { "subS",		{ Evh1, Gv } },
+  { "subB",		{ Eb, Gb } },
+  { "subS",		{ Ev, Gv } },
   { "subB",		{ Gb, EbS } },
   { "subS",		{ Gv, EvS } },
   { "subB",		{ AL, Ib } },
@@ -1724,8 +1700,8 @@ static const struct dis386 dis386[] = {
   { Bad_Opcode },	/* SEG CS prefix */
   { X86_64_TABLE (X86_64_2F) },
   /* 30 */
-  { "xorB",		{ Ebh1, Gb } },
-  { "xorS",		{ Evh1, Gv } },
+  { "xorB",		{ Eb, Gb } },
+  { "xorS",		{ Ev, Gv } },
   { "xorB",		{ Gb, EbS } },
   { "xorS",		{ Gv, EvS } },
   { "xorB",		{ AL, Ib } },
@@ -1820,11 +1796,11 @@ static const struct dis386 dis386[] = {
   { REG_TABLE (REG_82) },
   { "testB",		{ Eb, Gb } },
   { "testS",		{ Ev, Gv } },
-  { "xchgB",		{ Ebh2, Gb } },
-  { "xchgS",		{ Evh2, Gv } },
+  { "xchgB",		{ Eb, Gb } },
+  { "xchgS",		{ Ev, Gv } },
   /* 88 */
-  { "movB",		{ Ebh3, Gb } },
-  { "movS",		{ Evh3, Gv } },
+  { "movB",		{ Eb, Gb } },
+  { "movS",		{ Ev, Gv } },
   { "movB",		{ Gb, EbS } },
   { "movS",		{ Gv, EvS } },
   { "movD",		{ Sv, Sw } },
@@ -2153,16 +2129,16 @@ static const struct dis386 dis386_twobyte[] = {
   { "pushT",		{ gs } },
   { "popT",		{ gs } },
   { "rsm",		{ XX } },
-  { "btsS",		{ Evh1, Gv } },
+  { "btsS",		{ Ev, Gv } },
   { "shrdS",		{ Ev, Gv, Ib } },
   { "shrdS",		{ Ev, Gv, CL } },
   { REG_TABLE (REG_0FAE) },
   { "imulS",		{ Gv, Ev } },
   /* b0 */
-  { "cmpxchgB",		{ Ebh1, Gb } },
-  { "cmpxchgS",		{ Evh1, Gv } },
+  { "cmpxchgB",		{ Eb, Gb } },
+  { "cmpxchgS",		{ Ev, Gv } },
   { MOD_TABLE (MOD_0FB2) },
-  { "btrS",		{ Evh1, Gv } },
+  { "btrS",		{ Ev, Gv } },
   { MOD_TABLE (MOD_0FB4) },
   { MOD_TABLE (MOD_0FB5) },
   { "movz{bR|x}",	{ Gv, Eb } },
@@ -2171,14 +2147,14 @@ static const struct dis386 dis386_twobyte[] = {
   { PREFIX_TABLE (PREFIX_0FB8) },
   { "ud1",		{ XX } },
   { REG_TABLE (REG_0FBA) },
-  { "btcS",		{ Evh1, Gv } },
+  { "btcS",		{ Ev, Gv } },
   { PREFIX_TABLE (PREFIX_0FBC) },
   { PREFIX_TABLE (PREFIX_0FBD) },
   { "movs{bR|x}",	{ Gv, Eb } },
   { "movs{wR|x}",	{ Gv, Ew } }, /* yes, there really is movsww ! */
   /* c0 */
-  { "xaddB",		{ Ebh1, Gb } },
-  { "xaddS",		{ Evh1, Gv } },
+  { "xaddB",		{ Eb, Gb } },
+  { "xaddS",		{ Ev, Gv } },
   { PREFIX_TABLE (PREFIX_0FC2) },
   { PREFIX_TABLE (PREFIX_0FC3) },
   { "pinsrw",		{ MX, Edqw, Ib } },
@@ -2460,35 +2436,35 @@ static const char *att_names_ymm[] = {
 static const struct dis386 reg_table[][8] = {
   /* REG_80 */
   {
-    { "addA",	{ Ebh1, Ib } },
-    { "orA",	{ Ebh1, Ib } },
-    { "adcA",	{ Ebh1, Ib } },
-    { "sbbA",	{ Ebh1, Ib } },
-    { "andA",	{ Ebh1, Ib } },
-    { "subA",	{ Ebh1, Ib } },
-    { "xorA",	{ Ebh1, Ib } },
+    { "addA",	{ Eb, Ib } },
+    { "orA",	{ Eb, Ib } },
+    { "adcA",	{ Eb, Ib } },
+    { "sbbA",	{ Eb, Ib } },
+    { "andA",	{ Eb, Ib } },
+    { "subA",	{ Eb, Ib } },
+    { "xorA",	{ Eb, Ib } },
     { "cmpA",	{ Eb, Ib } },
   },
   /* REG_81 */
   {
-    { "addQ",	{ Evh1, Iv } },
-    { "orQ",	{ Evh1, Iv } },
-    { "adcQ",	{ Evh1, Iv } },
-    { "sbbQ",	{ Evh1, Iv } },
-    { "andQ",	{ Evh1, Iv } },
-    { "subQ",	{ Evh1, Iv } },
-    { "xorQ",	{ Evh1, Iv } },
+    { "addQ",	{ Ev, Iv } },
+    { "orQ",	{ Ev, Iv } },
+    { "adcQ",	{ Ev, Iv } },
+    { "sbbQ",	{ Ev, Iv } },
+    { "andQ",	{ Ev, Iv } },
+    { "subQ",	{ Ev, Iv } },
+    { "xorQ",	{ Ev, Iv } },
     { "cmpQ",	{ Ev, Iv } },
   },
   /* REG_82 */
   {
-    { "addQ",	{ Evh1, sIb } },
-    { "orQ",	{ Evh1, sIb } },
-    { "adcQ",	{ Evh1, sIb } },
-    { "sbbQ",	{ Evh1, sIb } },
-    { "andQ",	{ Evh1, sIb } },
-    { "subQ",	{ Evh1, sIb } },
-    { "xorQ",	{ Evh1, sIb } },
+    { "addQ",	{ Ev, sIb } },
+    { "orQ",	{ Ev, sIb } },
+    { "adcQ",	{ Ev, sIb } },
+    { "sbbQ",	{ Ev, sIb } },
+    { "andQ",	{ Ev, sIb } },
+    { "subQ",	{ Ev, sIb } },
+    { "xorQ",	{ Ev, sIb } },
     { "cmpQ",	{ Ev, sIb } },
   },
   /* REG_8F */
@@ -2524,25 +2500,11 @@ static const struct dis386 reg_table[][8] = {
   },
   /* REG_C6 */
   {
-    { "movA",	{ Ebh3, Ib } },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { MOD_TABLE (MOD_C6_REG_7) },
+    { "movA",	{ Eb, Ib } },
   },
   /* REG_C7 */
   {
-    { "movQ",	{ Evh3, Iv } },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { MOD_TABLE (MOD_C7_REG_7) },
+    { "movQ",	{ Ev, Iv } },
   },
   /* REG_D0 */
   {
@@ -2592,8 +2554,8 @@ static const struct dis386 reg_table[][8] = {
   {
     { "testA",	{ Eb, Ib } },
     { Bad_Opcode },
-    { "notA",	{ Ebh1 } },
-    { "negA",	{ Ebh1 } },
+    { "notA",	{ Eb } },
+    { "negA",	{ Eb } },
     { "mulA",	{ Eb } },	/* Don't print the implicit %al register,  */
     { "imulA",	{ Eb } },	/* to distinguish these opcodes from other */
     { "divA",	{ Eb } },	/* mul/imul opcodes.  Do the same for div  */
@@ -2603,8 +2565,8 @@ static const struct dis386 reg_table[][8] = {
   {
     { "testQ",	{ Ev, Iv } },
     { Bad_Opcode },
-    { "notQ",	{ Evh1 } },
-    { "negQ",	{ Evh1 } },
+    { "notQ",	{ Ev } },
+    { "negQ",	{ Ev } },
     { "mulQ",	{ Ev } },	/* Don't print the implicit register.  */
     { "imulQ",	{ Ev } },
     { "divQ",	{ Ev } },
@@ -2612,13 +2574,13 @@ static const struct dis386 reg_table[][8] = {
   },
   /* REG_FE */
   {
-    { "incA",	{ Ebh1 } },
-    { "decA",	{ Ebh1 } },
+    { "incA",	{ Eb } },
+    { "decA",	{ Eb } },
   },
   /* REG_FF */
   {
-    { "incQ",	{ Evh1 } },
-    { "decQ",	{ Evh1 } },
+    { "incQ",	{ Ev } },
+    { "decQ",	{ Ev } },
     { "call{T|}", { indirEv } },
     { "Jcall{T|}", { indirEp } },
     { "jmp{T|}", { indirEv } },
@@ -2724,9 +2686,9 @@ static const struct dis386 reg_table[][8] = {
     { Bad_Opcode },
     { Bad_Opcode },
     { "btQ",	{ Ev, Ib } },
-    { "btsQ",	{ Evh1, Ib } },
-    { "btrQ",	{ Evh1, Ib } },
-    { "btcQ",	{ Evh1, Ib } },
+    { "btsQ",	{ Ev, Ib } },
+    { "btrQ",	{ Ev, Ib } },
+    { "btcQ",	{ Ev, Ib } },
   },
   /* REG_0FC7 */
   {
@@ -3492,14 +3454,6 @@ static const struct dis386 prefix_table[][4] = {
     { Bad_Opcode },
     { "movbeS",	{ { MOVBE_Fixup, v_mode }, Gv } },
     { "crc32",	{ Gdq, { CRC32_Fixup, v_mode } } },	
-  },
-
-  /* PREFIX_0F38F6 */
-  {
-    { Bad_Opcode },
-    { "adoxS",	{ Gdq, Edq} },
-    { "adcxS",	{ Gdq, Edq} },
-    { Bad_Opcode },
   },
 
   /* PREFIX_0F3A08 */
@@ -6072,7 +6026,7 @@ static const struct dis386 three_byte_table[][256] = {
     { Bad_Opcode },
     { Bad_Opcode },
     { Bad_Opcode },
-    { PREFIX_TABLE (PREFIX_0F38F6) },
+    { Bad_Opcode },
     { Bad_Opcode },
     /* f8 */
     { Bad_Opcode },
@@ -6902,10 +6856,10 @@ static const struct dis386 xop_table[][256] = {
     { Bad_Opcode },
     { Bad_Opcode },
     { Bad_Opcode },
-    { VEX_LEN_TABLE (VEX_LEN_0FXOP_08_CC) },
-    { VEX_LEN_TABLE (VEX_LEN_0FXOP_08_CD) },
-    { VEX_LEN_TABLE (VEX_LEN_0FXOP_08_CE) },
-    { VEX_LEN_TABLE (VEX_LEN_0FXOP_08_CF) },
+    { "vpcomb", 	{ XM, Vex128, EXx, Ib } },
+    { "vpcomw", 	{ XM, Vex128, EXx, Ib } },
+    { "vpcomd", 	{ XM, Vex128, EXx, Ib } },
+    { "vpcomq", 	{ XM, Vex128, EXx, Ib } },
     /* d0 */
     { Bad_Opcode },
     { Bad_Opcode },
@@ -6938,10 +6892,10 @@ static const struct dis386 xop_table[][256] = {
     { Bad_Opcode },
     { Bad_Opcode },
     { Bad_Opcode },
-    { VEX_LEN_TABLE (VEX_LEN_0FXOP_08_EC) },
-    { VEX_LEN_TABLE (VEX_LEN_0FXOP_08_ED) },
-    { VEX_LEN_TABLE (VEX_LEN_0FXOP_08_EE) },
-    { VEX_LEN_TABLE (VEX_LEN_0FXOP_08_EF) },
+    { "vpcomub",	{ XM, Vex128, EXx, Ib } },
+    { "vpcomuw",	{ XM, Vex128, EXx, Ib } },
+    { "vpcomud",	{ XM, Vex128, EXx, Ib } },
+    { "vpcomuq",	{ XM, Vex128, EXx, Ib } },
     /* f0 */
     { Bad_Opcode },
     { Bad_Opcode },
@@ -9010,46 +8964,6 @@ static const struct dis386 vex_len_table[][2] = {
     { "rorxS",		{ Gdq, Edq, Ib } },
   },
 
-  /* VEX_LEN_0FXOP_08_CC */
-  {
-     { "vpcomb",	{ XM, Vex128, EXx, Ib } },
-  },
-
-  /* VEX_LEN_0FXOP_08_CD */
-  {
-     { "vpcomw",	{ XM, Vex128, EXx, Ib } },
-  },
-
-  /* VEX_LEN_0FXOP_08_CE */
-  {
-     { "vpcomd",	{ XM, Vex128, EXx, Ib } },
-  },
-
-  /* VEX_LEN_0FXOP_08_CF */
-  {
-     { "vpcomq",	{ XM, Vex128, EXx, Ib } },
-  },
-
-  /* VEX_LEN_0FXOP_08_EC */
-  {
-     { "vpcomub",	{ XM, Vex128, EXx, Ib } },
-  },
-
-  /* VEX_LEN_0FXOP_08_ED */
-  {
-     { "vpcomuw",	{ XM, Vex128, EXx, Ib } },
-  },
-
-  /* VEX_LEN_0FXOP_08_EE */
-  {
-     { "vpcomud",	{ XM, Vex128, EXx, Ib } },
-  },
-
-  /* VEX_LEN_0FXOP_08_EF */
-  {
-     { "vpcomuq",	{ XM, Vex128, EXx, Ib } },
-  },
-
   /* VEX_LEN_0FXOP_09_80 */
   {
     { "vfrczps",	{ XM, EXxmm } },
@@ -10152,16 +10066,6 @@ static const struct dis386 mod_table[][2] = {
     { "leaS",		{ Gv, M } },
   },
   {
-    /* MOD_C6_REG_7 */
-    { Bad_Opcode },
-    { RM_TABLE (RM_C6_REG_7) },
-  },
-  {
-    /* MOD_C7_REG_7 */
-    { Bad_Opcode },
-    { RM_TABLE (RM_C7_REG_7) },
-  },
-  {
     /* MOD_0F01_REG_0 */
     { X86_64_TABLE (X86_64_0F01_REG_0) },
     { RM_TABLE (RM_0F01_REG_0) },
@@ -10380,7 +10284,6 @@ static const struct dis386 mod_table[][2] = {
   {
     /* MOD_0FC7_REG_7 */
     { "vmptrst",	{ Mq } },
-    { "rdseed",		{ Ev } },
   },
   {
     /* MOD_0FD7 */
@@ -10551,14 +10454,6 @@ static const struct dis386 mod_table[][2] = {
 
 static const struct dis386 rm_table[][8] = {
   {
-    /* RM_C6_REG_7 */
-    { "xabort",		{ Skip_MODRM, Ib } },
-  },
-  {
-    /* RM_C7_REG_7 */
-    { "xbeginT",	{ Skip_MODRM, Jv } },
-  },
-  {
     /* RM_0F01_REG_0 */
     { Bad_Opcode },
     { "vmcall",		{ Skip_MODRM } },
@@ -10575,12 +10470,6 @@ static const struct dis386 rm_table[][8] = {
     /* RM_0F01_REG_2 */
     { "xgetbv",		{ Skip_MODRM } },
     { "xsetbv",		{ Skip_MODRM } },
-    { Bad_Opcode },
-    { Bad_Opcode },
-    { "vmfunc",		{ Skip_MODRM } },
-    { "xend",		{ Skip_MODRM } },
-    { "xtest",		{ Skip_MODRM } },
-    { Bad_Opcode },
   },
   {
     /* RM_0F01_REG_3 */
@@ -10621,8 +10510,6 @@ static const struct dis386 rm_table[][8] = {
 #define DATA16_PREFIX	(0x66 | 0x100)
 #define DATA32_PREFIX	(0x66 | 0x200)
 #define REP_PREFIX	(0xf3 | 0x100)
-#define XACQUIRE_PREFIX	(0xf2 | 0x200)
-#define XRELEASE_PREFIX	(0xf3 | 0x400)
 
 static int
 ckprefix (void)
@@ -10853,10 +10740,6 @@ prefix_name (int pref, int sizeflag)
       return "data32";
     case REP_PREFIX:
       return "rep";
-    case XACQUIRE_PREFIX:
-      return "xacquire";
-    case XRELEASE_PREFIX:
-      return "xrelease";
     default:
       return NULL;
     }
@@ -11448,7 +11331,7 @@ print_insn (bfd_vma pc, disassemble_info *info)
     {
       /* Too many prefixes or unused REX prefixes.  */
       for (i = 0;
-	   i < (int) ARRAY_SIZE (all_prefixes) && all_prefixes[i];
+	   all_prefixes[i] && i < (int) ARRAY_SIZE (all_prefixes);
 	   i++)
 	(*info->fprintf_func) (info->stream, "%s",
 			       prefix_name (all_prefixes[i], sizeflag));
@@ -14475,57 +14358,6 @@ REP_Fixup (int bytemode, int sizeflag)
     }
 }
 
-/* Similar to OP_E.  But the 0xf2/0xf3 prefixes should be displayed as
-   "xacquire"/"xrelease" for memory operand if there is a LOCK prefix.
- */
-
-static void
-HLE_Fixup1 (int bytemode, int sizeflag)
-{
-  if (modrm.mod != 3
-      && (prefixes & PREFIX_LOCK) != 0)
-    {
-      if (prefixes & PREFIX_REPZ)
-	all_prefixes[last_repz_prefix] = XRELEASE_PREFIX;
-      if (prefixes & PREFIX_REPNZ)
-	all_prefixes[last_repnz_prefix] = XACQUIRE_PREFIX;
-    }
-
-  OP_E (bytemode, sizeflag);
-}
-
-/* Similar to OP_E.  But the 0xf2/0xf3 prefixes should be displayed as
-   "xacquire"/"xrelease" for memory operand.  No check for LOCK prefix.
- */
-
-static void
-HLE_Fixup2 (int bytemode, int sizeflag)
-{
-  if (modrm.mod != 3)
-    {
-      if (prefixes & PREFIX_REPZ)
-	all_prefixes[last_repz_prefix] = XRELEASE_PREFIX;
-      if (prefixes & PREFIX_REPNZ)
-	all_prefixes[last_repnz_prefix] = XACQUIRE_PREFIX;
-    }
-
-  OP_E (bytemode, sizeflag);
-}
-
-/* Similar to OP_E.  But the 0xf3 prefixes should be displayed as
-   "xrelease" for memory operand.  No check for LOCK prefix.   */
-
-static void
-HLE_Fixup3 (int bytemode, int sizeflag)
-{
-  if (modrm.mod != 3
-      && last_repz_prefix > last_repnz_prefix
-      && (prefixes & PREFIX_REPZ) != 0)
-    all_prefixes[last_repz_prefix] = XRELEASE_PREFIX;
-
-  OP_E (bytemode, sizeflag);
-}
-
 static void
 CMPXCHG8B_Fixup (int bytemode, int sizeflag)
 {
@@ -14537,14 +14369,6 @@ CMPXCHG8B_Fixup (int bytemode, int sizeflag)
       mnemonicendp = stpcpy (p, "16b");
       bytemode = o_mode;
     }
-  else if ((prefixes & PREFIX_LOCK) != 0)
-    {
-      if (prefixes & PREFIX_REPZ)
-	all_prefixes[last_repz_prefix] = XRELEASE_PREFIX;
-      if (prefixes & PREFIX_REPNZ)
-	all_prefixes[last_repnz_prefix] = XACQUIRE_PREFIX;
-    }
-
   OP_M (bytemode, sizeflag);
 }
 

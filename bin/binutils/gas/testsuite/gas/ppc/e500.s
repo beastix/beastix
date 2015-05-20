@@ -1,5 +1,5 @@
 # Motorola PowerPC e500 tests
-	.text
+	.section ".text"
 start:
 	isel	2, 3, 4, 23
 	dcblc	4, 5, 6

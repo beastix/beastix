@@ -1,5 +1,5 @@
 /* seh pdata/xdata coff object file format
-   Copyright 2009, 2010, 2012
+   Copyright 2009
    Free Software Foundation, Inc.
 
    This file is part of GAS.
@@ -150,7 +150,7 @@ static void obj_coff_seh_proc  (int);
 static void obj_coff_seh_handler (int);
 static void obj_coff_seh_handlerdata (int);
 
-#define UNDSEC bfd_und_section_ptr
+#define UNDSEC (asection *) &bfd_und_section
 
 /* Check if x64 UNW_... macros are already defined.  */
 #ifndef PEX64_FLAG_NHANDLER

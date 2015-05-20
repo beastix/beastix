@@ -3,10 +3,11 @@
 # as: -march=armv1
 # readelf: -A
 # This test is only valid on EABI based ports.
-# target: *-*-*eabi *-*-nacl*
+# target: *-*-*eabi
 
 Attribute Section: aeabi
 File Attributes
   Tag_CPU_name: "1"
   Tag_CPU_arch: v4
   Tag_ARM_ISA_use: Yes
+  Tag_DIV_use: Not allowed

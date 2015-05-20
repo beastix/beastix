@@ -1,5 +1,4 @@
 	.text
-foo:
 	sb $2,0($8)
 	.data
 	.word 1

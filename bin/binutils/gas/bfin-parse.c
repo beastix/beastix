@@ -565,9 +565,6 @@ char *current_inputline;
 extern char *yytext;
 int yyerror (char *);
 
-/* Used to set SRCx fields to all 1s as described in the PRM.  */
-static Register reg7 = {REG_R7, 0};
-
 void error (char *format, ...)
 {
     va_list ap;
@@ -864,7 +861,7 @@ dsp32shiftimm in slot1 and P-reg Store in slot2 Not Supported");
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 448 "bfin-parse.y"
+#line 445 "bfin-parse.y"
 {
   INSTR_T instr;
   Expr_Node *expr;
@@ -877,7 +874,7 @@ typedef union YYSTYPE
   Opt_mode mod;
 }
 /* Line 193 of yacc.c.  */
-#line 881 "bfin-parse.c"
+#line 878 "bfin-parse.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -890,7 +887,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 894 "bfin-parse.c"
+#line 891 "bfin-parse.c"
 
 #ifdef short
 # undef short
@@ -1408,42 +1405,42 @@ static const yytype_int16 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   649,   649,   650,   662,   664,   697,   724,   735,   739,
-     777,   797,   802,   812,   822,   827,   832,   850,   868,   882,
-     895,   911,   933,   951,   976,   998,  1003,  1013,  1024,  1035,
-    1049,  1064,  1080,  1096,  1107,  1121,  1147,  1165,  1170,  1176,
-    1188,  1199,  1210,  1221,  1232,  1243,  1254,  1280,  1294,  1304,
-    1349,  1368,  1379,  1390,  1401,  1412,  1423,  1439,  1456,  1472,
-    1483,  1494,  1527,  1538,  1551,  1562,  1601,  1611,  1621,  1641,
-    1651,  1661,  1672,  1686,  1697,  1710,  1720,  1732,  1747,  1758,
-    1764,  1786,  1797,  1808,  1816,  1842,  1872,  1901,  1932,  1946,
-    1957,  1971,  2005,  2023,  2048,  2060,  2078,  2089,  2100,  2111,
-    2124,  2135,  2146,  2157,  2168,  2179,  2212,  2222,  2235,  2255,
-    2266,  2277,  2290,  2303,  2314,  2325,  2336,  2347,  2357,  2368,
-    2379,  2391,  2402,  2413,  2427,  2440,  2452,  2464,  2475,  2486,
-    2497,  2509,  2521,  2532,  2543,  2554,  2564,  2570,  2576,  2582,
-    2588,  2594,  2600,  2606,  2612,  2618,  2624,  2635,  2646,  2657,
-    2668,  2679,  2690,  2701,  2707,  2721,  2732,  2743,  2754,  2765,
-    2775,  2788,  2796,  2804,  2828,  2839,  2850,  2861,  2872,  2883,
-    2895,  2908,  2917,  2928,  2939,  2951,  2962,  2973,  2984,  2998,
-    3010,  3036,  3066,  3077,  3102,  3139,  3167,  3192,  3203,  3214,
-    3225,  3251,  3270,  3284,  3308,  3320,  3339,  3385,  3422,  3438,
-    3457,  3471,  3490,  3506,  3514,  3523,  3534,  3546,  3560,  3568,
-    3578,  3590,  3601,  3611,  3622,  3633,  3639,  3644,  3649,  3655,
-    3663,  3669,  3675,  3681,  3687,  3693,  3701,  3715,  3719,  3729,
-    3733,  3738,  3743,  3748,  3755,  3759,  3766,  3770,  3775,  3780,
-    3788,  3792,  3799,  3803,  3811,  3816,  3822,  3831,  3836,  3842,
-    3848,  3854,  3863,  3866,  3870,  3877,  3880,  3884,  3891,  3896,
-    3902,  3908,  3914,  3919,  3927,  3930,  3937,  3940,  3947,  3951,
-    3955,  3959,  3966,  3969,  3976,  3981,  3988,  3995,  4007,  4011,
-    4015,  4022,  4025,  4035,  4038,  4047,  4053,  4062,  4066,  4073,
-    4077,  4081,  4085,  4092,  4096,  4103,  4111,  4119,  4127,  4135,
-    4142,  4149,  4157,  4167,  4172,  4177,  4182,  4190,  4193,  4197,
-    4206,  4213,  4220,  4227,  4242,  4248,  4261,  4274,  4292,  4299,
-    4306,  4316,  4329,  4333,  4337,  4341,  4348,  4354,  4360,  4366,
-    4376,  4385,  4387,  4389,  4393,  4401,  4405,  4412,  4418,  4424,
-    4428,  4432,  4436,  4442,  4448,  4452,  4456,  4460,  4464,  4468,
-    4472,  4476,  4480,  4484,  4488
+       0,   646,   646,   647,   659,   661,   694,   721,   732,   736,
+     774,   794,   799,   809,   819,   824,   829,   847,   865,   879,
+     892,   908,   930,   948,   973,   995,  1000,  1010,  1021,  1032,
+    1046,  1061,  1077,  1093,  1104,  1118,  1144,  1162,  1167,  1173,
+    1185,  1196,  1207,  1218,  1229,  1240,  1251,  1277,  1291,  1301,
+    1346,  1365,  1376,  1387,  1398,  1409,  1420,  1436,  1453,  1469,
+    1480,  1491,  1524,  1535,  1548,  1559,  1598,  1608,  1618,  1638,
+    1648,  1658,  1669,  1683,  1694,  1707,  1717,  1729,  1744,  1755,
+    1761,  1783,  1794,  1805,  1813,  1839,  1869,  1898,  1929,  1943,
+    1954,  1968,  2002,  2020,  2045,  2057,  2075,  2086,  2097,  2108,
+    2121,  2132,  2143,  2154,  2165,  2176,  2209,  2219,  2232,  2252,
+    2263,  2274,  2287,  2300,  2311,  2322,  2333,  2344,  2354,  2365,
+    2376,  2388,  2399,  2410,  2424,  2437,  2449,  2461,  2472,  2483,
+    2494,  2506,  2518,  2529,  2540,  2551,  2561,  2567,  2573,  2579,
+    2585,  2591,  2597,  2603,  2609,  2615,  2621,  2632,  2643,  2654,
+    2665,  2676,  2687,  2698,  2704,  2718,  2729,  2740,  2751,  2762,
+    2772,  2785,  2793,  2801,  2825,  2836,  2847,  2858,  2869,  2880,
+    2892,  2905,  2914,  2925,  2936,  2948,  2959,  2970,  2981,  2995,
+    3007,  3033,  3063,  3074,  3099,  3136,  3164,  3189,  3200,  3211,
+    3222,  3248,  3267,  3281,  3305,  3317,  3336,  3382,  3419,  3435,
+    3454,  3468,  3487,  3503,  3511,  3520,  3531,  3543,  3557,  3565,
+    3575,  3587,  3598,  3608,  3619,  3630,  3636,  3641,  3646,  3652,
+    3660,  3666,  3672,  3678,  3684,  3690,  3698,  3712,  3716,  3726,
+    3730,  3735,  3740,  3745,  3752,  3756,  3763,  3767,  3772,  3777,
+    3785,  3789,  3796,  3800,  3808,  3813,  3819,  3828,  3833,  3839,
+    3845,  3851,  3860,  3863,  3867,  3874,  3877,  3881,  3888,  3893,
+    3899,  3905,  3911,  3916,  3924,  3927,  3934,  3937,  3944,  3948,
+    3952,  3956,  3963,  3966,  3973,  3978,  3985,  3992,  4004,  4008,
+    4012,  4019,  4022,  4032,  4035,  4044,  4050,  4059,  4063,  4070,
+    4074,  4078,  4082,  4089,  4093,  4100,  4108,  4116,  4124,  4132,
+    4139,  4146,  4154,  4164,  4169,  4174,  4179,  4187,  4190,  4194,
+    4203,  4210,  4217,  4224,  4239,  4245,  4258,  4271,  4289,  4296,
+    4303,  4313,  4326,  4330,  4334,  4338,  4345,  4351,  4357,  4363,
+    4373,  4382,  4384,  4386,  4390,  4398,  4402,  4409,  4415,  4421,
+    4425,  4429,  4433,  4439,  4445,  4449,  4453,  4457,  4461,  4465,
+    4469,  4473,  4477,  4481,  4485
 };
 #endif
 
@@ -3034,7 +3031,7 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 651 "bfin-parse.y"
+#line 648 "bfin-parse.y"
     {
 	  insn = (yyvsp[(1) - (1)].instr);
 	  if (insn == (INSTR_T) 0)
@@ -3047,7 +3044,7 @@ yyreduce:
     break;
 
   case 5:
-#line 665 "bfin-parse.y"
+#line 662 "bfin-parse.y"
     {
 	  if (((yyvsp[(1) - (6)].instr)->value & 0xf800) == 0xc000)
 	    {
@@ -3082,7 +3079,7 @@ yyreduce:
     break;
 
   case 6:
-#line 698 "bfin-parse.y"
+#line 695 "bfin-parse.y"
     {
 	  if (((yyvsp[(1) - (4)].instr)->value & 0xf800) == 0xc000)
 	    {
@@ -3112,7 +3109,7 @@ yyreduce:
     break;
 
   case 7:
-#line 725 "bfin-parse.y"
+#line 722 "bfin-parse.y"
     {
 	(yyval.instr) = 0;
 	yyerror ("");
@@ -3121,14 +3118,14 @@ yyreduce:
     break;
 
   case 8:
-#line 736 "bfin-parse.y"
+#line 733 "bfin-parse.y"
     {
 	  (yyval.instr) = DSP32MAC (3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0);
 	}
     break;
 
   case 9:
-#line 740 "bfin-parse.y"
+#line 737 "bfin-parse.y"
     {
 	  int op0, op1;
 	  int w0 = 0, w1 = 0;
@@ -3165,7 +3162,7 @@ yyreduce:
     break;
 
   case 10:
-#line 778 "bfin-parse.y"
+#line 775 "bfin-parse.y"
     {
 	  Register *dst;
 
@@ -3185,7 +3182,7 @@ yyreduce:
     break;
 
   case 11:
-#line 798 "bfin-parse.y"
+#line 795 "bfin-parse.y"
     {
 	  notethat ("dsp32alu: DISALGNEXCPT\n");
 	  (yyval.instr) = DSP32ALU (18, 0, 0, 0, 0, 0, 0, 0, 3);
@@ -3193,12 +3190,12 @@ yyreduce:
     break;
 
   case 12:
-#line 803 "bfin-parse.y"
+#line 800 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (6)].reg)) && !IS_A1 ((yyvsp[(4) - (6)].reg)) && IS_A1 ((yyvsp[(5) - (6)].reg)))
 	    {
 	      notethat ("dsp32alu: dregs = ( A0 += A1 )\n");
-	      (yyval.instr) = DSP32ALU (11, 0, 0, &(yyvsp[(1) - (6)].reg), &reg7, &reg7, 0, 0, 0);
+	      (yyval.instr) = DSP32ALU (11, 0, 0, &(yyvsp[(1) - (6)].reg), 0, 0, 0, 0, 0);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -3206,12 +3203,12 @@ yyreduce:
     break;
 
   case 13:
-#line 813 "bfin-parse.y"
+#line 810 "bfin-parse.y"
     {
 	  if (!IS_A1 ((yyvsp[(4) - (6)].reg)) && IS_A1 ((yyvsp[(5) - (6)].reg)))
 	    {
 	      notethat ("dsp32alu: dregs_half = ( A0 += A1 )\n");
-	      (yyval.instr) = DSP32ALU (11, IS_H ((yyvsp[(1) - (6)].reg)), 0, &(yyvsp[(1) - (6)].reg), &reg7, &reg7, 0, 0, 1);
+	      (yyval.instr) = DSP32ALU (11, IS_H ((yyvsp[(1) - (6)].reg)), 0, &(yyvsp[(1) - (6)].reg), 0, 0, 0, 0, 1);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -3219,7 +3216,7 @@ yyreduce:
     break;
 
   case 14:
-#line 823 "bfin-parse.y"
+#line 820 "bfin-parse.y"
     {
 	  notethat ("dsp32alu: A_ZERO_DOT_H = dregs_hi\n");
 	  (yyval.instr) = DSP32ALU (9, IS_H ((yyvsp[(3) - (3)].reg)), 0, 0, &(yyvsp[(3) - (3)].reg), 0, 0, 0, 0);
@@ -3227,7 +3224,7 @@ yyreduce:
     break;
 
   case 15:
-#line 828 "bfin-parse.y"
+#line 825 "bfin-parse.y"
     {
 	  notethat ("dsp32alu: A_ZERO_DOT_H = dregs_hi\n");
 	  (yyval.instr) = DSP32ALU (9, IS_H ((yyvsp[(3) - (3)].reg)), 0, 0, &(yyvsp[(3) - (3)].reg), 0, 0, 0, 2);
@@ -3235,7 +3232,7 @@ yyreduce:
     break;
 
   case 16:
-#line 834 "bfin-parse.y"
+#line 831 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(2) - (17)].reg)) || !IS_DREG ((yyvsp[(4) - (17)].reg)))
 	    return yyerror ("Dregs expected");
@@ -3254,7 +3251,7 @@ yyreduce:
     break;
 
   case 17:
-#line 852 "bfin-parse.y"
+#line 849 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(2) - (17)].reg)) || !IS_DREG ((yyvsp[(4) - (17)].reg)))
 	    return yyerror ("Dregs expected");
@@ -3273,7 +3270,7 @@ yyreduce:
     break;
 
   case 18:
-#line 869 "bfin-parse.y"
+#line 866 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(2) - (11)].reg)) || !IS_DREG ((yyvsp[(4) - (11)].reg)))
 	    return yyerror ("Dregs expected");
@@ -3290,7 +3287,7 @@ yyreduce:
     break;
 
   case 19:
-#line 883 "bfin-parse.y"
+#line 880 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(2) - (11)].reg), (yyvsp[(4) - (11)].reg)))
 	    return yyerror ("Illegal dest register combination");
@@ -3306,7 +3303,7 @@ yyreduce:
     break;
 
   case 20:
-#line 897 "bfin-parse.y"
+#line 894 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(1) - (11)].reg), (yyvsp[(7) - (11)].reg)))
 	    return yyerror ("Illegal dest register combination");
@@ -3314,7 +3311,7 @@ yyreduce:
 	  if (IS_DREG ((yyvsp[(1) - (11)].reg)) && IS_DREG ((yyvsp[(7) - (11)].reg)))
 	    {
 	      notethat ("dsp32alu: dregs = A1.l + A1.h, dregs = A0.l + A0.h  \n");
-	      (yyval.instr) = DSP32ALU (12, 0, &(yyvsp[(1) - (11)].reg), &(yyvsp[(7) - (11)].reg), &reg7, &reg7, 0, 0, 1);
+	      (yyval.instr) = DSP32ALU (12, 0, &(yyvsp[(1) - (11)].reg), &(yyvsp[(7) - (11)].reg), 0, 0, 0, 0, 1);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -3322,7 +3319,7 @@ yyreduce:
     break;
 
   case 21:
-#line 912 "bfin-parse.y"
+#line 909 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(1) - (12)].reg), (yyvsp[(7) - (12)].reg)))
 	    return yyerror ("Resource conflict in dest reg");
@@ -3331,14 +3328,14 @@ yyreduce:
 	      && IS_A1 ((yyvsp[(9) - (12)].reg)) && !IS_A1 ((yyvsp[(11) - (12)].reg)))
 	    {
 	      notethat ("dsp32alu: dregs = A1 + A0 , dregs = A1 - A0 (amod1)\n");
-	      (yyval.instr) = DSP32ALU (17, 0, &(yyvsp[(1) - (12)].reg), &(yyvsp[(7) - (12)].reg), &reg7, &reg7, (yyvsp[(12) - (12)].modcodes).s0, (yyvsp[(12) - (12)].modcodes).x0, 0);
+	      (yyval.instr) = DSP32ALU (17, 0, &(yyvsp[(1) - (12)].reg), &(yyvsp[(7) - (12)].reg), 0, 0, (yyvsp[(12) - (12)].modcodes).s0, (yyvsp[(12) - (12)].modcodes).x0, 0);
 
 	    }
 	  else if (IS_DREG ((yyvsp[(1) - (12)].reg)) && IS_DREG ((yyvsp[(7) - (12)].reg)) && !REG_SAME ((yyvsp[(3) - (12)].reg), (yyvsp[(5) - (12)].reg))
 		   && !IS_A1 ((yyvsp[(9) - (12)].reg)) && IS_A1 ((yyvsp[(11) - (12)].reg)))
 	    {
 	      notethat ("dsp32alu: dregs = A0 + A1 , dregs = A0 - A1 (amod1)\n");
-	      (yyval.instr) = DSP32ALU (17, 0, &(yyvsp[(1) - (12)].reg), &(yyvsp[(7) - (12)].reg), &reg7, &reg7, (yyvsp[(12) - (12)].modcodes).s0, (yyvsp[(12) - (12)].modcodes).x0, 1);
+	      (yyval.instr) = DSP32ALU (17, 0, &(yyvsp[(1) - (12)].reg), &(yyvsp[(7) - (12)].reg), 0, 0, (yyvsp[(12) - (12)].modcodes).s0, (yyvsp[(12) - (12)].modcodes).x0, 1);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -3346,7 +3343,7 @@ yyreduce:
     break;
 
   case 22:
-#line 934 "bfin-parse.y"
+#line 931 "bfin-parse.y"
     {
 	  if ((yyvsp[(4) - (12)].r0).r0 == (yyvsp[(10) - (12)].r0).r0)
 	    return yyerror ("Operators must differ");
@@ -3364,7 +3361,7 @@ yyreduce:
     break;
 
   case 23:
-#line 952 "bfin-parse.y"
+#line 949 "bfin-parse.y"
     {
 	  if (!REG_SAME ((yyvsp[(3) - (12)].reg), (yyvsp[(9) - (12)].reg)) || !REG_SAME ((yyvsp[(5) - (12)].reg), (yyvsp[(11) - (12)].reg)))
 	    return yyerror ("Differing source registers");
@@ -3391,7 +3388,7 @@ yyreduce:
     break;
 
   case 24:
-#line 977 "bfin-parse.y"
+#line 974 "bfin-parse.y"
     {
 	  int op;
 
@@ -3416,15 +3413,15 @@ yyreduce:
     break;
 
   case 25:
-#line 999 "bfin-parse.y"
+#line 996 "bfin-parse.y"
     {
 	  notethat ("dsp32alu: Ax = ABS Ax\n");
-	  (yyval.instr) = DSP32ALU (16, IS_A1 ((yyvsp[(1) - (3)].reg)), 0, 0, &reg7, &reg7, 0, 0, IS_A1 ((yyvsp[(3) - (3)].reg)));
+	  (yyval.instr) = DSP32ALU (16, IS_A1 ((yyvsp[(1) - (3)].reg)), 0, 0, 0, 0, 0, 0, IS_A1 ((yyvsp[(3) - (3)].reg)));
 	}
     break;
 
   case 26:
-#line 1004 "bfin-parse.y"
+#line 1001 "bfin-parse.y"
     {
 	  if (IS_DREG_L ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -3437,7 +3434,7 @@ yyreduce:
     break;
 
   case 27:
-#line 1014 "bfin-parse.y"
+#line 1011 "bfin-parse.y"
     {
 	  if (IS_DREG_L ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -3450,7 +3447,7 @@ yyreduce:
     break;
 
   case 28:
-#line 1025 "bfin-parse.y"
+#line 1022 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (8)].reg)) && IS_DREG ((yyvsp[(5) - (8)].reg)) && IS_DREG ((yyvsp[(7) - (8)].reg)))
 	    {
@@ -3463,7 +3460,7 @@ yyreduce:
     break;
 
   case 29:
-#line 1036 "bfin-parse.y"
+#line 1033 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (13)].reg)))
 	    return yyerror ("Dregs expected");
@@ -3480,7 +3477,7 @@ yyreduce:
     break;
 
   case 30:
-#line 1050 "bfin-parse.y"
+#line 1047 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (12)].reg)))
 	    return yyerror ("Dregs expected");
@@ -3497,7 +3494,7 @@ yyreduce:
     break;
 
   case 31:
-#line 1066 "bfin-parse.y"
+#line 1063 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (13)].reg)))
 	    return yyerror ("Dregs expected");
@@ -3514,7 +3511,7 @@ yyreduce:
     break;
 
   case 32:
-#line 1082 "bfin-parse.y"
+#line 1079 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (13)].reg)))
 	    return yyerror ("Dregs expected");
@@ -3531,7 +3528,7 @@ yyreduce:
     break;
 
   case 33:
-#line 1097 "bfin-parse.y"
+#line 1094 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (8)].reg)) && IS_DREG ((yyvsp[(5) - (8)].reg)) && IS_DREG ((yyvsp[(7) - (8)].reg)))
 	    {
@@ -3544,7 +3541,7 @@ yyreduce:
     break;
 
   case 34:
-#line 1109 "bfin-parse.y"
+#line 1106 "bfin-parse.y"
     {
 	  if (IS_HCOMPL ((yyvsp[(1) - (17)].reg), (yyvsp[(3) - (17)].reg)) && IS_HCOMPL ((yyvsp[(7) - (17)].reg), (yyvsp[(14) - (17)].reg)) && IS_HCOMPL ((yyvsp[(10) - (17)].reg), (yyvsp[(17) - (17)].reg)))
 	    {
@@ -3560,7 +3557,7 @@ yyreduce:
     break;
 
   case 35:
-#line 1122 "bfin-parse.y"
+#line 1119 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (6)].reg)) && IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_DREG ((yyvsp[(5) - (6)].reg)))
 	    {
@@ -3589,7 +3586,7 @@ yyreduce:
     break;
 
   case 36:
-#line 1148 "bfin-parse.y"
+#line 1145 "bfin-parse.y"
     {
 	  int op;
 
@@ -3609,15 +3606,15 @@ yyreduce:
     break;
 
   case 37:
-#line 1166 "bfin-parse.y"
+#line 1163 "bfin-parse.y"
     {
 	  notethat ("dsp32alu: Ax = - Ax\n");
-	  (yyval.instr) = DSP32ALU (14, IS_A1 ((yyvsp[(1) - (3)].reg)), 0, 0, &reg7, &reg7, 0, 0, IS_A1 ((yyvsp[(3) - (3)].reg)));
+	  (yyval.instr) = DSP32ALU (14, IS_A1 ((yyvsp[(1) - (3)].reg)), 0, 0, 0, 0, 0, 0, IS_A1 ((yyvsp[(3) - (3)].reg)));
 	}
     break;
 
   case 38:
-#line 1171 "bfin-parse.y"
+#line 1168 "bfin-parse.y"
     {
 	  notethat ("dsp32alu: dregs_lo = dregs_lo +- dregs_lo (amod1)\n");
 	  (yyval.instr) = DSP32ALU (2 | (yyvsp[(4) - (6)].r0).r0, IS_H ((yyvsp[(1) - (6)].reg)), 0, &(yyvsp[(1) - (6)].reg), &(yyvsp[(3) - (6)].reg), &(yyvsp[(5) - (6)].reg),
@@ -3626,12 +3623,12 @@ yyreduce:
     break;
 
   case 39:
-#line 1177 "bfin-parse.y"
+#line 1174 "bfin-parse.y"
     {
 	  if (EXPR_VALUE ((yyvsp[(3) - (3)].expr)) == 0 && !REG_SAME ((yyvsp[(1) - (3)].reg), (yyvsp[(2) - (3)].reg)))
 	    {
 	      notethat ("dsp32alu: A1 = A0 = 0\n");
-	      (yyval.instr) = DSP32ALU (8, 0, 0, 0, &reg7, &reg7, 0, 0, 2);
+	      (yyval.instr) = DSP32ALU (8, 0, 0, 0, 0, 0, 0, 0, 2);
 	    }
 	  else
 	    return yyerror ("Bad value, 0 expected");
@@ -3639,12 +3636,12 @@ yyreduce:
     break;
 
   case 40:
-#line 1189 "bfin-parse.y"
+#line 1186 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(1) - (5)].reg), (yyvsp[(2) - (5)].reg)))
 	    {
 	      notethat ("dsp32alu: Ax = Ax (S)\n");
-	      (yyval.instr) = DSP32ALU (8, 0, 0, 0, &reg7, &reg7, 1, 0, IS_A1 ((yyvsp[(1) - (5)].reg)));
+	      (yyval.instr) = DSP32ALU (8, 0, 0, 0, 0, 0, 1, 0, IS_A1 ((yyvsp[(1) - (5)].reg)));
 	    }
 	  else
 	    return yyerror ("Registers must be equal");
@@ -3652,7 +3649,7 @@ yyreduce:
     break;
 
   case 41:
-#line 1200 "bfin-parse.y"
+#line 1197 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(3) - (6)].reg)))
 	    {
@@ -3665,7 +3662,7 @@ yyreduce:
     break;
 
   case 42:
-#line 1211 "bfin-parse.y"
+#line 1208 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(3) - (8)].reg)) && IS_DREG ((yyvsp[(5) - (8)].reg)))
 	    {
@@ -3678,7 +3675,7 @@ yyreduce:
     break;
 
   case 43:
-#line 1222 "bfin-parse.y"
+#line 1219 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(3) - (8)].reg)) && IS_DREG ((yyvsp[(5) - (8)].reg)))
 	    {
@@ -3691,12 +3688,12 @@ yyreduce:
     break;
 
   case 44:
-#line 1233 "bfin-parse.y"
+#line 1230 "bfin-parse.y"
     {
 	  if (!REG_SAME ((yyvsp[(1) - (2)].reg), (yyvsp[(2) - (2)].reg)))
 	    {
 	      notethat ("dsp32alu: An = Am\n");
-	      (yyval.instr) = DSP32ALU (8, 0, 0, 0, &reg7, &reg7, IS_A1 ((yyvsp[(1) - (2)].reg)), 0, 3);
+	      (yyval.instr) = DSP32ALU (8, 0, 0, 0, 0, 0, IS_A1 ((yyvsp[(1) - (2)].reg)), 0, 3);
 	    }
 	  else
 	    return yyerror ("Accu reg arguments must differ");
@@ -3704,7 +3701,7 @@ yyreduce:
     break;
 
   case 45:
-#line 1244 "bfin-parse.y"
+#line 1241 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(2) - (2)].reg)))
 	    {
@@ -3717,7 +3714,7 @@ yyreduce:
     break;
 
   case 46:
-#line 1255 "bfin-parse.y"
+#line 1252 "bfin-parse.y"
     {
 	  if (!IS_H ((yyvsp[(3) - (4)].reg)))
 	    {
@@ -3745,7 +3742,7 @@ yyreduce:
     break;
 
   case 47:
-#line 1281 "bfin-parse.y"
+#line 1278 "bfin-parse.y"
     {
 	  notethat ("LDIMMhalf: pregs_half = imm16\n");
 
@@ -3761,7 +3758,7 @@ yyreduce:
     break;
 
   case 48:
-#line 1295 "bfin-parse.y"
+#line 1292 "bfin-parse.y"
     {
 	  notethat ("dsp32alu: An = 0\n");
 
@@ -3773,7 +3770,7 @@ yyreduce:
     break;
 
   case 49:
-#line 1305 "bfin-parse.y"
+#line 1302 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (4)].reg)) && !IS_PREG ((yyvsp[(1) - (4)].reg)) && !IS_IREG ((yyvsp[(1) - (4)].reg))
 	      && !IS_MREG ((yyvsp[(1) - (4)].reg)) && !IS_BREG ((yyvsp[(1) - (4)].reg)) && !IS_LREG ((yyvsp[(1) - (4)].reg)))
@@ -3820,7 +3817,7 @@ yyreduce:
     break;
 
   case 50:
-#line 1350 "bfin-parse.y"
+#line 1347 "bfin-parse.y"
     {
 	  if (IS_H ((yyvsp[(1) - (3)].reg)))
 	    return yyerror ("Low reg expected");
@@ -3828,12 +3825,12 @@ yyreduce:
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)) && (yyvsp[(3) - (3)].reg).regno == REG_A0x)
 	    {
 	      notethat ("dsp32alu: dregs_lo = A0.x\n");
-	      (yyval.instr) = DSP32ALU (10, 0, 0, &(yyvsp[(1) - (3)].reg), &reg7, &reg7, 0, 0, 0);
+	      (yyval.instr) = DSP32ALU (10, 0, 0, &(yyvsp[(1) - (3)].reg), 0, 0, 0, 0, 0);
 	    }
 	  else if (IS_DREG ((yyvsp[(1) - (3)].reg)) && (yyvsp[(3) - (3)].reg).regno == REG_A1x)
 	    {
 	      notethat ("dsp32alu: dregs_lo = A1.x\n");
-	      (yyval.instr) = DSP32ALU (10, 0, 0, &(yyvsp[(1) - (3)].reg), &reg7, &reg7, 0, 0, 1);
+	      (yyval.instr) = DSP32ALU (10, 0, 0, &(yyvsp[(1) - (3)].reg), 0, 0, 0, 0, 1);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -3841,7 +3838,7 @@ yyreduce:
     break;
 
   case 51:
-#line 1369 "bfin-parse.y"
+#line 1366 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (6)].reg)) && IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_DREG ((yyvsp[(5) - (6)].reg)))
 	    {
@@ -3854,7 +3851,7 @@ yyreduce:
     break;
 
   case 52:
-#line 1380 "bfin-parse.y"
+#line 1377 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (4)].reg)) && IS_DREG ((yyvsp[(3) - (4)].reg)))
 	    {
@@ -3867,12 +3864,12 @@ yyreduce:
     break;
 
   case 53:
-#line 1391 "bfin-parse.y"
+#line 1388 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(1) - (7)].reg), (yyvsp[(3) - (7)].reg)) && REG_SAME ((yyvsp[(5) - (7)].reg), (yyvsp[(7) - (7)].reg)) && !REG_SAME ((yyvsp[(1) - (7)].reg), (yyvsp[(5) - (7)].reg)))
 	    {
 	      notethat ("dsp32alu: A1 = ABS A1 , A0 = ABS A0\n");
-	      (yyval.instr) = DSP32ALU (16, 0, 0, 0, &reg7, &reg7, 0, 0, 3);
+	      (yyval.instr) = DSP32ALU (16, 0, 0, 0, 0, 0, 0, 0, 3);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -3880,12 +3877,12 @@ yyreduce:
     break;
 
   case 54:
-#line 1402 "bfin-parse.y"
+#line 1399 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(1) - (7)].reg), (yyvsp[(3) - (7)].reg)) && REG_SAME ((yyvsp[(5) - (7)].reg), (yyvsp[(7) - (7)].reg)) && !REG_SAME ((yyvsp[(1) - (7)].reg), (yyvsp[(5) - (7)].reg)))
 	    {
 	      notethat ("dsp32alu: A1 = - A1 , A0 = - A0\n");
-	      (yyval.instr) = DSP32ALU (14, 0, 0, 0, &reg7, &reg7, 0, 0, 3);
+	      (yyval.instr) = DSP32ALU (14, 0, 0, 0, 0, 0, 0, 0, 3);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -3893,12 +3890,12 @@ yyreduce:
     break;
 
   case 55:
-#line 1413 "bfin-parse.y"
+#line 1410 "bfin-parse.y"
     {
 	  if (!IS_A1 ((yyvsp[(1) - (3)].reg)) && IS_A1 ((yyvsp[(2) - (3)].reg)))
 	    {
 	      notethat ("dsp32alu: A0 -= A1\n");
-	      (yyval.instr) = DSP32ALU (11, 0, 0, 0, &reg7, &reg7, (yyvsp[(3) - (3)].r0).r0, 0, 3);
+	      (yyval.instr) = DSP32ALU (11, 0, 0, 0, 0, 0, (yyvsp[(3) - (3)].r0).r0, 0, 3);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -3906,7 +3903,7 @@ yyreduce:
     break;
 
   case 56:
-#line 1424 "bfin-parse.y"
+#line 1421 "bfin-parse.y"
     {
 	  if (IS_IREG ((yyvsp[(1) - (3)].reg)) && EXPR_VALUE ((yyvsp[(3) - (3)].expr)) == 4)
 	    {
@@ -3924,7 +3921,7 @@ yyreduce:
     break;
 
   case 57:
-#line 1440 "bfin-parse.y"
+#line 1437 "bfin-parse.y"
     {
 	  if (IS_IREG ((yyvsp[(1) - (6)].reg)) && IS_MREG ((yyvsp[(3) - (6)].reg)))
 	    {
@@ -3943,7 +3940,7 @@ yyreduce:
     break;
 
   case 58:
-#line 1457 "bfin-parse.y"
+#line 1454 "bfin-parse.y"
     {
 	  if (IS_IREG ((yyvsp[(1) - (3)].reg)) && IS_MREG ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -3961,12 +3958,12 @@ yyreduce:
     break;
 
   case 59:
-#line 1473 "bfin-parse.y"
+#line 1470 "bfin-parse.y"
     {
 	  if (!IS_A1 ((yyvsp[(1) - (4)].reg)) && IS_A1 ((yyvsp[(3) - (4)].reg)))
 	    {
 	      notethat ("dsp32alu: A0 += A1 (W32)\n");
-	      (yyval.instr) = DSP32ALU (11, 0, 0, 0, &reg7, &reg7, (yyvsp[(4) - (4)].r0).r0, 0, 2);
+	      (yyval.instr) = DSP32ALU (11, 0, 0, 0, 0, 0, (yyvsp[(4) - (4)].r0).r0, 0, 2);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -3974,7 +3971,7 @@ yyreduce:
     break;
 
   case 60:
-#line 1484 "bfin-parse.y"
+#line 1481 "bfin-parse.y"
     {
 	  if (IS_IREG ((yyvsp[(1) - (3)].reg)) && IS_MREG ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -3987,7 +3984,7 @@ yyreduce:
     break;
 
   case 61:
-#line 1495 "bfin-parse.y"
+#line 1492 "bfin-parse.y"
     {
 	  if (IS_IREG ((yyvsp[(1) - (3)].reg)))
 	    {
@@ -4022,7 +4019,7 @@ yyreduce:
     break;
 
   case 62:
-#line 1528 "bfin-parse.y"
+#line 1525 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)) && IS_DREG ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -4035,7 +4032,7 @@ yyreduce:
     break;
 
   case 63:
-#line 1539 "bfin-parse.y"
+#line 1536 "bfin-parse.y"
     {
 	  if (!valid_dreg_pair (&(yyvsp[(3) - (11)].reg), (yyvsp[(5) - (11)].expr)))
 	    return yyerror ("Bad dreg pair");
@@ -4050,12 +4047,12 @@ yyreduce:
     break;
 
   case 64:
-#line 1552 "bfin-parse.y"
+#line 1549 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(1) - (11)].reg), (yyvsp[(2) - (11)].reg)) && REG_SAME ((yyvsp[(7) - (11)].reg), (yyvsp[(8) - (11)].reg)) && !REG_SAME ((yyvsp[(1) - (11)].reg), (yyvsp[(7) - (11)].reg)))
 	    {
 	      notethat ("dsp32alu: A1 = A1 (S) , A0 = A0 (S)\n");
-	      (yyval.instr) = DSP32ALU (8, 0, 0, 0, &reg7, &reg7, 1, 0, 2);
+	      (yyval.instr) = DSP32ALU (8, 0, 0, 0, 0, 0, 1, 0, 2);
 	    }
 	  else
 	    return yyerror ("Register mismatch");
@@ -4063,7 +4060,7 @@ yyreduce:
     break;
 
   case 65:
-#line 1563 "bfin-parse.y"
+#line 1560 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (9)].reg)) && IS_DREG ((yyvsp[(4) - (9)].reg)) && IS_DREG ((yyvsp[(6) - (9)].reg))
 	      && REG_SAME ((yyvsp[(1) - (9)].reg), (yyvsp[(4) - (9)].reg)))
@@ -4103,7 +4100,7 @@ yyreduce:
     break;
 
   case 66:
-#line 1602 "bfin-parse.y"
+#line 1599 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (5)].reg)) && IS_DREG ((yyvsp[(3) - (5)].reg)) && IS_DREG ((yyvsp[(5) - (5)].reg)))
 	    {
@@ -4116,7 +4113,7 @@ yyreduce:
     break;
 
   case 67:
-#line 1612 "bfin-parse.y"
+#line 1609 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (5)].reg)) && IS_DREG ((yyvsp[(3) - (5)].reg)) && IS_DREG ((yyvsp[(5) - (5)].reg)))
 	    {
@@ -4129,7 +4126,7 @@ yyreduce:
     break;
 
   case 68:
-#line 1622 "bfin-parse.y"
+#line 1619 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(1) - (9)].reg)) && IS_PREG ((yyvsp[(3) - (9)].reg)) && IS_PREG ((yyvsp[(6) - (9)].reg)))
 	    {
@@ -4152,7 +4149,7 @@ yyreduce:
     break;
 
   case 69:
-#line 1642 "bfin-parse.y"
+#line 1639 "bfin-parse.y"
     {
 	  if ((yyvsp[(3) - (5)].reg).regno == REG_A0 && (yyvsp[(5) - (5)].reg).regno == REG_A1)
 	    {
@@ -4165,7 +4162,7 @@ yyreduce:
     break;
 
   case 70:
-#line 1652 "bfin-parse.y"
+#line 1649 "bfin-parse.y"
     {
 	  if ((yyvsp[(3) - (5)].reg).regno == REG_A0 && (yyvsp[(5) - (5)].reg).regno == REG_A1)
 	    {
@@ -4178,7 +4175,7 @@ yyreduce:
     break;
 
   case 71:
-#line 1662 "bfin-parse.y"
+#line 1659 "bfin-parse.y"
     {
 	  if ((IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_DREG ((yyvsp[(5) - (6)].reg)))
 	      || (IS_PREG ((yyvsp[(3) - (6)].reg)) && IS_PREG ((yyvsp[(5) - (6)].reg))))
@@ -4192,7 +4189,7 @@ yyreduce:
     break;
 
   case 72:
-#line 1673 "bfin-parse.y"
+#line 1670 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(3) - (6)].reg)) && !IS_PREG ((yyvsp[(3) - (6)].reg)))
 	    return yyerror ("Bad register in comparison");
@@ -4209,7 +4206,7 @@ yyreduce:
     break;
 
   case 73:
-#line 1687 "bfin-parse.y"
+#line 1684 "bfin-parse.y"
     {
 	  if ((IS_DREG ((yyvsp[(3) - (5)].reg)) && IS_DREG ((yyvsp[(5) - (5)].reg)))
 	      || (IS_PREG ((yyvsp[(3) - (5)].reg)) && IS_PREG ((yyvsp[(5) - (5)].reg))))
@@ -4223,7 +4220,7 @@ yyreduce:
     break;
 
   case 74:
-#line 1698 "bfin-parse.y"
+#line 1695 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(3) - (5)].reg)) && !IS_PREG ((yyvsp[(3) - (5)].reg)))
 	    return yyerror ("Bad register in comparison");
@@ -4239,7 +4236,7 @@ yyreduce:
     break;
 
   case 75:
-#line 1711 "bfin-parse.y"
+#line 1708 "bfin-parse.y"
     {
 	  if ((yyvsp[(3) - (5)].reg).regno == REG_A0 && (yyvsp[(5) - (5)].reg).regno == REG_A1)
 	    {
@@ -4252,7 +4249,7 @@ yyreduce:
     break;
 
   case 76:
-#line 1721 "bfin-parse.y"
+#line 1718 "bfin-parse.y"
     {
 	  if ((IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_DREG ((yyvsp[(5) - (6)].reg)))
 	      || (IS_PREG ((yyvsp[(3) - (6)].reg)) && IS_PREG ((yyvsp[(5) - (6)].reg))))
@@ -4267,7 +4264,7 @@ yyreduce:
     break;
 
   case 77:
-#line 1733 "bfin-parse.y"
+#line 1730 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(3) - (6)].reg)) && !IS_PREG ((yyvsp[(3) - (6)].reg)))
 	    return yyerror ("Bad register in comparison");
@@ -4284,7 +4281,7 @@ yyreduce:
     break;
 
   case 78:
-#line 1748 "bfin-parse.y"
+#line 1745 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (5)].reg)) && IS_DREG ((yyvsp[(3) - (5)].reg)) && IS_DREG ((yyvsp[(5) - (5)].reg)))
 	    {
@@ -4297,7 +4294,7 @@ yyreduce:
     break;
 
   case 79:
-#line 1759 "bfin-parse.y"
+#line 1756 "bfin-parse.y"
     {
 	  notethat ("CC2stat operation\n");
 	  (yyval.instr) = bfin_gen_cc2stat ((yyvsp[(1) - (1)].modcodes).r0, (yyvsp[(1) - (1)].modcodes).x0, (yyvsp[(1) - (1)].modcodes).s0);
@@ -4305,7 +4302,7 @@ yyreduce:
     break;
 
   case 80:
-#line 1765 "bfin-parse.y"
+#line 1762 "bfin-parse.y"
     {
 	  if ((IS_GENREG ((yyvsp[(1) - (3)].reg)) && IS_GENREG ((yyvsp[(3) - (3)].reg)))
 	      || (IS_GENREG ((yyvsp[(1) - (3)].reg)) && IS_DAGREG ((yyvsp[(3) - (3)].reg)))
@@ -4329,7 +4326,7 @@ yyreduce:
     break;
 
   case 81:
-#line 1787 "bfin-parse.y"
+#line 1784 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -4342,7 +4339,7 @@ yyreduce:
     break;
 
   case 82:
-#line 1798 "bfin-parse.y"
+#line 1795 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)))
 	    {
@@ -4355,7 +4352,7 @@ yyreduce:
     break;
 
   case 83:
-#line 1809 "bfin-parse.y"
+#line 1806 "bfin-parse.y"
     {
 	  notethat ("CC2dreg: CC =! CC\n");
 	  (yyval.instr) = bfin_gen_cc2dreg (3, 0);
@@ -4363,7 +4360,7 @@ yyreduce:
     break;
 
   case 84:
-#line 1817 "bfin-parse.y"
+#line 1814 "bfin-parse.y"
     {
 	  notethat ("dsp32mult: dregs_half = multiply_halfregs (opt_mode)\n");
 
@@ -4391,7 +4388,7 @@ yyreduce:
     break;
 
   case 85:
-#line 1843 "bfin-parse.y"
+#line 1840 "bfin-parse.y"
     {
 	  /* Odd registers can use (M).  */
 	  if (!IS_DREG ((yyvsp[(1) - (4)].reg)))
@@ -4423,7 +4420,7 @@ yyreduce:
     break;
 
   case 86:
-#line 1874 "bfin-parse.y"
+#line 1871 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (9)].reg)) || !IS_DREG ((yyvsp[(6) - (9)].reg)))
 	    return yyerror ("Dregs expected");
@@ -4453,7 +4450,7 @@ yyreduce:
     break;
 
   case 87:
-#line 1902 "bfin-parse.y"
+#line 1899 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (9)].reg)) || !IS_DREG ((yyvsp[(6) - (9)].reg)))
 	    return yyerror ("Dregs expected");
@@ -4484,7 +4481,7 @@ yyreduce:
     break;
 
   case 88:
-#line 1933 "bfin-parse.y"
+#line 1930 "bfin-parse.y"
     {
 	  if (!REG_SAME ((yyvsp[(1) - (5)].reg), (yyvsp[(3) - (5)].reg)))
 	    return yyerror ("Aregs must be same");
@@ -4500,7 +4497,7 @@ yyreduce:
     break;
 
   case 89:
-#line 1947 "bfin-parse.y"
+#line 1944 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(6) - (7)].reg)) && !IS_H ((yyvsp[(6) - (7)].reg)))
 	    {
@@ -4513,7 +4510,7 @@ yyreduce:
     break;
 
   case 90:
-#line 1958 "bfin-parse.y"
+#line 1955 "bfin-parse.y"
     {
 	  if (!REG_SAME ((yyvsp[(1) - (4)].reg), (yyvsp[(2) - (4)].reg)))
 	    return yyerror ("Aregs must be same");
@@ -4529,7 +4526,7 @@ yyreduce:
     break;
 
   case 91:
-#line 1972 "bfin-parse.y"
+#line 1969 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (6)].reg)) && IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_UIMM ((yyvsp[(5) - (6)].expr), 5))
 	    {
@@ -4566,7 +4563,7 @@ yyreduce:
     break;
 
   case 92:
-#line 2006 "bfin-parse.y"
+#line 2003 "bfin-parse.y"
     {
 	  if (IS_UIMM ((yyvsp[(5) - (6)].expr), 4))
 	    {
@@ -4587,7 +4584,7 @@ yyreduce:
     break;
 
   case 93:
-#line 2024 "bfin-parse.y"
+#line 2021 "bfin-parse.y"
     {
 	  int op;
 
@@ -4613,7 +4610,7 @@ yyreduce:
     break;
 
   case 94:
-#line 2049 "bfin-parse.y"
+#line 2046 "bfin-parse.y"
     {
 	  if (IS_DREG_L ((yyvsp[(1) - (9)].reg)) && IS_DREG_L ((yyvsp[(5) - (9)].reg)) && IS_DREG_L ((yyvsp[(7) - (9)].reg)))
 	    {
@@ -4626,7 +4623,7 @@ yyreduce:
     break;
 
   case 95:
-#line 2061 "bfin-parse.y"
+#line 2058 "bfin-parse.y"
     {
 	  if (IS_DREG_L ((yyvsp[(1) - (8)].reg)) && IS_DREG_L ((yyvsp[(5) - (8)].reg)) && IS_DREG_L ((yyvsp[(7) - (8)].reg)))
 	    {
@@ -4644,7 +4641,7 @@ yyreduce:
     break;
 
   case 96:
-#line 2079 "bfin-parse.y"
+#line 2076 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (8)].reg)) && IS_DREG ((yyvsp[(5) - (8)].reg)) && IS_DREG ((yyvsp[(7) - (8)].reg)))
 	    {
@@ -4657,7 +4654,7 @@ yyreduce:
     break;
 
   case 97:
-#line 2090 "bfin-parse.y"
+#line 2087 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (11)].reg)) && IS_DREG ((yyvsp[(5) - (11)].reg)) && IS_DREG ((yyvsp[(7) - (11)].reg)))
 	    {
@@ -4670,7 +4667,7 @@ yyreduce:
     break;
 
   case 98:
-#line 2101 "bfin-parse.y"
+#line 2098 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (9)].reg)) && IS_DREG ((yyvsp[(5) - (9)].reg)) && IS_DREG_L ((yyvsp[(7) - (9)].reg)))
 	    {
@@ -4683,7 +4680,7 @@ yyreduce:
     break;
 
   case 99:
-#line 2112 "bfin-parse.y"
+#line 2109 "bfin-parse.y"
     {
 	  if (!REG_SAME ((yyvsp[(1) - (4)].reg), (yyvsp[(2) - (4)].reg)))
 	    return yyerror ("Aregs must be same");
@@ -4699,7 +4696,7 @@ yyreduce:
     break;
 
   case 100:
-#line 2125 "bfin-parse.y"
+#line 2122 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(1) - (5)].reg), (yyvsp[(3) - (5)].reg)) && IS_DREG_L ((yyvsp[(5) - (5)].reg)))
 	    {
@@ -4712,7 +4709,7 @@ yyreduce:
     break;
 
   case 101:
-#line 2136 "bfin-parse.y"
+#line 2133 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (6)].reg)) && IS_DREG ((yyvsp[(4) - (6)].reg)) && IS_DREG_L ((yyvsp[(6) - (6)].reg)))
 	    {
@@ -4725,7 +4722,7 @@ yyreduce:
     break;
 
   case 102:
-#line 2147 "bfin-parse.y"
+#line 2144 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (7)].reg)) && IS_DREG ((yyvsp[(4) - (7)].reg)) && IS_DREG_L ((yyvsp[(6) - (7)].reg)))
 	    {
@@ -4738,7 +4735,7 @@ yyreduce:
     break;
 
   case 103:
-#line 2158 "bfin-parse.y"
+#line 2155 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (6)].reg)) && IS_DREG ((yyvsp[(4) - (6)].reg)) && IS_DREG_L ((yyvsp[(6) - (6)].reg)))
 	    {
@@ -4751,7 +4748,7 @@ yyreduce:
     break;
 
   case 104:
-#line 2169 "bfin-parse.y"
+#line 2166 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(1) - (4)].reg), (yyvsp[(2) - (4)].reg)) && IS_IMM ((yyvsp[(4) - (4)].expr), 6) >= 0)
 	    {
@@ -4764,7 +4761,7 @@ yyreduce:
     break;
 
   case 105:
-#line 2180 "bfin-parse.y"
+#line 2177 "bfin-parse.y"
     {
 	  if ((yyvsp[(6) - (6)].r0).r0 == 1)
 	    {
@@ -4800,7 +4797,7 @@ yyreduce:
     break;
 
   case 106:
-#line 2213 "bfin-parse.y"
+#line 2210 "bfin-parse.y"
     {
 	  if (IS_UIMM ((yyvsp[(5) - (5)].expr), 5))
 	    {
@@ -4813,7 +4810,7 @@ yyreduce:
     break;
 
   case 107:
-#line 2223 "bfin-parse.y"
+#line 2220 "bfin-parse.y"
     {
 	  if (IS_UIMM ((yyvsp[(5) - (6)].expr), 5))
 	    {
@@ -4827,7 +4824,7 @@ yyreduce:
     break;
 
   case 108:
-#line 2236 "bfin-parse.y"
+#line 2233 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (6)].reg)) && IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_UIMM ((yyvsp[(5) - (6)].expr), 5))
 	    {
@@ -4849,7 +4846,7 @@ yyreduce:
     break;
 
   case 109:
-#line 2256 "bfin-parse.y"
+#line 2253 "bfin-parse.y"
     {
 	  if (IS_DREG_L ((yyvsp[(1) - (4)].reg)) && IS_DREG ((yyvsp[(4) - (4)].reg)))
 	    {
@@ -4862,7 +4859,7 @@ yyreduce:
     break;
 
   case 110:
-#line 2267 "bfin-parse.y"
+#line 2264 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (8)].reg)) && IS_DREG ((yyvsp[(5) - (8)].reg)) && IS_DREG ((yyvsp[(7) - (8)].reg)))
 	    {
@@ -4875,7 +4872,7 @@ yyreduce:
     break;
 
   case 111:
-#line 2278 "bfin-parse.y"
+#line 2275 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (10)].reg))
 	      && (yyvsp[(7) - (10)].reg).regno == REG_A0
@@ -4890,7 +4887,7 @@ yyreduce:
     break;
 
   case 112:
-#line 2291 "bfin-parse.y"
+#line 2288 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (10)].reg))
 	      && (yyvsp[(7) - (10)].reg).regno == REG_A0
@@ -4905,7 +4902,7 @@ yyreduce:
     break;
 
   case 113:
-#line 2304 "bfin-parse.y"
+#line 2301 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (12)].reg)) && !IS_H ((yyvsp[(1) - (12)].reg)) && !REG_SAME ((yyvsp[(7) - (12)].reg), (yyvsp[(9) - (12)].reg)))
 	    {
@@ -4918,7 +4915,7 @@ yyreduce:
     break;
 
   case 114:
-#line 2315 "bfin-parse.y"
+#line 2312 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(1) - (5)].reg), (yyvsp[(3) - (5)].reg)) && IS_DREG_L ((yyvsp[(5) - (5)].reg)))
 	    {
@@ -4931,7 +4928,7 @@ yyreduce:
     break;
 
   case 115:
-#line 2326 "bfin-parse.y"
+#line 2323 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (6)].reg)) && IS_DREG ((yyvsp[(4) - (6)].reg)) && IS_DREG_L ((yyvsp[(6) - (6)].reg)))
 	    {
@@ -4944,7 +4941,7 @@ yyreduce:
     break;
 
   case 116:
-#line 2337 "bfin-parse.y"
+#line 2334 "bfin-parse.y"
     {
 	  if (IS_IMM ((yyvsp[(5) - (5)].expr), 6))
 	    {
@@ -4957,7 +4954,7 @@ yyreduce:
     break;
 
   case 117:
-#line 2348 "bfin-parse.y"
+#line 2345 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (6)].reg)) && IS_DREG ((yyvsp[(4) - (6)].reg)) && IS_IMM ((yyvsp[(6) - (6)].expr), 6))
 	    {
@@ -4969,7 +4966,7 @@ yyreduce:
     break;
 
   case 118:
-#line 2358 "bfin-parse.y"
+#line 2355 "bfin-parse.y"
     {
 	  if (IS_DREG_L ((yyvsp[(1) - (4)].reg)))
 	    {
@@ -4982,7 +4979,7 @@ yyreduce:
     break;
 
   case 119:
-#line 2369 "bfin-parse.y"
+#line 2366 "bfin-parse.y"
     {
 	  if (IS_DREG_L ((yyvsp[(1) - (4)].reg)) && IS_DREG ((yyvsp[(4) - (4)].reg)))
 	    {
@@ -4995,7 +4992,7 @@ yyreduce:
     break;
 
   case 120:
-#line 2380 "bfin-parse.y"
+#line 2377 "bfin-parse.y"
     {
 	  if (IS_DREG_L ((yyvsp[(1) - (4)].reg)))
 	    {
@@ -5008,7 +5005,7 @@ yyreduce:
     break;
 
   case 121:
-#line 2392 "bfin-parse.y"
+#line 2389 "bfin-parse.y"
     {
 	  if (IS_DREG_L ((yyvsp[(1) - (7)].reg)) && IS_DREG ((yyvsp[(5) - (7)].reg)))
 	    {
@@ -5021,7 +5018,7 @@ yyreduce:
     break;
 
   case 122:
-#line 2403 "bfin-parse.y"
+#line 2400 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (9)].reg)) && IS_DREG ((yyvsp[(5) - (9)].reg)) && IS_DREG ((yyvsp[(7) - (9)].reg)))
 	    {
@@ -5034,7 +5031,7 @@ yyreduce:
     break;
 
   case 123:
-#line 2414 "bfin-parse.y"
+#line 2411 "bfin-parse.y"
     {
 	  if (REG_SAME ((yyvsp[(3) - (9)].reg), (yyvsp[(5) - (9)].reg)))
 	    return yyerror ("Illegal source register combination");
@@ -5050,7 +5047,7 @@ yyreduce:
     break;
 
   case 124:
-#line 2428 "bfin-parse.y"
+#line 2425 "bfin-parse.y"
     {
 	  if (!IS_A1 ((yyvsp[(1) - (9)].reg)) && !IS_A1 ((yyvsp[(4) - (9)].reg)) && IS_A1 ((yyvsp[(6) - (9)].reg)))
 	    {
@@ -5063,7 +5060,7 @@ yyreduce:
     break;
 
   case 125:
-#line 2441 "bfin-parse.y"
+#line 2438 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_UIMM ((yyvsp[(5) - (6)].expr), 5))
 	    {
@@ -5076,7 +5073,7 @@ yyreduce:
     break;
 
   case 126:
-#line 2453 "bfin-parse.y"
+#line 2450 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_UIMM ((yyvsp[(5) - (6)].expr), 5))
 	    {
@@ -5089,7 +5086,7 @@ yyreduce:
     break;
 
   case 127:
-#line 2465 "bfin-parse.y"
+#line 2462 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_UIMM ((yyvsp[(5) - (6)].expr), 5))
 	    {
@@ -5102,7 +5099,7 @@ yyreduce:
     break;
 
   case 128:
-#line 2476 "bfin-parse.y"
+#line 2473 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(5) - (8)].reg)) && IS_UIMM ((yyvsp[(7) - (8)].expr), 5))
 	    {
@@ -5115,7 +5112,7 @@ yyreduce:
     break;
 
   case 129:
-#line 2487 "bfin-parse.y"
+#line 2484 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(5) - (8)].reg)) && IS_UIMM ((yyvsp[(7) - (8)].expr), 5))
 	    {
@@ -5128,7 +5125,7 @@ yyreduce:
     break;
 
   case 130:
-#line 2498 "bfin-parse.y"
+#line 2495 "bfin-parse.y"
     {
 	  if ((IS_DREG ((yyvsp[(4) - (6)].reg)) || IS_PREG ((yyvsp[(4) - (6)].reg)))
 	      && (IS_DREG ((yyvsp[(6) - (6)].reg)) || IS_PREG ((yyvsp[(6) - (6)].reg))))
@@ -5142,7 +5139,7 @@ yyreduce:
     break;
 
   case 131:
-#line 2510 "bfin-parse.y"
+#line 2507 "bfin-parse.y"
     {
 	  if ((IS_DREG ((yyvsp[(5) - (5)].reg)) || IS_PREG ((yyvsp[(5) - (5)].reg)))
 	      && (IS_DREG ((yyvsp[(3) - (5)].reg)) || IS_PREG ((yyvsp[(3) - (5)].reg))))
@@ -5156,7 +5153,7 @@ yyreduce:
     break;
 
   case 132:
-#line 2522 "bfin-parse.y"
+#line 2519 "bfin-parse.y"
     {
 	  if (IS_PCREL10 ((yyvsp[(5) - (5)].expr)))
 	    {
@@ -5169,7 +5166,7 @@ yyreduce:
     break;
 
   case 133:
-#line 2533 "bfin-parse.y"
+#line 2530 "bfin-parse.y"
     {
 	  if (IS_PCREL10 ((yyvsp[(5) - (8)].expr)))
 	    {
@@ -5182,7 +5179,7 @@ yyreduce:
     break;
 
   case 134:
-#line 2544 "bfin-parse.y"
+#line 2541 "bfin-parse.y"
     {
 	  if (IS_PCREL10 ((yyvsp[(4) - (4)].expr)))
 	    {
@@ -5195,7 +5192,7 @@ yyreduce:
     break;
 
   case 135:
-#line 2555 "bfin-parse.y"
+#line 2552 "bfin-parse.y"
     {
 	  if (IS_PCREL10 ((yyvsp[(4) - (7)].expr)))
 	    {
@@ -5208,7 +5205,7 @@ yyreduce:
     break;
 
   case 136:
-#line 2565 "bfin-parse.y"
+#line 2562 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: NOP\n");
 	  (yyval.instr) = PROGCTRL (0, 0);
@@ -5216,7 +5213,7 @@ yyreduce:
     break;
 
   case 137:
-#line 2571 "bfin-parse.y"
+#line 2568 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: RTS\n");
 	  (yyval.instr) = PROGCTRL (1, 0);
@@ -5224,7 +5221,7 @@ yyreduce:
     break;
 
   case 138:
-#line 2577 "bfin-parse.y"
+#line 2574 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: RTI\n");
 	  (yyval.instr) = PROGCTRL (1, 1);
@@ -5232,7 +5229,7 @@ yyreduce:
     break;
 
   case 139:
-#line 2583 "bfin-parse.y"
+#line 2580 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: RTX\n");
 	  (yyval.instr) = PROGCTRL (1, 2);
@@ -5240,7 +5237,7 @@ yyreduce:
     break;
 
   case 140:
-#line 2589 "bfin-parse.y"
+#line 2586 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: RTN\n");
 	  (yyval.instr) = PROGCTRL (1, 3);
@@ -5248,7 +5245,7 @@ yyreduce:
     break;
 
   case 141:
-#line 2595 "bfin-parse.y"
+#line 2592 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: RTE\n");
 	  (yyval.instr) = PROGCTRL (1, 4);
@@ -5256,7 +5253,7 @@ yyreduce:
     break;
 
   case 142:
-#line 2601 "bfin-parse.y"
+#line 2598 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: IDLE\n");
 	  (yyval.instr) = PROGCTRL (2, 0);
@@ -5264,7 +5261,7 @@ yyreduce:
     break;
 
   case 143:
-#line 2607 "bfin-parse.y"
+#line 2604 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: CSYNC\n");
 	  (yyval.instr) = PROGCTRL (2, 3);
@@ -5272,7 +5269,7 @@ yyreduce:
     break;
 
   case 144:
-#line 2613 "bfin-parse.y"
+#line 2610 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: SSYNC\n");
 	  (yyval.instr) = PROGCTRL (2, 4);
@@ -5280,7 +5277,7 @@ yyreduce:
     break;
 
   case 145:
-#line 2619 "bfin-parse.y"
+#line 2616 "bfin-parse.y"
     {
 	  notethat ("ProgCtrl: EMUEXCPT\n");
 	  (yyval.instr) = PROGCTRL (2, 5);
@@ -5288,7 +5285,7 @@ yyreduce:
     break;
 
   case 146:
-#line 2625 "bfin-parse.y"
+#line 2622 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(2) - (2)].reg)))
 	    {
@@ -5301,7 +5298,7 @@ yyreduce:
     break;
 
   case 147:
-#line 2636 "bfin-parse.y"
+#line 2633 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(2) - (2)].reg)))
 	    {
@@ -5314,7 +5311,7 @@ yyreduce:
     break;
 
   case 148:
-#line 2647 "bfin-parse.y"
+#line 2644 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(3) - (4)].reg)))
 	    {
@@ -5327,7 +5324,7 @@ yyreduce:
     break;
 
   case 149:
-#line 2658 "bfin-parse.y"
+#line 2655 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(3) - (4)].reg)))
 	    {
@@ -5340,7 +5337,7 @@ yyreduce:
     break;
 
   case 150:
-#line 2669 "bfin-parse.y"
+#line 2666 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(5) - (6)].reg)))
 	    {
@@ -5353,7 +5350,7 @@ yyreduce:
     break;
 
   case 151:
-#line 2680 "bfin-parse.y"
+#line 2677 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(5) - (6)].reg)))
 	    {
@@ -5366,7 +5363,7 @@ yyreduce:
     break;
 
   case 152:
-#line 2691 "bfin-parse.y"
+#line 2688 "bfin-parse.y"
     {
 	  if (IS_UIMM ((yyvsp[(2) - (2)].expr), 4))
 	    {
@@ -5379,7 +5376,7 @@ yyreduce:
     break;
 
   case 153:
-#line 2702 "bfin-parse.y"
+#line 2699 "bfin-parse.y"
     {
 		notethat ("ProgCtrl: EMUEXCPT\n");
 		(yyval.instr) = PROGCTRL (10, uimm4 ((yyvsp[(2) - (2)].expr)));
@@ -5387,7 +5384,7 @@ yyreduce:
     break;
 
   case 154:
-#line 2708 "bfin-parse.y"
+#line 2705 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(3) - (4)].reg)))
 	    {
@@ -5403,7 +5400,7 @@ yyreduce:
     break;
 
   case 155:
-#line 2722 "bfin-parse.y"
+#line 2719 "bfin-parse.y"
     {
 	  if (IS_PCREL12 ((yyvsp[(2) - (2)].expr)))
 	    {
@@ -5416,7 +5413,7 @@ yyreduce:
     break;
 
   case 156:
-#line 2733 "bfin-parse.y"
+#line 2730 "bfin-parse.y"
     {
 	  if (IS_PCREL12 ((yyvsp[(2) - (2)].expr)))
 	    {
@@ -5429,7 +5426,7 @@ yyreduce:
     break;
 
   case 157:
-#line 2744 "bfin-parse.y"
+#line 2741 "bfin-parse.y"
     {
 	  if (IS_PCREL24 ((yyvsp[(2) - (2)].expr)))
 	    {
@@ -5442,7 +5439,7 @@ yyreduce:
     break;
 
   case 158:
-#line 2755 "bfin-parse.y"
+#line 2752 "bfin-parse.y"
     {
 	  if (IS_PCREL24 ((yyvsp[(2) - (2)].expr)))
 	    {
@@ -5455,7 +5452,7 @@ yyreduce:
     break;
 
   case 159:
-#line 2766 "bfin-parse.y"
+#line 2763 "bfin-parse.y"
     {
 	  if (IS_PCREL24 ((yyvsp[(2) - (2)].expr)))
 	    {
@@ -5468,7 +5465,7 @@ yyreduce:
     break;
 
   case 160:
-#line 2776 "bfin-parse.y"
+#line 2773 "bfin-parse.y"
     {
 	  if (IS_PCREL24 ((yyvsp[(2) - (2)].expr)))
 	    {
@@ -5481,7 +5478,7 @@ yyreduce:
     break;
 
   case 161:
-#line 2789 "bfin-parse.y"
+#line 2786 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_DREG ((yyvsp[(5) - (6)].reg)))
 	    (yyval.instr) = ALU2OP (&(yyvsp[(3) - (6)].reg), &(yyvsp[(5) - (6)].reg), 8);
@@ -5491,7 +5488,7 @@ yyreduce:
     break;
 
   case 162:
-#line 2797 "bfin-parse.y"
+#line 2794 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(3) - (6)].reg)) && IS_DREG ((yyvsp[(5) - (6)].reg)))
 	    (yyval.instr) = ALU2OP (&(yyvsp[(3) - (6)].reg), &(yyvsp[(5) - (6)].reg), 9);
@@ -5501,7 +5498,7 @@ yyreduce:
     break;
 
   case 163:
-#line 2805 "bfin-parse.y"
+#line 2802 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (5)].reg)) && IS_DREG ((yyvsp[(4) - (5)].reg)))
 	    {
@@ -5527,7 +5524,7 @@ yyreduce:
     break;
 
   case 164:
-#line 2829 "bfin-parse.y"
+#line 2826 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (4)].reg)) && IS_DREG ((yyvsp[(4) - (4)].reg)))
 	    {
@@ -5540,7 +5537,7 @@ yyreduce:
     break;
 
   case 165:
-#line 2840 "bfin-parse.y"
+#line 2837 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)) && IS_DREG ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -5553,7 +5550,7 @@ yyreduce:
     break;
 
   case 166:
-#line 2851 "bfin-parse.y"
+#line 2848 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)) && IS_UIMM ((yyvsp[(3) - (3)].expr), 5))
 	    {
@@ -5566,7 +5563,7 @@ yyreduce:
     break;
 
   case 167:
-#line 2862 "bfin-parse.y"
+#line 2859 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)) && IS_DREG ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -5579,7 +5576,7 @@ yyreduce:
     break;
 
   case 168:
-#line 2873 "bfin-parse.y"
+#line 2870 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)) && IS_DREG ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -5592,7 +5589,7 @@ yyreduce:
     break;
 
   case 169:
-#line 2884 "bfin-parse.y"
+#line 2881 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)) && IS_UIMM ((yyvsp[(3) - (3)].expr), 5))
 	    {
@@ -5605,7 +5602,7 @@ yyreduce:
     break;
 
   case 170:
-#line 2896 "bfin-parse.y"
+#line 2893 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)) && IS_UIMM ((yyvsp[(3) - (3)].expr), 5))
 	    {
@@ -5618,7 +5615,7 @@ yyreduce:
     break;
 
   case 171:
-#line 2909 "bfin-parse.y"
+#line 2906 "bfin-parse.y"
     {
 	  notethat ("CaCTRL: FLUSH [ pregs ]\n");
 	  if (IS_PREG ((yyvsp[(3) - (4)].reg)))
@@ -5629,7 +5626,7 @@ yyreduce:
     break;
 
   case 172:
-#line 2918 "bfin-parse.y"
+#line 2915 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(2) - (2)].reg)))
 	    {
@@ -5642,7 +5639,7 @@ yyreduce:
     break;
 
   case 173:
-#line 2929 "bfin-parse.y"
+#line 2926 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(3) - (4)].reg)))
 	    {
@@ -5655,7 +5652,7 @@ yyreduce:
     break;
 
   case 174:
-#line 2940 "bfin-parse.y"
+#line 2937 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(2) - (2)].reg)))
 	    {
@@ -5668,7 +5665,7 @@ yyreduce:
     break;
 
   case 175:
-#line 2952 "bfin-parse.y"
+#line 2949 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(3) - (4)].reg)))
 	    {
@@ -5681,7 +5678,7 @@ yyreduce:
     break;
 
   case 176:
-#line 2963 "bfin-parse.y"
+#line 2960 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(2) - (2)].reg)))
 	    {
@@ -5694,7 +5691,7 @@ yyreduce:
     break;
 
   case 177:
-#line 2974 "bfin-parse.y"
+#line 2971 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(3) - (4)].reg)))
 	    {
@@ -5707,7 +5704,7 @@ yyreduce:
     break;
 
   case 178:
-#line 2985 "bfin-parse.y"
+#line 2982 "bfin-parse.y"
     {
 	  if (IS_PREG ((yyvsp[(2) - (2)].reg)))
 	    {
@@ -5720,7 +5717,7 @@ yyreduce:
     break;
 
   case 179:
-#line 2999 "bfin-parse.y"
+#line 2996 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(7) - (7)].reg)))
 	    return yyerror ("Dreg expected for source operand");
@@ -5733,7 +5730,7 @@ yyreduce:
     break;
 
   case 180:
-#line 3011 "bfin-parse.y"
+#line 3008 "bfin-parse.y"
     {
 	  Expr_Node *tmp = (yyvsp[(5) - (8)].expr);
 
@@ -5759,7 +5756,7 @@ yyreduce:
     break;
 
   case 181:
-#line 3037 "bfin-parse.y"
+#line 3034 "bfin-parse.y"
     {
 	  Expr_Node *tmp = (yyvsp[(5) - (8)].expr);
 
@@ -5790,7 +5787,7 @@ yyreduce:
     break;
 
   case 182:
-#line 3067 "bfin-parse.y"
+#line 3064 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(7) - (7)].reg)))
 	    return yyerror ("Dreg expected for source operand");
@@ -5803,7 +5800,7 @@ yyreduce:
     break;
 
   case 183:
-#line 3078 "bfin-parse.y"
+#line 3075 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(7) - (7)].reg)))
 	    return yyerror ("Dreg expected for source operand");
@@ -5829,7 +5826,7 @@ yyreduce:
     break;
 
   case 184:
-#line 3103 "bfin-parse.y"
+#line 3100 "bfin-parse.y"
     {
 	  Expr_Node *tmp = (yyvsp[(4) - (7)].expr);
 	  int ispreg = IS_PREG ((yyvsp[(7) - (7)].reg));
@@ -5868,7 +5865,7 @@ yyreduce:
     break;
 
   case 185:
-#line 3140 "bfin-parse.y"
+#line 3137 "bfin-parse.y"
     {
 	  Expr_Node *tmp = (yyvsp[(7) - (9)].expr);
 	  if (!IS_DREG ((yyvsp[(1) - (9)].reg)))
@@ -5898,7 +5895,7 @@ yyreduce:
     break;
 
   case 186:
-#line 3168 "bfin-parse.y"
+#line 3165 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (7)].reg)))
 	    return yyerror ("Dreg expected for source operand");
@@ -5924,7 +5921,7 @@ yyreduce:
     break;
 
   case 187:
-#line 3193 "bfin-parse.y"
+#line 3190 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (8)].reg)))
 	    return yyerror ("Dreg expected for destination operand");
@@ -5937,7 +5934,7 @@ yyreduce:
     break;
 
   case 188:
-#line 3204 "bfin-parse.y"
+#line 3201 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (9)].reg)))
 	    return yyerror ("Dreg expected for destination operand");
@@ -5950,7 +5947,7 @@ yyreduce:
     break;
 
   case 189:
-#line 3215 "bfin-parse.y"
+#line 3212 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (8)].reg)))
 	    return yyerror ("Dreg expected for destination operand");
@@ -5963,7 +5960,7 @@ yyreduce:
     break;
 
   case 190:
-#line 3226 "bfin-parse.y"
+#line 3223 "bfin-parse.y"
     {
 	  if (!IS_IREG ((yyvsp[(2) - (6)].reg)) && !IS_PREG ((yyvsp[(2) - (6)].reg)))
 	    return yyerror ("Ireg or Preg expected in address");
@@ -5991,7 +5988,7 @@ yyreduce:
     break;
 
   case 191:
-#line 3252 "bfin-parse.y"
+#line 3249 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(7) - (7)].reg)))
 	    return yyerror ("Dreg expected for source operand");
@@ -6012,7 +6009,7 @@ yyreduce:
     break;
 
   case 192:
-#line 3271 "bfin-parse.y"
+#line 3268 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(8) - (8)].reg)))
 	    return yyerror ("Dreg expected for source operand");
@@ -6028,7 +6025,7 @@ yyreduce:
     break;
 
   case 193:
-#line 3285 "bfin-parse.y"
+#line 3282 "bfin-parse.y"
     {
 	  Expr_Node *tmp = (yyvsp[(7) - (9)].expr);
 	  if (!IS_DREG ((yyvsp[(1) - (9)].reg)))
@@ -6054,7 +6051,7 @@ yyreduce:
     break;
 
   case 194:
-#line 3309 "bfin-parse.y"
+#line 3306 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (8)].reg)))
 	    return yyerror ("Dreg expected for destination operand");
@@ -6068,7 +6065,7 @@ yyreduce:
     break;
 
   case 195:
-#line 3321 "bfin-parse.y"
+#line 3318 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(1) - (7)].reg)))
 	    return yyerror ("Dreg expected for destination operand");
@@ -6089,7 +6086,7 @@ yyreduce:
     break;
 
   case 196:
-#line 3340 "bfin-parse.y"
+#line 3337 "bfin-parse.y"
     {
 	  Expr_Node *tmp = (yyvsp[(6) - (7)].expr);
 	  int ispreg = IS_PREG ((yyvsp[(1) - (7)].reg));
@@ -6137,7 +6134,7 @@ yyreduce:
     break;
 
   case 197:
-#line 3386 "bfin-parse.y"
+#line 3383 "bfin-parse.y"
     {
 	  if (!IS_IREG ((yyvsp[(4) - (6)].reg)) && !IS_PREG ((yyvsp[(4) - (6)].reg)))
 	    return yyerror ("Ireg or Preg expected in address");
@@ -6174,7 +6171,7 @@ yyreduce:
     break;
 
   case 198:
-#line 3423 "bfin-parse.y"
+#line 3420 "bfin-parse.y"
     {
 	  if ((yyvsp[(1) - (11)].reg).regno != REG_SP)
 	    yyerror ("Stack Pointer expected");
@@ -6192,7 +6189,7 @@ yyreduce:
     break;
 
   case 199:
-#line 3439 "bfin-parse.y"
+#line 3436 "bfin-parse.y"
     {
 	  if ((yyvsp[(1) - (7)].reg).regno != REG_SP)
 	    yyerror ("Stack Pointer expected");
@@ -6213,7 +6210,7 @@ yyreduce:
     break;
 
   case 200:
-#line 3458 "bfin-parse.y"
+#line 3455 "bfin-parse.y"
     {
 	  if ((yyvsp[(11) - (11)].reg).regno != REG_SP)
 	    yyerror ("Stack Pointer expected");
@@ -6229,7 +6226,7 @@ yyreduce:
     break;
 
   case 201:
-#line 3472 "bfin-parse.y"
+#line 3469 "bfin-parse.y"
     {
 	  if ((yyvsp[(7) - (7)].reg).regno != REG_SP)
 	    yyerror ("Stack Pointer expected");
@@ -6250,7 +6247,7 @@ yyreduce:
     break;
 
   case 202:
-#line 3491 "bfin-parse.y"
+#line 3488 "bfin-parse.y"
     {
 	  if ((yyvsp[(1) - (3)].reg).regno != REG_SP)
 	    yyerror ("Stack Pointer expected");
@@ -6266,7 +6263,7 @@ yyreduce:
     break;
 
   case 203:
-#line 3507 "bfin-parse.y"
+#line 3504 "bfin-parse.y"
     {
 	  if (IS_URANGE (16, (yyvsp[(2) - (2)].expr), 0, 4))
 	    (yyval.instr) = LINKAGE (0, uimm16s4 ((yyvsp[(2) - (2)].expr)));
@@ -6276,7 +6273,7 @@ yyreduce:
     break;
 
   case 204:
-#line 3515 "bfin-parse.y"
+#line 3512 "bfin-parse.y"
     {
 		notethat ("linkage: UNLINK\n");
 		(yyval.instr) = LINKAGE (1, 0);
@@ -6284,7 +6281,7 @@ yyreduce:
     break;
 
   case 205:
-#line 3524 "bfin-parse.y"
+#line 3521 "bfin-parse.y"
     {
 	  if (IS_PCREL4 ((yyvsp[(3) - (7)].expr)) && IS_LPPCREL10 ((yyvsp[(5) - (7)].expr)) && IS_CREG ((yyvsp[(7) - (7)].reg)))
 	    {
@@ -6298,7 +6295,7 @@ yyreduce:
     break;
 
   case 206:
-#line 3535 "bfin-parse.y"
+#line 3532 "bfin-parse.y"
     {
 	  if (IS_PCREL4 ((yyvsp[(3) - (9)].expr)) && IS_LPPCREL10 ((yyvsp[(5) - (9)].expr))
 	      && IS_PREG ((yyvsp[(9) - (9)].reg)) && IS_CREG ((yyvsp[(7) - (9)].reg)))
@@ -6312,7 +6309,7 @@ yyreduce:
     break;
 
   case 207:
-#line 3547 "bfin-parse.y"
+#line 3544 "bfin-parse.y"
     {
 	  if (IS_PCREL4 ((yyvsp[(3) - (11)].expr)) && IS_LPPCREL10 ((yyvsp[(5) - (11)].expr))
 	      && IS_PREG ((yyvsp[(9) - (11)].reg)) && IS_CREG ((yyvsp[(7) - (11)].reg))
@@ -6327,7 +6324,7 @@ yyreduce:
     break;
 
   case 208:
-#line 3561 "bfin-parse.y"
+#line 3558 "bfin-parse.y"
     {
 	  if (!IS_RELOC ((yyvsp[(2) - (3)].expr)))
 	    return yyerror ("Invalid expression in loop statement");
@@ -6338,7 +6335,7 @@ yyreduce:
     break;
 
   case 209:
-#line 3569 "bfin-parse.y"
+#line 3566 "bfin-parse.y"
     {
 	  if (IS_RELOC ((yyvsp[(2) - (5)].expr)) && IS_PREG ((yyvsp[(5) - (5)].reg)) && IS_CREG ((yyvsp[(3) - (5)].reg)))
 	    {
@@ -6351,7 +6348,7 @@ yyreduce:
     break;
 
   case 210:
-#line 3579 "bfin-parse.y"
+#line 3576 "bfin-parse.y"
     {
 	  if (IS_RELOC ((yyvsp[(2) - (7)].expr)) && IS_PREG ((yyvsp[(5) - (7)].reg)) && IS_CREG ((yyvsp[(3) - (7)].reg)) && EXPR_VALUE ((yyvsp[(7) - (7)].expr)) == 1)
 	    {
@@ -6364,7 +6361,7 @@ yyreduce:
     break;
 
   case 211:
-#line 3591 "bfin-parse.y"
+#line 3588 "bfin-parse.y"
     {
 	  Expr_Node_Value val;
 	  val.i_value = (yyvsp[(2) - (2)].value);
@@ -6378,7 +6375,7 @@ yyreduce:
     break;
 
   case 212:
-#line 3602 "bfin-parse.y"
+#line 3599 "bfin-parse.y"
     {
 	  if (!IS_RELOC ((yyvsp[(2) - (2)].expr)))
 	    return yyerror ("Invalid expression in LOOP_BEGIN statement");
@@ -6389,7 +6386,7 @@ yyreduce:
     break;
 
   case 213:
-#line 3612 "bfin-parse.y"
+#line 3609 "bfin-parse.y"
     {
 	  Expr_Node_Value val;
 	  val.i_value = (yyvsp[(2) - (2)].value);
@@ -6403,7 +6400,7 @@ yyreduce:
     break;
 
   case 214:
-#line 3623 "bfin-parse.y"
+#line 3620 "bfin-parse.y"
     {
 	  if (!IS_RELOC ((yyvsp[(2) - (2)].expr)))
 	    return yyerror ("Invalid expression in LOOP_END statement");
@@ -6414,7 +6411,7 @@ yyreduce:
     break;
 
   case 215:
-#line 3634 "bfin-parse.y"
+#line 3631 "bfin-parse.y"
     {
 	  notethat ("psedoDEBUG: ABORT\n");
 	  (yyval.instr) = bfin_gen_pseudodbg (3, 3, 0);
@@ -6422,7 +6419,7 @@ yyreduce:
     break;
 
   case 216:
-#line 3640 "bfin-parse.y"
+#line 3637 "bfin-parse.y"
     {
 	  notethat ("pseudoDEBUG: DBG\n");
 	  (yyval.instr) = bfin_gen_pseudodbg (3, 7, 0);
@@ -6430,7 +6427,7 @@ yyreduce:
     break;
 
   case 217:
-#line 3645 "bfin-parse.y"
+#line 3642 "bfin-parse.y"
     {
 	  notethat ("pseudoDEBUG: DBG REG_A\n");
 	  (yyval.instr) = bfin_gen_pseudodbg (3, IS_A1 ((yyvsp[(2) - (2)].reg)), 0);
@@ -6438,7 +6435,7 @@ yyreduce:
     break;
 
   case 218:
-#line 3650 "bfin-parse.y"
+#line 3647 "bfin-parse.y"
     {
 	  notethat ("pseudoDEBUG: DBG allregs\n");
 	  (yyval.instr) = bfin_gen_pseudodbg (0, (yyvsp[(2) - (2)].reg).regno & CODE_MASK, ((yyvsp[(2) - (2)].reg).regno & CLASS_MASK) >> 4);
@@ -6446,7 +6443,7 @@ yyreduce:
     break;
 
   case 219:
-#line 3656 "bfin-parse.y"
+#line 3653 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(3) - (4)].reg)))
 	    return yyerror ("Dregs expected");
@@ -6456,7 +6453,7 @@ yyreduce:
     break;
 
   case 220:
-#line 3664 "bfin-parse.y"
+#line 3661 "bfin-parse.y"
     {
 	  notethat ("psedoDEBUG: DBGHALT\n");
 	  (yyval.instr) = bfin_gen_pseudodbg (3, 5, 0);
@@ -6464,7 +6461,7 @@ yyreduce:
     break;
 
   case 221:
-#line 3670 "bfin-parse.y"
+#line 3667 "bfin-parse.y"
     {
 	  notethat ("psedoDEBUG: HLT\n");
 	  (yyval.instr) = bfin_gen_pseudodbg (3, 4, 0);
@@ -6472,7 +6469,7 @@ yyreduce:
     break;
 
   case 222:
-#line 3676 "bfin-parse.y"
+#line 3673 "bfin-parse.y"
     {
 	  notethat ("pseudodbg_assert: DBGA (regs_lo/hi , uimm16 )\n");
 	  (yyval.instr) = bfin_gen_pseudodbg_assert (IS_H ((yyvsp[(3) - (6)].reg)), &(yyvsp[(3) - (6)].reg), uimm16 ((yyvsp[(5) - (6)].expr)));
@@ -6480,7 +6477,7 @@ yyreduce:
     break;
 
   case 223:
-#line 3682 "bfin-parse.y"
+#line 3679 "bfin-parse.y"
     {
 	  notethat ("pseudodbg_assert: DBGAH (regs , uimm16 )\n");
 	  (yyval.instr) = bfin_gen_pseudodbg_assert (3, &(yyvsp[(3) - (6)].reg), uimm16 ((yyvsp[(5) - (6)].expr)));
@@ -6488,7 +6485,7 @@ yyreduce:
     break;
 
   case 224:
-#line 3688 "bfin-parse.y"
+#line 3685 "bfin-parse.y"
     {
 	  notethat ("psedodbg_assert: DBGAL (regs , uimm16 )\n");
 	  (yyval.instr) = bfin_gen_pseudodbg_assert (2, &(yyvsp[(3) - (6)].reg), uimm16 ((yyvsp[(5) - (6)].expr)));
@@ -6496,7 +6493,7 @@ yyreduce:
     break;
 
   case 225:
-#line 3694 "bfin-parse.y"
+#line 3691 "bfin-parse.y"
     {
 	  if (!IS_UIMM ((yyvsp[(2) - (2)].expr), 8))
 	    return yyerror ("Constant out of range");
@@ -6506,7 +6503,7 @@ yyreduce:
     break;
 
   case 226:
-#line 3702 "bfin-parse.y"
+#line 3699 "bfin-parse.y"
     {
 	  if (!IS_DREG ((yyvsp[(2) - (2)].reg)))
 	    return yyerror ("Dregs expected");
@@ -6516,21 +6513,21 @@ yyreduce:
     break;
 
   case 227:
-#line 3716 "bfin-parse.y"
+#line 3713 "bfin-parse.y"
     {
 	(yyval.reg) = (yyvsp[(1) - (1)].reg);
 	}
     break;
 
   case 228:
-#line 3720 "bfin-parse.y"
+#line 3717 "bfin-parse.y"
     {
 	(yyval.reg) = (yyvsp[(1) - (1)].reg);
 	}
     break;
 
   case 229:
-#line 3729 "bfin-parse.y"
+#line 3726 "bfin-parse.y"
     {
 	(yyval.mod).MM = 0;
 	(yyval.mod).mod = 0;
@@ -6538,7 +6535,7 @@ yyreduce:
     break;
 
   case 230:
-#line 3734 "bfin-parse.y"
+#line 3731 "bfin-parse.y"
     {
 	(yyval.mod).MM = 1;
 	(yyval.mod).mod = (yyvsp[(4) - (5)].value);
@@ -6546,7 +6543,7 @@ yyreduce:
     break;
 
   case 231:
-#line 3739 "bfin-parse.y"
+#line 3736 "bfin-parse.y"
     {
 	(yyval.mod).MM = 1;
 	(yyval.mod).mod = (yyvsp[(2) - (5)].value);
@@ -6554,7 +6551,7 @@ yyreduce:
     break;
 
   case 232:
-#line 3744 "bfin-parse.y"
+#line 3741 "bfin-parse.y"
     {
 	(yyval.mod).MM = 0;
 	(yyval.mod).mod = (yyvsp[(2) - (3)].value);
@@ -6562,7 +6559,7 @@ yyreduce:
     break;
 
   case 233:
-#line 3749 "bfin-parse.y"
+#line 3746 "bfin-parse.y"
     {
 	(yyval.mod).MM = 1;
 	(yyval.mod).mod = 0;
@@ -6570,21 +6567,21 @@ yyreduce:
     break;
 
   case 234:
-#line 3756 "bfin-parse.y"
+#line 3753 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 235:
-#line 3760 "bfin-parse.y"
+#line 3757 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 236:
-#line 3766 "bfin-parse.y"
+#line 3763 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 0;
 	(yyval.modcodes).x0 = 0;
@@ -6592,7 +6589,7 @@ yyreduce:
     break;
 
   case 237:
-#line 3771 "bfin-parse.y"
+#line 3768 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 1;
 	(yyval.modcodes).x0 = 0;
@@ -6600,7 +6597,7 @@ yyreduce:
     break;
 
   case 238:
-#line 3776 "bfin-parse.y"
+#line 3773 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 0;
 	(yyval.modcodes).x0 = 1;
@@ -6608,7 +6605,7 @@ yyreduce:
     break;
 
   case 239:
-#line 3781 "bfin-parse.y"
+#line 3778 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 1;
 	(yyval.modcodes).x0 = 1;
@@ -6616,21 +6613,21 @@ yyreduce:
     break;
 
   case 240:
-#line 3789 "bfin-parse.y"
+#line 3786 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 241:
-#line 3793 "bfin-parse.y"
+#line 3790 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 242:
-#line 3799 "bfin-parse.y"
+#line 3796 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 0;
 	(yyval.modcodes).x0 = 0;
@@ -6638,7 +6635,7 @@ yyreduce:
     break;
 
   case 243:
-#line 3804 "bfin-parse.y"
+#line 3801 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = (yyvsp[(2) - (3)].modcodes).s0;
 	(yyval.modcodes).x0 = (yyvsp[(2) - (3)].modcodes).x0;
@@ -6646,7 +6643,7 @@ yyreduce:
     break;
 
   case 244:
-#line 3811 "bfin-parse.y"
+#line 3808 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 0;
 	(yyval.modcodes).x0 = 0;
@@ -6655,7 +6652,7 @@ yyreduce:
     break;
 
   case 245:
-#line 3817 "bfin-parse.y"
+#line 3814 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 0;
 	(yyval.modcodes).x0 = 0;
@@ -6664,7 +6661,7 @@ yyreduce:
     break;
 
   case 246:
-#line 3823 "bfin-parse.y"
+#line 3820 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 1;
 	(yyval.modcodes).x0 = 0;
@@ -6673,7 +6670,7 @@ yyreduce:
     break;
 
   case 247:
-#line 3831 "bfin-parse.y"
+#line 3828 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 0;
 	(yyval.modcodes).s0 = 0;
@@ -6682,7 +6679,7 @@ yyreduce:
     break;
 
   case 248:
-#line 3837 "bfin-parse.y"
+#line 3834 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 2 + (yyvsp[(2) - (3)].r0).r0;
 	(yyval.modcodes).s0 = 0;
@@ -6691,7 +6688,7 @@ yyreduce:
     break;
 
   case 249:
-#line 3843 "bfin-parse.y"
+#line 3840 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 0;
 	(yyval.modcodes).s0 = (yyvsp[(2) - (3)].modcodes).s0;
@@ -6700,7 +6697,7 @@ yyreduce:
     break;
 
   case 250:
-#line 3849 "bfin-parse.y"
+#line 3846 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 2 + (yyvsp[(2) - (5)].r0).r0;
 	(yyval.modcodes).s0 = (yyvsp[(4) - (5)].modcodes).s0;
@@ -6709,7 +6706,7 @@ yyreduce:
     break;
 
   case 251:
-#line 3855 "bfin-parse.y"
+#line 3852 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 2 + (yyvsp[(4) - (5)].r0).r0;
 	(yyval.modcodes).s0 = (yyvsp[(2) - (5)].modcodes).s0;
@@ -6718,49 +6715,49 @@ yyreduce:
     break;
 
   case 252:
-#line 3863 "bfin-parse.y"
+#line 3860 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 253:
-#line 3867 "bfin-parse.y"
+#line 3864 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 254:
-#line 3871 "bfin-parse.y"
+#line 3868 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 255:
-#line 3877 "bfin-parse.y"
+#line 3874 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 256:
-#line 3881 "bfin-parse.y"
+#line 3878 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 257:
-#line 3885 "bfin-parse.y"
+#line 3882 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 258:
-#line 3891 "bfin-parse.y"
+#line 3888 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 0;
 	(yyval.modcodes).s0 = 0;
@@ -6769,7 +6766,7 @@ yyreduce:
     break;
 
   case 259:
-#line 3897 "bfin-parse.y"
+#line 3894 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 0;
 	(yyval.modcodes).s0 = 0;
@@ -6778,7 +6775,7 @@ yyreduce:
     break;
 
   case 260:
-#line 3903 "bfin-parse.y"
+#line 3900 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 0;
 	(yyval.modcodes).s0 = 1;
@@ -6787,7 +6784,7 @@ yyreduce:
     break;
 
   case 261:
-#line 3909 "bfin-parse.y"
+#line 3906 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 1;
 	(yyval.modcodes).s0 = 0;
@@ -6796,7 +6793,7 @@ yyreduce:
     break;
 
   case 262:
-#line 3915 "bfin-parse.y"
+#line 3912 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 1;
 	(yyval.modcodes).s0 = 1;
@@ -6804,7 +6801,7 @@ yyreduce:
     break;
 
   case 263:
-#line 3920 "bfin-parse.y"
+#line 3917 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 1;
 	(yyval.modcodes).s0 = 1;
@@ -6812,77 +6809,77 @@ yyreduce:
     break;
 
   case 264:
-#line 3927 "bfin-parse.y"
+#line 3924 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 265:
-#line 3931 "bfin-parse.y"
+#line 3928 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 266:
-#line 3937 "bfin-parse.y"
+#line 3934 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 0;
 	}
     break;
 
   case 267:
-#line 3941 "bfin-parse.y"
+#line 3938 "bfin-parse.y"
     {
 	(yyval.modcodes).s0 = 1;
 	}
     break;
 
   case 268:
-#line 3948 "bfin-parse.y"
+#line 3945 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 269:
-#line 3952 "bfin-parse.y"
+#line 3949 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 270:
-#line 3956 "bfin-parse.y"
+#line 3953 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 3;
 	}
     break;
 
   case 271:
-#line 3960 "bfin-parse.y"
+#line 3957 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 2;
 	}
     break;
 
   case 272:
-#line 3966 "bfin-parse.y"
+#line 3963 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 273:
-#line 3970 "bfin-parse.y"
+#line 3967 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 274:
-#line 3977 "bfin-parse.y"
+#line 3974 "bfin-parse.y"
     {
 	(yyval.modcodes).r0 = 0;
 	(yyval.modcodes).s0 = 1;
@@ -6890,7 +6887,7 @@ yyreduce:
     break;
 
   case 275:
-#line 3982 "bfin-parse.y"
+#line 3979 "bfin-parse.y"
     {
 	if ((yyvsp[(2) - (3)].value) != M_T)
 	  return yyerror ("Bad modifier");
@@ -6900,7 +6897,7 @@ yyreduce:
     break;
 
   case 276:
-#line 3989 "bfin-parse.y"
+#line 3986 "bfin-parse.y"
     {
 	if ((yyvsp[(2) - (5)].value) != M_T)
 	  return yyerror ("Bad modifier");
@@ -6910,7 +6907,7 @@ yyreduce:
     break;
 
   case 277:
-#line 3996 "bfin-parse.y"
+#line 3993 "bfin-parse.y"
     {
 	if ((yyvsp[(4) - (5)].value) != M_T)
 	  return yyerror ("Bad modifier");
@@ -6920,35 +6917,35 @@ yyreduce:
     break;
 
   case 278:
-#line 4008 "bfin-parse.y"
+#line 4005 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 279:
-#line 4012 "bfin-parse.y"
+#line 4009 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 280:
-#line 4016 "bfin-parse.y"
+#line 4013 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 2;
 	}
     break;
 
   case 281:
-#line 4022 "bfin-parse.y"
+#line 4019 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 282:
-#line 4026 "bfin-parse.y"
+#line 4023 "bfin-parse.y"
     {
 	  if ((yyvsp[(2) - (3)].value) == M_W32)
 	    (yyval.r0).r0 = 1;
@@ -6958,14 +6955,14 @@ yyreduce:
     break;
 
   case 283:
-#line 4035 "bfin-parse.y"
+#line 4032 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 284:
-#line 4039 "bfin-parse.y"
+#line 4036 "bfin-parse.y"
     {
 	  if ((yyvsp[(2) - (3)].value) == M_IU)
 	    (yyval.r0).r0 = 3;
@@ -6975,77 +6972,77 @@ yyreduce:
     break;
 
   case 285:
-#line 4048 "bfin-parse.y"
+#line 4045 "bfin-parse.y"
     {
 	(yyval.reg) = (yyvsp[(3) - (4)].reg);
 	}
     break;
 
   case 286:
-#line 4054 "bfin-parse.y"
+#line 4051 "bfin-parse.y"
     {
 	(yyval.reg) = (yyvsp[(2) - (4)].reg);
 	}
     break;
 
   case 287:
-#line 4063 "bfin-parse.y"
+#line 4060 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 288:
-#line 4067 "bfin-parse.y"
+#line 4064 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 289:
-#line 4074 "bfin-parse.y"
+#line 4071 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 290:
-#line 4078 "bfin-parse.y"
+#line 4075 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 291:
-#line 4082 "bfin-parse.y"
+#line 4079 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 2;
 	}
     break;
 
   case 292:
-#line 4086 "bfin-parse.y"
+#line 4083 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 3;
 	}
     break;
 
   case 293:
-#line 4093 "bfin-parse.y"
+#line 4090 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 294:
-#line 4097 "bfin-parse.y"
+#line 4094 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 295:
-#line 4104 "bfin-parse.y"
+#line 4101 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 1;	/* HL.  */
 	  (yyval.modcodes).s0 = 0;	/* s.  */
@@ -7055,7 +7052,7 @@ yyreduce:
     break;
 
   case 296:
-#line 4112 "bfin-parse.y"
+#line 4109 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 1;	/* HL.  */
 	  (yyval.modcodes).s0 = 0;	/* s.  */
@@ -7065,7 +7062,7 @@ yyreduce:
     break;
 
   case 297:
-#line 4120 "bfin-parse.y"
+#line 4117 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 0;	/* HL.  */
 	  (yyval.modcodes).s0 = 0;	/* s.  */
@@ -7075,7 +7072,7 @@ yyreduce:
     break;
 
   case 298:
-#line 4128 "bfin-parse.y"
+#line 4125 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 0;	/* HL.  */
 	  (yyval.modcodes).s0 = 0;	/* s.  */
@@ -7085,7 +7082,7 @@ yyreduce:
     break;
 
   case 299:
-#line 4136 "bfin-parse.y"
+#line 4133 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 1;	/* HL.  */
 	  (yyval.modcodes).s0 = 1;	/* s.  */
@@ -7095,7 +7092,7 @@ yyreduce:
     break;
 
   case 300:
-#line 4143 "bfin-parse.y"
+#line 4140 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 1;	/* HL.  */
 	  (yyval.modcodes).s0 = 1;	/* s.  */
@@ -7105,7 +7102,7 @@ yyreduce:
     break;
 
   case 301:
-#line 4150 "bfin-parse.y"
+#line 4147 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 0;	/* HL.  */
 	  (yyval.modcodes).s0 = 1;	/* s.  */
@@ -7115,7 +7112,7 @@ yyreduce:
     break;
 
   case 302:
-#line 4158 "bfin-parse.y"
+#line 4155 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 0;	/* HL.  */
 	  (yyval.modcodes).s0 = 1;	/* s.  */
@@ -7125,7 +7122,7 @@ yyreduce:
     break;
 
   case 303:
-#line 4168 "bfin-parse.y"
+#line 4165 "bfin-parse.y"
     {
 	  (yyval.modcodes).s0 = 0;	/* s.  */
 	  (yyval.modcodes).x0 = 0;	/* HL.  */
@@ -7133,7 +7130,7 @@ yyreduce:
     break;
 
   case 304:
-#line 4173 "bfin-parse.y"
+#line 4170 "bfin-parse.y"
     {
 	  (yyval.modcodes).s0 = 0;	/* s.  */
 	  (yyval.modcodes).x0 = 1;	/* HL.  */
@@ -7141,7 +7138,7 @@ yyreduce:
     break;
 
   case 305:
-#line 4178 "bfin-parse.y"
+#line 4175 "bfin-parse.y"
     {
 	  (yyval.modcodes).s0 = 1;	/* s.  */
 	  (yyval.modcodes).x0 = 0;	/* HL.  */
@@ -7149,7 +7146,7 @@ yyreduce:
     break;
 
   case 306:
-#line 4183 "bfin-parse.y"
+#line 4180 "bfin-parse.y"
     {
 	  (yyval.modcodes).s0 = 1;	/* s.  */
 	  (yyval.modcodes).x0 = 1;	/* HL.  */
@@ -7157,49 +7154,49 @@ yyreduce:
     break;
 
   case 307:
-#line 4190 "bfin-parse.y"
+#line 4187 "bfin-parse.y"
     {
 	(yyval.modcodes).x0 = 2;
 	}
     break;
 
   case 308:
-#line 4194 "bfin-parse.y"
+#line 4191 "bfin-parse.y"
     {
 	(yyval.modcodes).x0 = 0;
 	}
     break;
 
   case 309:
-#line 4198 "bfin-parse.y"
+#line 4195 "bfin-parse.y"
     {
 	(yyval.modcodes).x0 = 1;
 	}
     break;
 
   case 310:
-#line 4207 "bfin-parse.y"
+#line 4204 "bfin-parse.y"
     {
 	(yyval.reg) = (yyvsp[(1) - (2)].reg);
 	}
     break;
 
   case 311:
-#line 4214 "bfin-parse.y"
+#line 4211 "bfin-parse.y"
     {
 	(yyval.reg) = (yyvsp[(1) - (2)].reg);
 	}
     break;
 
   case 312:
-#line 4221 "bfin-parse.y"
+#line 4218 "bfin-parse.y"
     {
 	(yyval.reg) = (yyvsp[(1) - (2)].reg);
 	}
     break;
 
   case 313:
-#line 4228 "bfin-parse.y"
+#line 4225 "bfin-parse.y"
     {
 	  if (IS_A1 ((yyvsp[(3) - (3)].reg)) && IS_EVEN ((yyvsp[(1) - (3)].reg)))
 	    return yyerror ("Cannot move A1 to even register");
@@ -7217,7 +7214,7 @@ yyreduce:
     break;
 
   case 314:
-#line 4243 "bfin-parse.y"
+#line 4240 "bfin-parse.y"
     {
 	  (yyval.macfunc) = (yyvsp[(1) - (1)].macfunc);
 	  (yyval.macfunc).w = 0; (yyval.macfunc).P = 0;
@@ -7226,7 +7223,7 @@ yyreduce:
     break;
 
   case 315:
-#line 4249 "bfin-parse.y"
+#line 4246 "bfin-parse.y"
     {
 	  if ((yyvsp[(4) - (5)].macfunc).n && IS_EVEN ((yyvsp[(1) - (5)].reg)))
 	    return yyerror ("Cannot move A1 to even register");
@@ -7241,7 +7238,7 @@ yyreduce:
     break;
 
   case 316:
-#line 4262 "bfin-parse.y"
+#line 4259 "bfin-parse.y"
     {
 	  if ((yyvsp[(4) - (5)].macfunc).n && !IS_H ((yyvsp[(1) - (5)].reg)))
 	    return yyerror ("Cannot move A1 to low half of register");
@@ -7256,7 +7253,7 @@ yyreduce:
     break;
 
   case 317:
-#line 4275 "bfin-parse.y"
+#line 4272 "bfin-parse.y"
     {
 	  if (IS_A1 ((yyvsp[(3) - (3)].reg)) && !IS_H ((yyvsp[(1) - (3)].reg)))
 	    return yyerror ("Cannot move A1 to low half of register");
@@ -7274,7 +7271,7 @@ yyreduce:
     break;
 
   case 318:
-#line 4293 "bfin-parse.y"
+#line 4290 "bfin-parse.y"
     {
 	  (yyval.macfunc).n = IS_A1 ((yyvsp[(1) - (2)].reg));
 	  (yyval.macfunc).op = 0;
@@ -7284,7 +7281,7 @@ yyreduce:
     break;
 
   case 319:
-#line 4300 "bfin-parse.y"
+#line 4297 "bfin-parse.y"
     {
 	  (yyval.macfunc).n = IS_A1 ((yyvsp[(1) - (2)].reg));
 	  (yyval.macfunc).op = 1;
@@ -7294,7 +7291,7 @@ yyreduce:
     break;
 
   case 320:
-#line 4307 "bfin-parse.y"
+#line 4304 "bfin-parse.y"
     {
 	  (yyval.macfunc).n = IS_A1 ((yyvsp[(1) - (2)].reg));
 	  (yyval.macfunc).op = 2;
@@ -7304,7 +7301,7 @@ yyreduce:
     break;
 
   case 321:
-#line 4317 "bfin-parse.y"
+#line 4314 "bfin-parse.y"
     {
 	  if (IS_DREG ((yyvsp[(1) - (3)].reg)) && IS_DREG ((yyvsp[(3) - (3)].reg)))
 	    {
@@ -7317,35 +7314,35 @@ yyreduce:
     break;
 
   case 322:
-#line 4330 "bfin-parse.y"
+#line 4327 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 0;
 	}
     break;
 
   case 323:
-#line 4334 "bfin-parse.y"
+#line 4331 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 1;
 	}
     break;
 
   case 324:
-#line 4338 "bfin-parse.y"
+#line 4335 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 2;
 	}
     break;
 
   case 325:
-#line 4342 "bfin-parse.y"
+#line 4339 "bfin-parse.y"
     {
 	(yyval.r0).r0 = 3;
 	}
     break;
 
   case 326:
-#line 4349 "bfin-parse.y"
+#line 4346 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = (yyvsp[(3) - (3)].reg).regno;
 	  (yyval.modcodes).x0 = (yyvsp[(2) - (3)].r0).r0;
@@ -7354,7 +7351,7 @@ yyreduce:
     break;
 
   case 327:
-#line 4355 "bfin-parse.y"
+#line 4352 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 0x18;
 	  (yyval.modcodes).x0 = (yyvsp[(2) - (3)].r0).r0;
@@ -7363,7 +7360,7 @@ yyreduce:
     break;
 
   case 328:
-#line 4361 "bfin-parse.y"
+#line 4358 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = (yyvsp[(1) - (3)].reg).regno;
 	  (yyval.modcodes).x0 = (yyvsp[(2) - (3)].r0).r0;
@@ -7372,7 +7369,7 @@ yyreduce:
     break;
 
   case 329:
-#line 4367 "bfin-parse.y"
+#line 4364 "bfin-parse.y"
     {
 	  (yyval.modcodes).r0 = 0x18;
 	  (yyval.modcodes).x0 = (yyvsp[(2) - (3)].r0).r0;
@@ -7381,7 +7378,7 @@ yyreduce:
     break;
 
   case 330:
-#line 4377 "bfin-parse.y"
+#line 4374 "bfin-parse.y"
     {
 	Expr_Node_Value val;
 	val.s_value = S_GET_NAME((yyvsp[(1) - (1)].symbol));
@@ -7390,22 +7387,22 @@ yyreduce:
     break;
 
   case 331:
-#line 4386 "bfin-parse.y"
+#line 4383 "bfin-parse.y"
     { (yyval.value) = BFD_RELOC_BFIN_GOT; }
     break;
 
   case 332:
-#line 4388 "bfin-parse.y"
+#line 4385 "bfin-parse.y"
     { (yyval.value) = BFD_RELOC_BFIN_GOT17M4; }
     break;
 
   case 333:
-#line 4390 "bfin-parse.y"
+#line 4387 "bfin-parse.y"
     { (yyval.value) = BFD_RELOC_BFIN_FUNCDESC_GOT17M4; }
     break;
 
   case 334:
-#line 4394 "bfin-parse.y"
+#line 4391 "bfin-parse.y"
     {
 	Expr_Node_Value val;
 	val.i_value = (yyvsp[(3) - (3)].value);
@@ -7414,28 +7411,28 @@ yyreduce:
     break;
 
   case 335:
-#line 4402 "bfin-parse.y"
+#line 4399 "bfin-parse.y"
     {
 	(yyval.expr) = (yyvsp[(1) - (1)].expr);
 	}
     break;
 
   case 336:
-#line 4406 "bfin-parse.y"
+#line 4403 "bfin-parse.y"
     {
 	(yyval.expr) = (yyvsp[(1) - (1)].expr);
 	}
     break;
 
   case 337:
-#line 4413 "bfin-parse.y"
+#line 4410 "bfin-parse.y"
     {
 	(yyval.expr) = (yyvsp[(1) - (3)].expr);
 	}
     break;
 
   case 338:
-#line 4419 "bfin-parse.y"
+#line 4416 "bfin-parse.y"
     {
 	Expr_Node_Value val;
 	val.i_value = (yyvsp[(1) - (1)].value);
@@ -7444,112 +7441,112 @@ yyreduce:
     break;
 
   case 339:
-#line 4425 "bfin-parse.y"
+#line 4422 "bfin-parse.y"
     {
 	(yyval.expr) = (yyvsp[(1) - (1)].expr);
 	}
     break;
 
   case 340:
-#line 4429 "bfin-parse.y"
+#line 4426 "bfin-parse.y"
     {
 	(yyval.expr) = (yyvsp[(2) - (3)].expr);
 	}
     break;
 
   case 341:
-#line 4433 "bfin-parse.y"
+#line 4430 "bfin-parse.y"
     {
 	(yyval.expr) = unary (Expr_Op_Type_COMP, (yyvsp[(2) - (2)].expr));
 	}
     break;
 
   case 342:
-#line 4437 "bfin-parse.y"
+#line 4434 "bfin-parse.y"
     {
 	(yyval.expr) = unary (Expr_Op_Type_NEG, (yyvsp[(2) - (2)].expr));
 	}
     break;
 
   case 343:
-#line 4443 "bfin-parse.y"
+#line 4440 "bfin-parse.y"
     {
 	(yyval.expr) = (yyvsp[(1) - (1)].expr);
 	}
     break;
 
   case 344:
-#line 4449 "bfin-parse.y"
+#line 4446 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_Mult, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 345:
-#line 4453 "bfin-parse.y"
+#line 4450 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_Div, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 346:
-#line 4457 "bfin-parse.y"
+#line 4454 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_Mod, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 347:
-#line 4461 "bfin-parse.y"
+#line 4458 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_Add, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 348:
-#line 4465 "bfin-parse.y"
+#line 4462 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_Sub, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 349:
-#line 4469 "bfin-parse.y"
+#line 4466 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_Lshift, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 350:
-#line 4473 "bfin-parse.y"
+#line 4470 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_Rshift, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 351:
-#line 4477 "bfin-parse.y"
+#line 4474 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_BAND, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 352:
-#line 4481 "bfin-parse.y"
+#line 4478 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_LOR, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 353:
-#line 4485 "bfin-parse.y"
+#line 4482 "bfin-parse.y"
     {
 	(yyval.expr) = binary (Expr_Op_Type_BOR, (yyvsp[(1) - (3)].expr), (yyvsp[(3) - (3)].expr));
 	}
     break;
 
   case 354:
-#line 4489 "bfin-parse.y"
+#line 4486 "bfin-parse.y"
     {
 	(yyval.expr) = (yyvsp[(1) - (1)].expr);
 	}
@@ -7557,7 +7554,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 7561 "bfin-parse.c"
+#line 7558 "bfin-parse.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -7771,7 +7768,7 @@ yyreturn:
 }
 
 
-#line 4495 "bfin-parse.y"
+#line 4492 "bfin-parse.y"
 
 
 EXPR_T

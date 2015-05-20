@@ -1,6 +1,6 @@
 /* Parse options for the GNU linker.
    Copyright 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000,
-   2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2011, 2012
+   2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2011
    Free Software Foundation, Inc.
 
    This file is part of the GNU Binutils.
@@ -61,6 +61,122 @@ static void set_default_dirlist (char *);
 static void set_section_start (char *, char *);
 static void set_segment_start (const char *, char *);
 static void help (void);
+
+/* Non-zero if we are processing a --defsym from the command line.  */
+int parsing_defsym = 0;
+
+/* Codes used for the long options with no short synonyms.  150 isn't
+   special; it's just an arbitrary non-ASCII char value.  */
+enum option_values
+{
+  OPTION_ASSERT = 150,
+  OPTION_CALL_SHARED,
+  OPTION_CREF,
+  OPTION_DEFSYM,
+  OPTION_DEMANGLE,
+  OPTION_DYNAMIC_LINKER,
+  OPTION_SYSROOT,
+  OPTION_EB,
+  OPTION_EL,
+  OPTION_EMBEDDED_RELOCS,
+  OPTION_EXPORT_DYNAMIC,
+  OPTION_NO_EXPORT_DYNAMIC,
+  OPTION_HELP,
+  OPTION_IGNORE,
+  OPTION_MAP,
+  OPTION_NO_DEMANGLE,
+  OPTION_NO_KEEP_MEMORY,
+  OPTION_NO_WARN_MISMATCH,
+  OPTION_NO_WARN_SEARCH_MISMATCH,
+  OPTION_NOINHIBIT_EXEC,
+  OPTION_NON_SHARED,
+  OPTION_NO_WHOLE_ARCHIVE,
+  OPTION_OFORMAT,
+  OPTION_RELAX,
+  OPTION_NO_RELAX,
+  OPTION_RETAIN_SYMBOLS_FILE,
+  OPTION_RPATH,
+  OPTION_RPATH_LINK,
+  OPTION_SHARED,
+  OPTION_SONAME,
+  OPTION_SORT_COMMON,
+  OPTION_SORT_SECTION,
+  OPTION_STATS,
+  OPTION_SYMBOLIC,
+  OPTION_SYMBOLIC_FUNCTIONS,
+  OPTION_TASK_LINK,
+  OPTION_TBSS,
+  OPTION_TDATA,
+  OPTION_TTEXT,
+  OPTION_TTEXT_SEGMENT,
+  OPTION_TRADITIONAL_FORMAT,
+  OPTION_UR,
+  OPTION_VERBOSE,
+  OPTION_VERSION,
+  OPTION_VERSION_SCRIPT,
+  OPTION_VERSION_EXPORTS_SECTION,
+  OPTION_DYNAMIC_LIST,
+  OPTION_DYNAMIC_LIST_CPP_NEW,
+  OPTION_DYNAMIC_LIST_CPP_TYPEINFO,
+  OPTION_DYNAMIC_LIST_DATA,
+  OPTION_WARN_COMMON,
+  OPTION_WARN_CONSTRUCTORS,
+  OPTION_WARN_FATAL,
+  OPTION_NO_WARN_FATAL,
+  OPTION_WARN_MULTIPLE_GP,
+  OPTION_WARN_ONCE,
+  OPTION_WARN_SECTION_ALIGN,
+  OPTION_SPLIT_BY_RELOC,
+  OPTION_SPLIT_BY_FILE ,
+  OPTION_WHOLE_ARCHIVE,
+  OPTION_ADD_DT_NEEDED_FOR_DYNAMIC,
+  OPTION_NO_ADD_DT_NEEDED_FOR_DYNAMIC,
+  OPTION_ADD_DT_NEEDED_FOR_REGULAR,
+  OPTION_NO_ADD_DT_NEEDED_FOR_REGULAR,
+  OPTION_WRAP,
+  OPTION_FORCE_EXE_SUFFIX,
+  OPTION_GC_SECTIONS,
+  OPTION_NO_GC_SECTIONS,
+  OPTION_PRINT_GC_SECTIONS,
+  OPTION_NO_PRINT_GC_SECTIONS,
+  OPTION_HASH_SIZE,
+  OPTION_CHECK_SECTIONS,
+  OPTION_NO_CHECK_SECTIONS,
+  OPTION_NO_UNDEFINED,
+  OPTION_INIT,
+  OPTION_FINI,
+  OPTION_SECTION_START,
+  OPTION_UNIQUE,
+  OPTION_TARGET_HELP,
+  OPTION_ALLOW_SHLIB_UNDEFINED,
+  OPTION_NO_ALLOW_SHLIB_UNDEFINED,
+  OPTION_ALLOW_MULTIPLE_DEFINITION,
+  OPTION_NO_UNDEFINED_VERSION,
+  OPTION_DEFAULT_SYMVER,
+  OPTION_DEFAULT_IMPORTED_SYMVER,
+  OPTION_DISCARD_NONE,
+  OPTION_SPARE_DYNAMIC_TAGS,
+  OPTION_NO_DEFINE_COMMON,
+  OPTION_NOSTDLIB,
+  OPTION_NO_OMAGIC,
+  OPTION_STRIP_DISCARDED,
+  OPTION_NO_STRIP_DISCARDED,
+  OPTION_ACCEPT_UNKNOWN_INPUT_ARCH,
+  OPTION_NO_ACCEPT_UNKNOWN_INPUT_ARCH,
+  OPTION_PIE,
+  OPTION_UNRESOLVED_SYMBOLS,
+  OPTION_WARN_UNRESOLVED_SYMBOLS,
+  OPTION_ERROR_UNRESOLVED_SYMBOLS,
+  OPTION_WARN_SHARED_TEXTREL,
+  OPTION_WARN_ALTERNATE_EM,
+  OPTION_REDUCE_MEMORY_OVERHEADS,
+#ifdef ENABLE_PLUGINS
+  OPTION_PLUGIN,
+  OPTION_PLUGIN_OPT,
+#endif /* ENABLE_PLUGINS */
+  OPTION_DEFAULT_SCRIPT,
+  OPTION_PRINT_OUTPUT_FORMAT,
+};
 
 /* The long options.  This structure is used for both the option
    parsing and the help text.  */
@@ -405,13 +521,13 @@ static const struct ld_option ld_options[] =
   { {"pic-executable", no_argument, NULL, OPTION_PIE},
     '\0', NULL, NULL, TWO_DASHES },
   { {"sort-common", optional_argument, NULL, OPTION_SORT_COMMON},
-    '\0', N_("[=ascending|descending]"),
-    N_("Sort common symbols by alignment [in specified order]"),
+    '\0', N_("[=ascending|descending]"), 
+    N_("Sort common symbols by alignment [in specified order]"), 
     TWO_DASHES },
   { {"sort_common", no_argument, NULL, OPTION_SORT_COMMON},
     '\0', NULL, NULL, NO_HELP },
   { {"sort-section", required_argument, NULL, OPTION_SORT_SECTION},
-    '\0', N_("name|alignment"),
+    '\0', N_("name|alignment"), 
     N_("Sort sections by name or maximum alignment"), TWO_DASHES },
   { {"spare-dynamic-tags", required_argument, NULL, OPTION_SPARE_DYNAMIC_TAGS},
     '\0', N_("COUNT"), N_("How many tags to reserve in .dynamic section"),
@@ -441,8 +557,6 @@ static const struct ld_option ld_options[] =
     '\0', N_("ADDRESS"), N_("Set address of .text section"), ONE_DASH },
   { {"Ttext-segment", required_argument, NULL, OPTION_TTEXT_SEGMENT},
     '\0', N_("ADDRESS"), N_("Set address of text segment"), ONE_DASH },
-  { {"Trodata-segment", required_argument, NULL, OPTION_TRODATA_SEGMENT},
-    '\0', N_("ADDRESS"), N_("Set address of rodata segment"), ONE_DASH },
   { {"unresolved-symbols=<method>", required_argument, NULL,
      OPTION_UNRESOLVED_SYMBOLS},
     '\0', NULL, N_("How to handle unresolved symbols.  <method> is:\n"
@@ -615,7 +729,6 @@ parse_args (unsigned argc, char **argv)
     {
       int longind;
       int optc;
-      static unsigned int defsym_count;
 
       /* Using last_optind lets us avoid calling ldemul_parse_args
 	 multiple times on a single option, which would lead to
@@ -664,10 +777,10 @@ parse_args (unsigned argc, char **argv)
 	     ``use only shared libraries'' but, then, we don't
 	     currently support shared libraries on HP/UX anyhow.  */
 	  if (strcmp (optarg, "archive") == 0)
-	    input_flags.dynamic = FALSE;
+	    config.dynamic_link = FALSE;
 	  else if (strcmp (optarg, "shared") == 0
 		   || strcmp (optarg, "default") == 0)
-	    input_flags.dynamic = TRUE;
+	    config.dynamic_link = TRUE;
 	  else
 	    einfo (_("%P%F: unrecognized -a option `%s'\n"), optarg);
 	  break;
@@ -696,10 +809,10 @@ parse_args (unsigned argc, char **argv)
 	  yyparse ();
 	  break;
 	case OPTION_CALL_SHARED:
-	  input_flags.dynamic = TRUE;
+	  config.dynamic_link = TRUE;
 	  break;
 	case OPTION_NON_SHARED:
-	  input_flags.dynamic = FALSE;
+	  config.dynamic_link = FALSE;
 	  break;
 	case OPTION_CREF:
 	  command_line.cref = TRUE;
@@ -710,9 +823,11 @@ parse_args (unsigned argc, char **argv)
 	  break;
 	case OPTION_DEFSYM:
 	  lex_string = optarg;
-	  lex_redirect (optarg, "--defsym", ++defsym_count);
+	  lex_redirect (optarg);
 	  parser_input = input_defsym;
+	  parsing_defsym = 1;
 	  yyparse ();
+	  parsing_defsym = 0;
 	  lex_string = NULL;
 	  break;
 	case OPTION_DEMANGLE:
@@ -723,7 +838,7 @@ parse_args (unsigned argc, char **argv)
 
 	      style = cplus_demangle_name_to_style (optarg);
 	      if (style == unknown_demangling)
-		einfo (_("%F%P: unknown demangling style `%s'\n"),
+		einfo (_("%F%P: unknown demangling style `%s'"),
 		       optarg);
 
 	      cplus_demangle_set_style (style);
@@ -823,17 +938,17 @@ parse_args (unsigned argc, char **argv)
 	case 'N':
 	  config.text_read_only = FALSE;
 	  config.magic_demand_paged = FALSE;
-	  input_flags.dynamic = FALSE;
+	  config.dynamic_link = FALSE;
 	  break;
 	case OPTION_NO_OMAGIC:
 	  config.text_read_only = TRUE;
 	  config.magic_demand_paged = TRUE;
-	  /* NB/ Does not set input_flags.dynamic to TRUE.
+	  /* NB/ Does not set dynamic_link to TRUE.
 	     Use --call-shared or -Bdynamic for this.  */
 	  break;
 	case 'n':
 	  config.magic_demand_paged = FALSE;
-	  input_flags.dynamic = FALSE;
+	  config.dynamic_link = FALSE;
 	  break;
 	case OPTION_NO_DEFINE_COMMON:
 	  command_line.inhibit_common_definition = TRUE;
@@ -929,7 +1044,7 @@ parse_args (unsigned argc, char **argv)
 	  config.only_cmd_line_lib_dirs = TRUE;
 	  break;
 	case OPTION_NO_WHOLE_ARCHIVE:
-	  input_flags.whole_archive = FALSE;
+	  whole_archive = FALSE;
 	  break;
 	case 'O':
 	  /* FIXME "-O<non-digits> <value>" used to set the address of
@@ -952,7 +1067,9 @@ parse_args (unsigned argc, char **argv)
 	  break;
 #ifdef ENABLE_PLUGINS
 	case OPTION_PLUGIN:
-	  plugin_opt_plugin (optarg);
+	  if (plugin_opt_plugin (optarg))
+	    einfo (_("%P%F: %s: error loading plugin\n"),
+		   plugin_error_plugin ());
 	  break;
 	case OPTION_PLUGIN_OPT:
 	  if (plugin_opt_plugin_arg (optarg))
@@ -979,7 +1096,7 @@ parse_args (unsigned argc, char **argv)
 	  config.build_constructors = FALSE;
 	  config.magic_demand_paged = FALSE;
 	  config.text_read_only = FALSE;
-	  input_flags.dynamic = FALSE;
+	  config.dynamic_link = FALSE;
 	  break;
 	case 'R':
 	  /* The GNU linker traditionally uses -R to mean to include
@@ -1189,9 +1306,6 @@ parse_args (unsigned argc, char **argv)
 	case OPTION_TTEXT_SEGMENT:
 	  set_segment_start (".text-segment", optarg);
 	  break;
-	case OPTION_TRODATA_SEGMENT:
-	  set_segment_start (".rodata-segment", optarg);
-	  break;
 	case OPTION_TRADITIONAL_FORMAT:
 	  link_info.traditional_format = TRUE;
 	  break;
@@ -1203,7 +1317,7 @@ parse_args (unsigned argc, char **argv)
 	  config.build_constructors = TRUE;
 	  config.magic_demand_paged = FALSE;
 	  config.text_read_only = FALSE;
-	  input_flags.dynamic = FALSE;
+	  config.dynamic_link = FALSE;
 	  break;
 	case 'u':
 	  ldlang_add_undef (optarg, TRUE);
@@ -1217,7 +1331,7 @@ parse_args (unsigned argc, char **argv)
 	case OPTION_VERBOSE:
 	  ldversion (1);
 	  version_printed = TRUE;
-	  verbose = TRUE;
+	  trace_file_tries = TRUE;
 	  overflow_cutoff_limit = -2;
 	  if (optarg != NULL)
 	    {
@@ -1327,19 +1441,19 @@ parse_args (unsigned argc, char **argv)
 	  link_info.warn_alternate_em = TRUE;
 	  break;
 	case OPTION_WHOLE_ARCHIVE:
-	  input_flags.whole_archive = TRUE;
+	  whole_archive = TRUE;
 	  break;
 	case OPTION_ADD_DT_NEEDED_FOR_DYNAMIC:
-	  input_flags.add_DT_NEEDED_for_dynamic = TRUE;
+	  add_DT_NEEDED_for_dynamic = TRUE;
 	  break;
 	case OPTION_NO_ADD_DT_NEEDED_FOR_DYNAMIC:
-	  input_flags.add_DT_NEEDED_for_dynamic = FALSE;
+	  add_DT_NEEDED_for_dynamic = FALSE;
 	  break;
 	case OPTION_ADD_DT_NEEDED_FOR_REGULAR:
-	  input_flags.add_DT_NEEDED_for_regular = TRUE;
+	  add_DT_NEEDED_for_regular = TRUE;
 	  break;
 	case OPTION_NO_ADD_DT_NEEDED_FOR_REGULAR:
-	  input_flags.add_DT_NEEDED_for_regular = FALSE;
+	  add_DT_NEEDED_for_regular = FALSE;
 	  break;
 	case OPTION_WRAP:
 	  add_wrap (optarg);

@@ -1,6 +1,6 @@
 /* BFD back-end for Intel 386 COFF files (DJGPP variant with a stub).
    Copyright 1997, 1998, 1999, 2000, 2001, 2002, 2005, 2006, 2007, 2009,
-   2011, 2012  Free Software Foundation, Inc.
+   2011  Free Software Foundation, Inc.
    Written by Robert Hoehne.
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -54,33 +54,34 @@
 { COFF_SECTION_NAME_PARTIAL_MATCH (".gnu.linkonce.wi"), \
   COFF_ALIGNMENT_FIELD_EMPTY, COFF_ALIGNMENT_FIELD_EMPTY, 0 }
 
-#include "sysdep.h"
 #include "bfd.h"
+
+/* At first the prototypes.  */
+
+static void
+adjust_filehdr_in_post PARAMS ((bfd *, PTR, PTR));
+static void
+adjust_filehdr_out_pre PARAMS ((bfd *, PTR, PTR));
+static void
+adjust_filehdr_out_post PARAMS ((bfd *, PTR, PTR));
+static void
+adjust_scnhdr_in_post PARAMS ((bfd *, PTR, PTR));
+static void
+adjust_scnhdr_out_pre PARAMS ((bfd *, PTR, PTR));
+static void
+adjust_scnhdr_out_post PARAMS ((bfd *, PTR, PTR));
+static void
+adjust_aux_in_post PARAMS ((bfd *, PTR, int, int, int, int, PTR));
+static void
+adjust_aux_out_pre PARAMS ((bfd *, PTR, int, int, int, int, PTR));
+static void
+adjust_aux_out_post PARAMS ((bfd *, PTR, int, int, int, int, PTR));
+static void
+create_go32_stub PARAMS ((bfd *));
 
 /* All that ..._PRE and ...POST functions are called from the corresponding
    coff_swap... functions. The ...PRE functions are called at the beginning
    of the function and the ...POST functions at the end of the swap routines.  */
-
-static void
-adjust_filehdr_in_post  (bfd *, void *, void *);
-static void
-adjust_filehdr_out_pre  (bfd *, void *, void *);
-static void
-adjust_filehdr_out_post  (bfd *, void *, void *);
-static void
-adjust_scnhdr_in_post  (bfd *, void *, void *);
-static void
-adjust_scnhdr_out_pre  (bfd *, void *, void *);
-static void
-adjust_scnhdr_out_post (bfd *, void *, void *);
-static void
-adjust_aux_in_post (bfd *, void *, int, int, int, int, void *);
-static void
-adjust_aux_out_pre (bfd *, void *, int, int, int, int, void *);
-static void
-adjust_aux_out_post (bfd *, void *, int, int, int, int, void *);
-static void
-create_go32_stub (bfd *);
 
 #define COFF_ADJUST_FILEHDR_IN_POST adjust_filehdr_in_post
 #define COFF_ADJUST_FILEHDR_OUT_PRE adjust_filehdr_out_pre
@@ -94,12 +95,12 @@ create_go32_stub (bfd *);
 #define COFF_ADJUST_AUX_OUT_PRE adjust_aux_out_pre
 #define COFF_ADJUST_AUX_OUT_POST adjust_aux_out_post
 
-static const bfd_target *go32_check_format (bfd *);
+static const bfd_target *go32_check_format (bfd *abfd);
 
 #define COFF_CHECK_FORMAT go32_check_format
 
 static bfd_boolean
-  go32_stubbed_coff_bfd_copy_private_bfd_data (bfd *, bfd *);
+  go32_stubbed_coff_bfd_copy_private_bfd_data PARAMS ((bfd *, bfd *));
 
 #define coff_bfd_copy_private_bfd_data go32_stubbed_coff_bfd_copy_private_bfd_data
 
@@ -131,9 +132,10 @@ static const unsigned char stub_bytes[GO32_STUBSIZE] =
   if (val != 0) val += diff
 
 static void
-adjust_filehdr_in_post  (bfd *  abfd ATTRIBUTE_UNUSED,
-			 void * src,
-			 void * dst)
+adjust_filehdr_in_post  (abfd, src, dst)
+     bfd *abfd ATTRIBUTE_UNUSED;
+     PTR src;
+     PTR dst;
 {
   FILHDR *filehdr_src = (FILHDR *) src;
   struct internal_filehdr *filehdr_dst = (struct internal_filehdr *) dst;
@@ -148,7 +150,10 @@ adjust_filehdr_in_post  (bfd *  abfd ATTRIBUTE_UNUSED,
 }
 
 static void
-adjust_filehdr_out_pre  (bfd * abfd, void * in, void * out)
+adjust_filehdr_out_pre  (abfd, in, out)
+     bfd *abfd;
+     PTR in;
+     PTR out;
 {
   struct internal_filehdr *filehdr_in = (struct internal_filehdr *) in;
   FILHDR *filehdr_out = (FILHDR *) out;
@@ -167,9 +172,10 @@ adjust_filehdr_out_pre  (bfd * abfd, void * in, void * out)
 }
 
 static void
-adjust_filehdr_out_post  (bfd *  abfd ATTRIBUTE_UNUSED,
-			  void * in,
-			  void * out ATTRIBUTE_UNUSED)
+adjust_filehdr_out_post  (abfd, in, out)
+     bfd *abfd ATTRIBUTE_UNUSED;
+     PTR in;
+     PTR out ATTRIBUTE_UNUSED;
 {
   struct internal_filehdr *filehdr_in = (struct internal_filehdr *) in;
   /* Undo the above change.  */
@@ -177,9 +183,10 @@ adjust_filehdr_out_post  (bfd *  abfd ATTRIBUTE_UNUSED,
 }
 
 static void
-adjust_scnhdr_in_post  (bfd *  abfd ATTRIBUTE_UNUSED,
-			void * ext ATTRIBUTE_UNUSED,
-			void * in)
+adjust_scnhdr_in_post  (abfd, ext, in)
+     bfd *abfd ATTRIBUTE_UNUSED;
+     PTR ext ATTRIBUTE_UNUSED;
+     PTR in;
 {
   struct internal_scnhdr *scnhdr_int = (struct internal_scnhdr *) in;
 
@@ -189,9 +196,10 @@ adjust_scnhdr_in_post  (bfd *  abfd ATTRIBUTE_UNUSED,
 }
 
 static void
-adjust_scnhdr_out_pre  (bfd *  abfd ATTRIBUTE_UNUSED,
-			void * in,
-			void * out ATTRIBUTE_UNUSED)
+adjust_scnhdr_out_pre  (abfd, in, out)
+     bfd *abfd ATTRIBUTE_UNUSED;
+     PTR in;
+     PTR out ATTRIBUTE_UNUSED;
 {
   struct internal_scnhdr *scnhdr_int = (struct internal_scnhdr *) in;
 
@@ -201,9 +209,10 @@ adjust_scnhdr_out_pre  (bfd *  abfd ATTRIBUTE_UNUSED,
 }
 
 static void
-adjust_scnhdr_out_post (bfd *  abfd ATTRIBUTE_UNUSED,
-			void * in,
-			void * out ATTRIBUTE_UNUSED)
+adjust_scnhdr_out_post (abfd, in, out)
+     bfd *abfd ATTRIBUTE_UNUSED;
+     PTR in;
+     PTR out ATTRIBUTE_UNUSED;
 {
   struct internal_scnhdr *scnhdr_int = (struct internal_scnhdr *) in;
 
@@ -213,13 +222,14 @@ adjust_scnhdr_out_post (bfd *  abfd ATTRIBUTE_UNUSED,
 }
 
 static void
-adjust_aux_in_post (bfd * abfd ATTRIBUTE_UNUSED,
-		    void * ext1 ATTRIBUTE_UNUSED,
-		    int type,
-		    int in_class,
-		    int indx ATTRIBUTE_UNUSED,
-		    int numaux ATTRIBUTE_UNUSED,
-		    void * in1)
+adjust_aux_in_post  (abfd, ext1, type, in_class, indx, numaux, in1)
+     bfd *abfd ATTRIBUTE_UNUSED;
+     PTR ext1 ATTRIBUTE_UNUSED;
+     int type;
+     int in_class;
+     int indx ATTRIBUTE_UNUSED;
+     int numaux ATTRIBUTE_UNUSED;
+     PTR in1;
 {
   union internal_auxent *in = (union internal_auxent *) in1;
 
@@ -231,13 +241,14 @@ adjust_aux_in_post (bfd * abfd ATTRIBUTE_UNUSED,
 }
 
 static void
-adjust_aux_out_pre (bfd *abfd ATTRIBUTE_UNUSED,
-		    void * inp,
-		    int type,
-		    int in_class,
-		    int indx ATTRIBUTE_UNUSED,
-		    int numaux ATTRIBUTE_UNUSED,
-		    void * extp ATTRIBUTE_UNUSED)
+adjust_aux_out_pre  (abfd, inp, type, in_class, indx, numaux, extp)
+     bfd *abfd ATTRIBUTE_UNUSED;
+     PTR inp;
+     int type;
+     int in_class;
+     int indx ATTRIBUTE_UNUSED;
+     int numaux ATTRIBUTE_UNUSED;
+     PTR extp ATTRIBUTE_UNUSED;
 {
   union internal_auxent *in = (union internal_auxent *) inp;
 
@@ -249,13 +260,14 @@ adjust_aux_out_pre (bfd *abfd ATTRIBUTE_UNUSED,
 }
 
 static void
-adjust_aux_out_post (bfd *abfd ATTRIBUTE_UNUSED,
-		     void * inp,
-		     int type,
-		     int in_class,
-		     int indx ATTRIBUTE_UNUSED,
-		     int numaux ATTRIBUTE_UNUSED,
-		     void * extp ATTRIBUTE_UNUSED)
+adjust_aux_out_post (abfd, inp, type, in_class, indx, numaux, extp)
+     bfd *abfd ATTRIBUTE_UNUSED;
+     PTR inp;
+     int type;
+     int in_class;
+     int indx ATTRIBUTE_UNUSED;
+     int numaux ATTRIBUTE_UNUSED;
+     PTR extp ATTRIBUTE_UNUSED;
 {
   union internal_auxent *in = (union internal_auxent *) inp;
 
@@ -279,7 +291,8 @@ adjust_aux_out_post (bfd *abfd ATTRIBUTE_UNUSED,
    is taken.  */
 
 static void
-create_go32_stub (bfd *abfd)
+create_go32_stub (abfd)
+     bfd *abfd;
 {
   /* Do it only once.  */
   if (coff_data (abfd)->go32stub == NULL)
@@ -380,7 +393,9 @@ stub_end:
    to the new obfd.  */
 
 static bfd_boolean
-go32_stubbed_coff_bfd_copy_private_bfd_data (bfd *ibfd, bfd *obfd)
+go32_stubbed_coff_bfd_copy_private_bfd_data  (ibfd, obfd)
+     bfd *ibfd;
+     bfd *obfd;
 {
   /* Check if both are the same targets.  */
   if (ibfd->xvec != obfd->xvec)

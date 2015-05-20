@@ -1,5 +1,5 @@
 # This shell script emits a C file. -*- C -*-
-#   Copyright 2003, 2005, 2007, 2008, 2009, 2010, 2011, 2012
+#   Copyright 2003, 2005, 2007, 2008, 2009, 2010, 2011
 #   Free Software Foundation, Inc.
 #
 # This file is part of the GNU Binutils.
@@ -27,7 +27,6 @@ fragment <<EOF
 
 #include "libbfd.h"
 #include "elf32-ppc.h"
-#include "ldlex.h"
 
 #define is_ppc_elf(bfd) \
   (bfd_get_flavour (bfd) == bfd_target_elf_flavour \
@@ -238,11 +237,6 @@ PARSE_AND_LIST_ARGS_CASES=${PARSE_AND_LIST_ARGS_CASES}'
     case OPTION_OLD_GOT:
       old_got = 1;
       break;
-
-    case OPTION_TRADITIONAL_FORMAT:
-      notlsopt = 1;
-      no_tls_get_addr_opt = 1;
-      return FALSE;
 '
 
 # Put these extra ppc32elf routines in ld_${EMULATION_NAME}_emulation

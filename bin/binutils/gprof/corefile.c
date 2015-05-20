@@ -582,7 +582,7 @@ core_create_function_syms (void)
   bfd_vma max_vma = 0;
   int cxxclass;
   long i;
-  struct function_map * found = NULL;
+  struct function_map * found;
   int core_has_func_syms = 0;
 
   switch (core_bfd->xvec->flavour)
@@ -609,14 +609,10 @@ core_create_function_syms (void)
       /* Don't create a symtab entry for a function that has
 	 a mapping to a file, unless it's the first function
 	 in the file.  */
-      if (symbol_map_count != 0)
-	{
-	  /* Note: some systems (SunOS 5.8) crash if bsearch base argument
-	     is NULL.  */
-	  found = (struct function_map *) bsearch
-	    (core_syms[i]->name, symbol_map, symbol_map_count,
-	     sizeof (struct function_map), search_mapped_symbol);
-	}
+      found = (struct function_map *) bsearch (core_syms[i]->name, symbol_map,
+                                               symbol_map_count,
+                                               sizeof (struct function_map),
+                                               search_mapped_symbol);
       if (found == NULL || found->is_first)
 	++symtab.len;
     }
@@ -647,14 +643,9 @@ core_create_function_syms (void)
 	  continue;
 	}
 
-      if (symbol_map_count != 0)
-	{
-	  /* Note: some systems (SunOS 5.8) crash if bsearch base argument
-	     is NULL.  */
-	  found = (struct function_map *) bsearch
-	    (core_syms[i]->name, symbol_map, symbol_map_count,
-	     sizeof (struct function_map), search_mapped_symbol);
-	}
+      found = (struct function_map *) bsearch (core_syms[i]->name, symbol_map,
+                                               symbol_map_count,
+		       sizeof (struct function_map), search_mapped_symbol);
       if (found && ! found->is_first)
 	continue;
 

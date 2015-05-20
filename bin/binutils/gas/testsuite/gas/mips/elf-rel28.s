@@ -46,7 +46,3 @@ foo:
 	sd	$4,%tprel_lo(bar)($4)
 	sd	$4,%gottprel(bar)($4)
 	.end	foo
-
-# Force at least 8 (non-delay-slot) zero bytes, to make 'objdump' print ...
-	.align	2
-	.space	8

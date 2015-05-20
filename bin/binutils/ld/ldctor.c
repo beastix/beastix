@@ -321,11 +321,9 @@ ldctor_build_sets (void)
 
       lang_add_assignment (exp_assign (".",
 				       exp_unop (ALIGN_K,
-						 exp_intop (reloc_size)),
-				       FALSE));
+						 exp_intop (reloc_size))));
       lang_add_assignment (exp_assign (p->h->root.string,
-				       exp_nameop (NAME, "."),
-				       FALSE));
+				       exp_nameop (NAME, ".")));
       lang_add_data (size, exp_intop (p->count));
 
       for (e = p->elements; e != NULL; e = e->next)

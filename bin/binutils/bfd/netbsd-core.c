@@ -1,6 +1,6 @@
 /* BFD back end for NetBSD style core files
    Copyright 1988, 1989, 1991, 1992, 1993, 1996, 1998, 1999, 2000, 2001,
-   2002, 2003, 2004, 2005, 2006, 2007, 2012
+   2002, 2003, 2004, 2005, 2006, 2007
    Free Software Foundation, Inc.
    Written by Paul Kranenburg, EUR
 
@@ -316,5 +316,5 @@ const bfd_target netbsd_core_vec =
 
     NULL,
 
-    NULL			        /* Backend_data.  */
+    (PTR) 0			        /* Backend_data.  */
   };

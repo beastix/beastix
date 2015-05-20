@@ -1,18 +1,16 @@
-#objdump: -Wf
+#readelf: -wf
 #name: CFI on ppc
 #as: -a32
-
-.*
 
 Contents of the .eh_frame section:
 
 00000000 00000010 00000000 CIE
   Version:               1
   Augmentation:          "zR"
-  Code alignment factor: [24]
+  Code alignment factor: 4
   Data alignment factor: -4
   Return address column: 65
-  Augmentation data:     [01]b
+  Augmentation data:     1b
 
   DW_CFA_def_cfa: r1 ofs 0
 

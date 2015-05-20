@@ -1,5 +1,5 @@
 #source: elf-rel28.s
-#as: -march=from-abi -64
+#as: -64
 #objdump: -dr
 #name: MIPS ELF reloc 28 (n64)
 

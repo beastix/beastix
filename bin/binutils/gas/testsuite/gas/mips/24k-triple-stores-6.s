@@ -1,6 +1,5 @@
 	# Store macros
 
-foo:
 	usw      $ra,80($sp)
 	usw      $s3,88($sp)
 	usw      $s8,96($sp)

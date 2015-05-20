@@ -3,7 +3,7 @@
 # as: -march=armv6-m+os
 # readelf: -A
 # This test is only valid on EABI based ports.
-# target: *-*-*eabi *-*-nacl*
+# target: *-*-*eabi
 
 Attribute Section: aeabi
 File Attributes
@@ -11,3 +11,4 @@ File Attributes
   Tag_CPU_arch: v6S-M
   Tag_CPU_arch_profile: Microcontroller
   Tag_THUMB_ISA_use: Thumb-1
+  Tag_DIV_use: Not allowed

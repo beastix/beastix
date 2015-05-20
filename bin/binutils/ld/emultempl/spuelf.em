@@ -1,5 +1,5 @@
 # This shell script emits a C file. -*- C -*-
-#   Copyright 2006, 2007, 2008, 2009, 2010, 2011, 2012
+#   Copyright 2006, 2007, 2008, 2009, 2010, 2011
 #   Free Software Foundation, Inc.
 #
 # This file is part of the GNU Binutils.
@@ -151,7 +151,7 @@ spu_place_special_section (asection *s, asection *o, const char *output_name)
       lang_statement_list_type add;
 
       lang_list_init (&add);
-      lang_add_section (&add, s, NULL, os);
+      lang_add_section (&add, s, os);
       *add.tail = os->children.head;
       os->children.head = add.head;
     }
@@ -165,10 +165,10 @@ spu_place_special_section (asection *s, asection *o, const char *output_name)
 
 	  push_stat_ptr (&os->children);
 	  e_size = exp_intop (params.line_size - s->size);
-	  lang_add_assignment (exp_assign (".", e_size, FALSE));
+	  lang_add_assignment (exp_assign (".", e_size));
 	  pop_stat_ptr ();
 	}
-      lang_add_section (&os->children, s, NULL, os);
+      lang_add_section (&os->children, s, os);
     }
 
   s->output_section->size += s->size;
@@ -384,13 +384,9 @@ spu_elf_open_overlay_script (void)
   return script;
 }
 
-#include <errno.h>
-
 static void
 spu_elf_relink (void)
 {
-  const char *pex_return;
-  int status;
   char **argv = xmalloc ((my_argc + 4) * sizeof (*argv));
 
   memcpy (argv, my_argv, my_argc * sizeof (*argv));
@@ -401,16 +397,9 @@ spu_elf_relink (void)
   argv[my_argc++] = "-T";
   argv[my_argc++] = auto_overlay_file;
   argv[my_argc] = 0;
-
-  pex_return = pex_one (PEX_SEARCH | PEX_LAST, (const char *) argv[0],
-			(char * const *) argv, (const char *) argv[0],
-			NULL, NULL, & status, & errno);
-  if (pex_return != NULL)
-    {
-      perror (pex_return);
-      _exit (127);
-    }
-  exit (status);
+  execvp (argv[0], (char *const *) argv);
+  perror (argv[0]);
+  _exit (127);
 }
 
 /* Final emulation specific call.  */
@@ -535,7 +524,7 @@ embedded_spu_file (lang_input_statement_type *entry, const char *flags)
   cmd[3] = entry->the_bfd->filename;
   cmd[4] = oname;
   cmd[5] = NULL;
-  if (verbose)
+  if (trace_file_tries)
     {
       info_msg (_("running: %s \"%s\" \"%s\" \"%s\" \"%s\"\n"),
 		cmd[0], cmd[1], cmd[2], cmd[3], cmd[4]);
@@ -579,7 +568,7 @@ embedded_spu_file (lang_input_statement_type *entry, const char *flags)
 
   /* Ensure bfd sections are excluded from the output.  */
   bfd_section_list_clear (entry->the_bfd);
-  entry->flags.loaded = TRUE;
+  entry->loaded = TRUE;
   return TRUE;
 }
 

@@ -993,12 +993,7 @@ class Symbol
   // index, not one of the special codes from SHN_LORESERVE to
   // SHN_HIRESERVE (bit 29).
   bool is_ordinary_shndx_ : 1;
-  // True if we've seen this symbol in a "real" ELF object (bit 30).
-  // If the symbol has been seen in a relocatable, non-IR, object file,
-  // it's known to be referenced from outside the IR.  A reference from
-  // a dynamic object doesn't count as a "real" ELF, and we'll simply
-  // mark the symbol as "visible" from outside the IR.  The compiler
-  // can use this distinction to guide its handling of COMDAT symbols.
+  // True if we've seen this symbol in a real ELF object (bit 30).
   bool in_real_elf_ : 1;
   // True if this symbol is defined in a section which was discarded
   // (bit 31).
@@ -1313,9 +1308,10 @@ class Symbol_table
   void
   gc_mark_undef_symbols(Layout*);
 
-  // This tells garbage collection that this symbol is referenced.
+  // During garbage collection, this ensures externally visible symbols
+  // are not treated as garbage while building shared objects.
   void
-  gc_mark_symbol(Symbol* sym);
+  gc_mark_symbol_for_shlib(Symbol* sym);
 
   // During garbage collection, this keeps sections that correspond to 
   // symbols seen in dynamic objects.

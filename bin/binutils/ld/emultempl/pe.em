@@ -9,8 +9,7 @@ rm -f e${EMULATION_NAME}.c
 (echo;echo;echo;echo;echo)>e${EMULATION_NAME}.c # there, now line numbers match ;-)
 fragment <<EOF
 /* Copyright 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
-   2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012
-   Free Software Foundation, Inc.
+   2005, 2006, 2007, 2008, 2009, 2010, 2011 Free Software Foundation, Inc.
 
    This file is part of the GNU Binutils.
 
@@ -165,7 +164,7 @@ gld_${EMULATION_NAME}_before_parse (void)
   ldfile_set_output_arch ("${OUTPUT_ARCH}", bfd_arch_`echo ${ARCH} | sed -e 's/:.*//'`);
   output_filename = "${EXECUTABLE_NAME:-a.exe}";
 #ifdef DLL_SUPPORT
-  input_flags.dynamic = TRUE;
+  config.dynamic_link = TRUE;
   config.has_shared = 1;
 EOF
 
@@ -944,7 +943,7 @@ gld_${EMULATION_NAME}_set_symbols (void)
       lang_assignment_statement_type *rv;
 
       rv = lang_add_assignment (exp_assign (GET_INIT_SYMBOL_NAME (j),
-					    exp_intop (val), FALSE));
+					    exp_intop (val)));
       if (init[j].size == sizeof (short))
 	*(short *) init[j].ptr = val;
       else if (init[j].size == sizeof (int))
@@ -1721,9 +1720,8 @@ gld_${EMULATION_NAME}_unrecognized_file (lang_input_statement_type *entry ATTRIB
 		= pe_def_file->base_address;
 	      init[IMAGEBASEOFF].inited = 1;
 	      if (image_base_statement)
-		image_base_statement->exp
-		  = exp_assign ("__image_base__", exp_intop (pe.ImageBase),
-				FALSE);
+		image_base_statement->exp = exp_assign ("__image_base__",
+							exp_intop (pe.ImageBase));
 	    }
 
 	  if (pe_def_file->stack_reserve != -1
@@ -1916,7 +1914,7 @@ gld_${EMULATION_NAME}_place_orphan (asection *s,
 	       If the section already exists but does not have any flags set,
 	       then it has been created by the linker, probably as a result of
 	       a --section-start command line switch.  */
-	    lang_add_section (&add_child, s, NULL, os);
+	    lang_add_section (&add_child, s, os);
 	    break;
 	  }
 
@@ -1930,7 +1928,7 @@ gld_${EMULATION_NAME}_place_orphan (asection *s,
      unused one and use that.  */
   if (os == NULL && match_by_name)
     {
-      lang_add_section (&match_by_name->children, s, NULL, match_by_name);
+      lang_add_section (&match_by_name->children, s, match_by_name);
       return match_by_name;
     }
 
@@ -2095,7 +2093,7 @@ gld_${EMULATION_NAME}_open_dynamic_archive
   unsigned int i;
 
 
-  if (! entry->flags.maybe_archive)
+  if (! entry->maybe_archive)
     return FALSE;
 
   filename = entry->filename;

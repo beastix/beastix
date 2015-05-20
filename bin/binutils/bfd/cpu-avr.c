@@ -96,7 +96,6 @@ compatible (const bfd_arch_info_type * a,
   default,			/* Is this the default ?  */	\
   compatible,							\
   bfd_default_scan,						\
-  bfd_arch_default_fill,					\
   next								\
 }
 

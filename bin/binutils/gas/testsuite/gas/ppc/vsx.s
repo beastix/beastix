@@ -1,4 +1,4 @@
-	.text
+	.section	".text"
 start:
 	lxsdx      40,10,20
 	lxvd2x     40,10,20

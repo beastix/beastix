@@ -944,18 +944,6 @@ struct __attribute__ ((__packed__)) bin_fixed_versioninfo
 };
 #define BIN_FIXED_VERSIONINFO_SIZE 52
 
-/* A list of string version information.  */
-
-typedef struct rc_ver_stringtable
-{
-  /* Next item.  */
-  struct rc_ver_stringtable *next;
-  /* Language.  */
-  unichar *language;
-  /* Strings.  */
-  struct rc_ver_stringinfo *strings;
-} rc_ver_stringtable;
-
 /* A list of variable version information.  */
 
 typedef struct rc_ver_info
@@ -969,8 +957,10 @@ typedef struct rc_ver_info
     /* StringFileInfo data.  */
     struct
     {
-      /* String tables.  */
-      struct rc_ver_stringtable *stringtables;
+      /* Language.  */
+      unichar *language;
+      /* Strings.  */
+      struct rc_ver_stringinfo *strings;
     } string;
     /* VarFileInfo data.  */
     struct

@@ -297,7 +297,7 @@ mri_format (const char *name)
 void
 mri_public (const char *name, etree_type *exp)
 {
-  lang_add_assignment (exp_assign (name, exp, FALSE));
+  lang_add_assignment (exp_assign (name, exp));
 }
 
 void

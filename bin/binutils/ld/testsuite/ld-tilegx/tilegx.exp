@@ -24,21 +24,14 @@ if {!([istarget "tilegx-*-*"]) } {
 
 # Set up a list as described in ld-lib.exp
 
-set tilegx_tests {
-    {   "tilegx little-endian relocation resolution linker test"
-        "-EL"
-        "-EL"
+set tilepro_tests {
+    {   "tilegx relocation resolution linker test"
+        ""
+        ""
         { "reloc.s" "external.s" }
-        { {objdump -ds reloc-le.d} }
-        "reloc"
-    }
-    {   "tilegx big-endian relocation resolution linker test"
-        "-EB"
-        "-EB"
-        { "reloc.s" "external.s" }
-        { {objdump -ds reloc-be.d} }
+        { {objdump -ds reloc.d} }
         "reloc"
     }
 }
 
-run_ld_link_tests $tilegx_tests
+run_ld_link_tests $tilepro_tests

@@ -26,7 +26,6 @@
 
 @c CPUs of interest
 @c ================
-@set AARCH64
 @set ALPHA
 @set ARC
 @set ARM
@@ -36,7 +35,6 @@
 @set CRIS
 @set D10V
 @set D30V
-@set EPIPHANY
 @set H8/300
 @set HPPA
 @set I370
@@ -61,7 +59,6 @@
 @set PDP11
 @set PJ
 @set PPC
-@set RL78
 @set RX
 @set S390
 @set SCORE
@@ -73,7 +70,6 @@
 @set TILEPRO
 @set V850
 @set VAX
-@set XGATE
 @set XSTORMY16
 @set XTENSA
 @set Z80

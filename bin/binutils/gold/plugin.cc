@@ -184,8 +184,6 @@ Plugin::load()
     tv[i].tv_u.tv_val = LDPO_REL;
   else if (parameters->options().shared())
     tv[i].tv_u.tv_val = LDPO_DYN;
-  else if (parameters->options().pie())
-    tv[i].tv_u.tv_val = LDPO_PIE;
   else
     tv[i].tv_u.tv_val = LDPO_EXEC;
 
@@ -820,9 +818,7 @@ Pluginobj::Pluginobj(const std::string& name, Input_file* input_file,
 }
 
 // Return TRUE if a defined symbol is referenced from outside the
-// universe of claimed objects.  Only references from relocatable,
-// non-IR (unclaimed) objects count as a reference.  References from
-// dynamic objects count only as "visible".
+// universe of claimed objects.
 
 static inline bool
 is_referenced_from_outside(Symbol* lsym)
@@ -842,8 +838,6 @@ is_referenced_from_outside(Symbol* lsym)
 static inline bool
 is_visible_from_outside(Symbol* lsym)
 {
-  if (lsym->in_dyn())
-    return true;
   if (parameters->options().export_dynamic() || parameters->options().shared())
     return lsym->is_externally_visible();
   return false;
@@ -1161,14 +1155,13 @@ Sized_pluginobj<size, big_endian>::do_section_name(unsigned int)
 // Return a view of the contents of a section.  Not used for plugin objects.
 
 template<int size, bool big_endian>
-const unsigned char*
-Sized_pluginobj<size, big_endian>::do_section_contents(
-    unsigned int,
-    section_size_type*,
-    bool)
+Object::Location
+Sized_pluginobj<size, big_endian>::do_section_contents(unsigned int)
 {
+  Location loc(0, 0);
+
   gold_unreachable();
-  return NULL;
+  return loc;
 }
 
 // Return section flags.  Not used for plugin objects.
@@ -1251,18 +1244,14 @@ Sized_pluginobj<size, big_endian>::do_initialize_xindex()
   return NULL;
 }
 
-// Get symbol counts.  Don't count plugin objects; the replacement
-// files will provide the counts.
+// Get symbol counts.  Not used for plugin objects.
 
 template<int size, bool big_endian>
 void
-Sized_pluginobj<size, big_endian>::do_get_global_symbol_counts(
-    const Symbol_table*,
-    size_t* defined,
-    size_t* used) const
+Sized_pluginobj<size, big_endian>::do_get_global_symbol_counts(const Symbol_table*,
+                                                   size_t*, size_t*) const
 {
-  *defined = 0;
-  *used = 0;
+  gold_unreachable();
 }
 
 // Get symbols.  Not used for plugin objects.
@@ -1641,7 +1630,7 @@ get_input_section_contents(const struct ld_plugin_section section,
 // which they should appear in the final layout.
 
 static enum ld_plugin_status
-update_section_order(const struct ld_plugin_section* section_list,
+update_section_order(const struct ld_plugin_section *section_list,
 		     unsigned int num_sections)
 {
   gold_assert(parameters->options().has_plugins());
@@ -1652,14 +1641,8 @@ update_section_order(const struct ld_plugin_section* section_list,
   if (section_list == NULL)
     return LDPS_ERR;
 
-  Layout* layout = parameters->options().plugins()->layout();
-  gold_assert (layout != NULL);
+  std::map<Section_id, unsigned int> order_map;
 
-  std::map<Section_id, unsigned int>* order_map
-    = layout->get_section_order_map();
-
-  /* Store the mapping from Section_id to section position in layout's
-     order_map to consult after output sections are added.  */
   for (unsigned int i = 0; i < num_sections; ++i)
     {
       Object* obj = parameters->options().plugins()->get_elf_object(
@@ -1668,8 +1651,16 @@ update_section_order(const struct ld_plugin_section* section_list,
 	return LDPS_BAD_HANDLE;
       unsigned int shndx = section_list[i].shndx;
       Section_id secn_id(obj, shndx);
-      (*order_map)[secn_id] = i + 1;
+      order_map[secn_id] = i + 1;
     }
+
+  Layout* layout = parameters->options().plugins()->layout();
+  gold_assert (layout != NULL);
+
+  for (Layout::Section_list::const_iterator p = layout->section_list().begin();
+       p != layout->section_list().end();
+       ++p)
+    (*p)->update_section_layout(order_map);
 
   return LDPS_OK;
 }
