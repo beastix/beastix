@@ -13,9 +13,9 @@ build-binutils:
 
 build-gcc:
 	export PATH=`pwd`/../obj/bin/binutils/bin:`pwd`/../obj/bin/busybox/_install/bin:`pwd`/../obj/bin/busybox/_install/usr/bin:/usr/bin;  cd ../obj/bin/gcc; ../../../bin/gcc/configure --prefix=`pwd` --disable-nls --enable-languages=c,c++ --without-headers
-	export PATH=`pwd`/../obj/bin/binutils/bin:`pwd`/../obj/bin/busybox/_install/bin:`pwd`/../obj/bin/busybox/_install/usr/bin:/usr/bin;  make -C ../obj/bin/gcc all-gcc
-	export PATH=`pwd`/../obj/bin/binutils/bin:`pwd`/../obj/bin/busybox/_install/bin:`pwd`/../obj/bin/busybox/_install/usr/bin:/usr/bin;  make -C ../obj/bin/gcc all-target-libgcc
-	export PATH=`pwd`/../obj/bin/binutils/bin:`pwd`/../obj/bin/busybox/_install/bin:`pwd`/../obj/bin/busybox/_install/usr/bin:/usr/bin;  make -C ../obj/bin/gcc install-gcc
-	export PATH=`pwd`/../obj/bin/binutils/bin:`pwd`/../obj/bin/busybox/_install/bin:`pwd`/../obj/bin/busybox/_install/usr/bin:/usr/bin;  make -C ../obj/bin/gcc install-target-libgcc
+	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/; export PATH=`pwd`/../obj/bin/binutils/bin:`pwd`/../obj/bin/busybox/_install/bin:`pwd`/../obj/bin/busybox/_install/usr/bin:/usr/bin;  make -C ../obj/bin/gcc all-gcc
+	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/; export PATH=`pwd`/../obj/bin/binutils/bin:`pwd`/../obj/bin/busybox/_install/bin:`pwd`/../obj/bin/busybox/_install/usr/bin:/usr/bin;  make -C ../obj/bin/gcc all-target-libgcc
+	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/; export PATH=`pwd`/../obj/bin/binutils/bin:`pwd`/../obj/bin/busybox/_install/bin:`pwd`/../obj/bin/busybox/_install/usr/bin:/usr/bin;  make -C ../obj/bin/gcc install-gcc
+	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/; export PATH=`pwd`/../obj/bin/binutils/bin:`pwd`/../obj/bin/busybox/_install/bin:`pwd`/../obj/bin/busybox/_install/usr/bin:/usr/bin;  make -C ../obj/bin/gcc install-target-libgcc
 
 build: build-busybox build-binutils build-gcc
