@@ -1,0 +1,9 @@
+This directory contains the source code for the installation system.
+
+The installation process consists of the following:
+
+1 - Boot the release CD
+2 - Select the install option
+3 - Kernel is booted with the installer initrd (rather than the live initrd)
+4 - rc.local in installer initrd starts the installation script
+5 - Installer script starts

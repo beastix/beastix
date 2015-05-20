@@ -3,11 +3,10 @@ initrd:
 	cp -R --preserve ../rootfs/* tmproot/
 	cp -R --preserve ../obj/bin/busybox/_install/* tmproot/
 	rm tmproot/linuxrc
-	cd tmproot/; find . | cpio -H newc -o | gzip > ../release/rootfs.cpio.gz; tar cvf ../release/rootfs.tar ./*; bzip2 ../release/rootfs.tar
+	cd tmproot/; find . | cpio -H newc -o | gzip > ../release/rootfs.cpio.gz; tar cvf ../release/rootfs.tar ./*; gzip ../release/rootfs.tar
 	rm -rf tmproot
 
-iso: initrd
-	cd ../obj/kernel/; sed -i 's/mkisofs/genisoimage/g' arch/x86/boot/Makefile; make isoimage FDINITRD=../../releng/release/rootfs.cpio.gz; cp arch/x86/boot/image.iso ../../releng/release
-
-release: iso
-	cp ../obj/kernel/arch/x86/boot/isoimage/linux release/
+release: initrd
+	cp ../obj/kernel/arch/x86_64/boot/bzImage release/
+	mv release/rootfs.tar.gz release/base.tgz
+	mv release/rootfs.cpio.gz release/initrd_live.img
