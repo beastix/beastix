@@ -9,8 +9,7 @@ initrd:
 	rm -rf tmproot
 
 src:
-	# TODO - make this respect the branches defined in release_config.mk
-	svn co https://github.com/beastix/beastix release/src
+	git clone .. release/src
 	cd release; tar cvf src.tar src/*; gzip src.tar;
 	rm -rf release/src
 
