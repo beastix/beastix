@@ -1,6 +1,7 @@
 buildworld:
 	make -C bin/ build
 	make -C lib/ build
+	./update_rootfs.sh
 
 buildkernel:
 	export KBUILD_OUTPUT=../obj/kernel/
