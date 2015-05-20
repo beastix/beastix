@@ -20,7 +20,7 @@ initrd:
 	cp -R --preserve ../obj/bin/gcc/lib32/* tmproot/lib/
 	cp -R --preserve ../obj/bin/gcc/lib64/* tmproot/lib/
 	cp -R --preserve ../obj/bin/gcc/libexec tmproot/
-	cp -R --preserve ../obj/bin/gcc/x86_64_unknown-linux-gnu/* tmproot/x86_64-unknown-linux-gnu
+	cp -R --preserve ../obj/bin/gcc/x86_64_unknown-linux-gnu/* tmproot/x86_64-unknown-linux-gnu/ 
 	cp -R --preserve ../obj/bin/gcc/include/* tmproot/usr/include/
 	
 	rm tmproot/linuxrc
