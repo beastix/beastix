@@ -2,7 +2,7 @@
 ::restart:/sbin/init
 ::ctrlaltdel:/sbin/reboot
 ::once:cat /etc/announce
-::respawn:/bin/cttyhack /bin/sh
+::respawn:/bin/cttyhack /bin/login
 tty2::once:cat /etc/announce
 tty2::respawn:/bin/login
 tty3::once:cat /etc/announce
