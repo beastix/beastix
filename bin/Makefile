@@ -11,4 +11,11 @@ build-binutils:
 	make -C ../obj/bin/binutils
 	make -C ../obj/bin/binutils PREFIX=. install
 
-build: build-busybox build-binutils
+build-gcc:
+	cd ../obj/bin/gcc; ../../../bin/gcc/configure --prefix=`pwd` --disable-nls --enable-languages=c,c++ --without-headers
+	make -C ../obj/bin/gcc all-gcc
+	make -C ../obj/bin/gcc all-target-libgcc
+	make -C ../obj/bin/gcc install-gcc
+	make -C ../obj/bin/gcc install-target-libgcc
+
+build: build-busybox build-binutils build-gcc
