@@ -1,8 +1,53 @@
-How a release is built:
+This directory contains scripts used for building a release
 
-1 - Create a temporary root directory
-2 - Export the contents of rootfs/ into this directory
-3 - Copy the contents of obj/bin/busybox/_install into the directory and make appropriate cleanup changes
-4 - Compress the directory
-5 - Build a live ISO using the compressed tarball as an initrd
+After doing a "make buildkernel" and "make buildworld" to populate obj/ please perform the following steps in this directory.
 
+ $ vi release_config.mk   # edit release configuration settings (optional)
+ $ make release           # build release
+
+The result will be the following files in release/, suitable for distribution on a public FTP server:
+
+	base.tgz
+		The base system ready to extract to a root directory
+	bzImage
+		The compressed linux kernel image
+	initrd_live.img
+		The base system in initrd form, suitable for use in rescue operations
+	initrd_installer.img
+		The base system in initrd form, modified with installer script
+	src.tar.gz
+		A copy of the clean source tree this release was built from
+	beastix.iso
+		A bootable CD containing the entire release with support for booting the base system in rescue or installer mode (by selecting a different initrd image)
+	MD5SUMS
+		MD5 hashes of all the other files in the release
+
+Release branches will eventually follow this pattern:
+
+	Beastix-Maj.Min-CURRENT
+		Latest version of the code from git, default branch
+	Beastix-Maj.Min-RELENG
+		Release cut from -CURRENT before cleaning up and preparing for proper release
+	Beastix-Maj.Min-RELEASE
+		Tagged from Beastix-Maj.Min-RELENG after cleaning up
+	Beastix-Maj.Min-UPDATES
+		Branched from Beastix-Maj.Min-RELEASE
+		Security and bugfixes only, no new features
+
+Development proceeds in -CURRENT (default branch in git) until release time.
+At release time, the version number is bumped in the following locations:
+	releng/release_config.mk
+	rootfs/etc/beastix_version
+	rootfs/etc/announce
+
+A -RELENG branch is then created and feature freezed, no new features are allowed into -RELENG, only bugfixes and security patches
+
+Once -RELENG is considered ready, it is tagged as a -RELEASE, at the same time -UPDATES is branched to allow further bugfixes and security patches
+
+
+End users should be able to update by replacing the contents of /usr/src with a new git checkout or the contents of src.tar.gz and do the following to update:
+ $ make buildkernel
+ $ make buildworld
+ $ su
+ # make installworld
+ # make installkernel
