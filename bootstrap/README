@@ -1,0 +1,3 @@
+This directory is used for building bootstrapping tools for building beastix from a linux distro.
+
+You do not need to worry about this if installing the system from a binary release or upgrading from within beastix.

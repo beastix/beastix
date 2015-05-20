@@ -1,3 +1,7 @@
+bootstrap:
+	make -C bin/ build-bootstrap
+	make -C lib/ build-bootstrap
+
 buildworld:
 	make -C bin/ build
 	make -C lib/ build

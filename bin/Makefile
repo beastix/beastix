@@ -18,4 +18,6 @@ build-gcc:
 	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/; make -C ../obj/bin/gcc all
 	make -C ../obj/bin/gcc install
 
+build-bootstrap: bootstrap-binutils bootstrap-gcc
+
 build: build-busybox build-binutils build-gcc
