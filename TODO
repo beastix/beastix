@@ -1,0 +1,8 @@
+man pages
+musl
+gcc + binutils
+cdrtools (required for building ISO image when self-hosting)
+bash or pdksh
+pkgsrc
+OpenSSH
+X11 set (build through pkgsrc in chroot)
