@@ -27,3 +27,4 @@ release: initrd src
 	mv isoroot/*.img isoroot/images
 	genisoimage -l -J -r -o release/beastix.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table isoroot
 	isohybrid release/beastix.iso
+	rm -rf isoroot
