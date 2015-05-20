@@ -3,7 +3,26 @@ include release_config.mk
 initrd:
 	mkdir tmproot
 	cp -R --preserve ../rootfs/* tmproot/
+	
+	# busybox
 	cp -R --preserve ../obj/bin/busybox/_install/* tmproot/
+		
+	# binutils
+	cp -R --preserve ../obj/bin/binutils/bin/* tmproot/bin/
+	cp -R --preserve ../obj/bin/binutils/etc/* tmproot/bin/
+	cp -R --preserve ../obj/bin/binutils/lib/* tmproot/lib/
+	cp -R --preserve ../obj/bin/binutils/x86_64-unknown-linux-gnu tmproot/
+	cp -R --preserve ../obj/bin/binutils/include/* tmproot/usr/include/
+	
+	# gcc
+	cp -R --preserve ../obj/bin/gcc/bin/*   tmproot/bin/
+	cp -R --preserve ../obj/bin/gcc/lib/*   tmproot/lib/
+	cp -R --preserve ../obj/bin/gcc/lib32/* tmproot/lib/
+	cp -R --preserve ../obj/bin/gcc/lib64/* tmproot/lib/
+	cp -R --preserve ../obj/bin/gcc/libexec tmproot/
+	cp -R --preserve ../obj/bin/gcc/x86_64_unknown-linux-gnu/* tmproot/x86_64-unknown-linux-gnu
+	cp -R --preserve ../obj/bin/gcc/include/* tmproot/usr/include/
+	
 	rm tmproot/linuxrc
 	cd tmproot/; find . | cpio -H newc -o | gzip > ../release/rootfs.cpio.gz; tar cvf ../release/rootfs.tar ./*; gzip ../release/rootfs.tar
 	rm -rf tmproot
