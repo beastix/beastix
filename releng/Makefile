@@ -17,3 +17,4 @@ release: initrd src
 	cp ../obj/kernel/arch/x86_64/boot/bzImage release/
 	mv release/rootfs.tar.gz release/base.tgz
 	mv release/rootfs.cpio.gz release/initrd_live.img
+	cd release/; md5sum * >MD5SUMS
