@@ -14,8 +14,8 @@ build-binutils:
 	export LDFLAGS="-all-static"; make -C ../obj/bin/binutils PREFIX=. install
 
 build-gcc:
-	cd ../obj/bin/gcc; ../../../bin/gcc/configure --prefix=`pwd` --disable-nls --enable-languages=c,c++ --without-headers
-	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/; make -C ../obj/bin/gcc bootstrap BOOT_LDFLAGS="-static"
+	cd ../obj/bin/gcc; ../../../bin/gcc/configure --prefix=`pwd` --disable-nls --enable-languages=c,c++ --without-headers --enable-static
+	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/; make -C ../obj/bin/gcc all
 	make -C ../obj/bin/gcc install
 
 build: build-busybox build-binutils build-gcc
