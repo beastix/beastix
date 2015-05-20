@@ -37,6 +37,7 @@ Release branches will eventually follow this pattern:
 Development proceeds in -CURRENT (default branch in git) until release time.
 At release time, the version number is bumped in the following locations:
 	releng/release_config.mk
+	releng/mksnapshot.sh
 	rootfs/etc/beastix_version
 	rootfs/etc/announce
 
