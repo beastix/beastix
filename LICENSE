@@ -1,0 +1,8 @@
+Most of the code in beastix is based on GNU code and is thus licensed under
+the GPL, some portions are GPLv2 and some are GPLv3.
+
+The musl libc is licensed under the MIT license.
+
+All other code is licensed under GPLv2.
+
+For a full copy of the terms of each license, please look in doc/
