@@ -1,6 +1,7 @@
 build-musl:
-	cd musl; ./configure --prefix=../../obj/lib/musl
-	make -C ../../obj/lib/musl
+	cd musl; ./configure --prefix=../../obj/lib/musl/_install --disable-gcc-wrapper
+	make -C musl
+	make -C musl install
 
 bootstrap-musl:
 	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; cd musl; ./configure --host="x86_64-unknown-linux-musl" --prefix=`pwd`/../../bootstrap/musl/_install --syslibdir=`pwd`/../../bootstrap/musl/_install/lib --target="x86_64-unknown-linux-musl" --disable-gcc-wrapper --disable-shared --enable-static
