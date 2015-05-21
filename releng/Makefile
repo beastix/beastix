@@ -13,6 +13,10 @@ initrd:
 	# gcc
 	cp -R --preserve ../obj/bin/gcc/_install/* tmproot/
 	
+	# musl
+	cp -R --preserve ../obj/lib/musl/_install/* tmproot/
+
+
 	rm tmproot/linuxrc
 	cd tmproot/; find . | cpio -H newc -o | gzip > ../release/rootfs.cpio.gz; tar cvf ../release/rootfs.tar ./*; gzip ../release/rootfs.tar
 	rm -rf tmproot

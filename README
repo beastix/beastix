@@ -59,7 +59,7 @@ The releng scripts attempt to create an iso, to do so syslinux is used in combo 
 the "make release" command.
 
 After all this, you will find a copy of the system in releng/release that can be installed to a real system or booted inside of an emulator such as qemu. During development, the system is commonly tested
-with kvm-qemu to directly load the kernel and initrd_live.img files and then by booting the iso image.
+with kvm-qemu to directly load the kernel and initrd_live.img files and then by booting the iso image. If you test this way, be sure to use a system with at least 1GB of RAM allocated.
 
 
 
