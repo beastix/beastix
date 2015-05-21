@@ -9,6 +9,7 @@ initrd:
 		
 	# binutils
 	cp -R --preserve ../obj/bin/binutils/_install/* tmproot/
+	cp -R --preserve ../obj/bin/binutils/_install/x86_64-unknown-linux-musl/* tmproot/
 	
 	# gcc
 	cp -R --preserve ../obj/bin/gcc/_install/* tmproot/
@@ -29,6 +30,10 @@ src:
 	rm -rf release/src
 
 ports:
+
+hdimage:
+	dd if=/dev/zero of=release/beastix.hdd bs=1M count=4096
+	/sbin/mke2fs release/beastix.hdd
 
 release: initrd src ports
 	cp ../obj/kernel/arch/x86_64/boot/bzImage release/
