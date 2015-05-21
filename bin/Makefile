@@ -7,9 +7,10 @@ build-busybox:
 	make -C ../obj/bin/busybox  PREFIX=. install
 
 build-gcc:
-	cd ../obj/bin/gcc; ../../../bin/gcc/configure --prefix=`pwd` --disable-nls --enable-languages=c,c++ --without-headers --enable-static
-	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/; make -C ../obj/bin/gcc all
-	make -C ../obj/bin/gcc install
+	cd ../obj/bin/gcc; ../../../bin/gcc/configure --target=x86_64-unknown-linux-musl  --enable-languages=c --with-newlib --disable-multilib --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap --disable-libgomp --prefix=`pwd`/_install
+	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; make -C ../bootstrap/gcc all-gcc install-gcc
+	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; make -C ../bootstrap/gcc all-target-libgcc install-target-libgcc
+
 
 bootstrap-binutils:
 	cd ../bootstrap; mkdir binutils; cd binutils; ../../bin/binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-install-libbfd --with-sysroot=`pwd`/../tools
@@ -23,7 +24,7 @@ build-binutils:
 	rm -rf ../bootstrap/binutils/_install
 	mkdir ../bootstrap/binutils/_install
 	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; export LDFLAGS="-static"; export CFLAGS="-static -I`pwd`/../bootstrap/tools/include/"; make -C ../obj/bin/binutils
-#	make -C ../obj/bin/binutils install-gas install-ld install-binutils
+	make -C ../obj/bin/binutils install-gas install-ld install-binutils
 
 
 bootstrap-gcc: 
