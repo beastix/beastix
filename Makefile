@@ -25,6 +25,8 @@ buildkernel:
 	make -C obj/kernel/ bzImage
 
 clean:
+	rm -rf obj/lib/musl/*
+	rm -rf obj/lib/libedit/*
 	rm -rf obj/bin/binutils/*
 	rm -rf obj/bin/busybox/*
 	rm -rf obj/bin/gcc/*
