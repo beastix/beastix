@@ -8,8 +8,8 @@ build-busybox:
 
 build-gcc:
 	cd ../obj/bin/gcc; ../../../bin/gcc/configure --target=x86_64-unknown-linux-musl  --enable-languages=c --with-newlib --disable-multilib --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap --disable-libgomp --prefix=`pwd`/_install
-	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; make -C ../bootstrap/gcc all-gcc install-gcc
-	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; make -C ../bootstrap/gcc all-target-libgcc install-target-libgcc
+	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; make -C ../obj/bin/gcc all-gcc install-gcc CC=x86_64-unknown-linux-musl-gcc LDFLAGS=-static
+	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; make -C ../obj/bin/gcc all-target-libgcc install-target-libgcc CC=x86_64-unknown-linux-musl-gcc LDFLAGS=-static
 
 
 bootstrap-binutils:

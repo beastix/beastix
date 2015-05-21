@@ -22,6 +22,7 @@
 #include "coretypes.h"
 #include "hosthooks.h"
 #include "hosthooks-def.h"
+#include <limits.h>
 
 
 /* Linux has a feature called exec-shield-randomize that perturbs the
