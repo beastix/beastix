@@ -1,5 +1,4 @@
 man pages
-make
 cdrtools (required for building ISO image when self-hosting)
 bash or pdksh
 pkgsrc

@@ -26,7 +26,7 @@ build-binutils:
 	make -C ../obj/bin/binutils install-gas install-ld install-binutils
 
 build-make:
-	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; cd ../obj/bin/make; ../../../bin/make/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-nls
+	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; cd ../obj/bin/make; ../../../bin/make/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-nls --without-guile
 	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; make -C ../obj/bin/make install
 
 bootstrap-gcc: 

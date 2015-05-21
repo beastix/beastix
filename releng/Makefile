@@ -15,8 +15,10 @@ initrd:
 	
 	# musl
 	cp -R --preserve ../obj/lib/musl/_install/* tmproot/
-
-
+	
+	# make
+	cp -R --preserve ../obj/bin/make/_install/* tmproot/
+	
 	rm tmproot/linuxrc
 	cd tmproot/; find . | cpio -H newc -o | gzip > ../release/rootfs.cpio.gz; tar cvf ../release/rootfs.tar ./*; gzip ../release/rootfs.tar
 	rm -rf tmproot
