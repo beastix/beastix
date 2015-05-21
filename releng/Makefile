@@ -13,6 +13,10 @@ initrd:
 	
 	# gcc
 	cp -R --preserve ../obj/bin/gcc/_install/* tmproot/
+		
+	# kernel headers
+	cp -R --preserve ../obj/kernel/include/* tmproot/include/
+	cd tmproot; ln -s /include usr/include
 	
 	# musl
 	cp -R --preserve ../obj/lib/musl/_install/* tmproot/
@@ -20,6 +24,8 @@ initrd:
 	# make
 	cp -R --preserve ../obj/bin/make/_install/* tmproot/
 	
+	cd tmproot/; ln -s  /lib/libc.so bin/ldd;
+	cd tmproot/; ln -sf /lib/libc.so lib/ld-musl-x86_64.so.1
 	rm tmproot/linuxrc
 	cd tmproot/; find . | cpio -H newc -o | gzip > ../release/rootfs.cpio.gz; tar cvf ../release/rootfs.tar ./*; gzip ../release/rootfs.tar
 	rm -rf tmproot

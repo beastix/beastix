@@ -21,6 +21,7 @@ buildkernel:
 	make -C kernel/ O=../obj/kernel/ mrproper
 	make -C kernel/ O=../obj/kernel/ defconfig
 	sed -i "s/.*CONFIG_DEFAULT_HOSTNAME.*/CONFIG_DEFAULT_HOSTNAME=\"beastix\"/" obj/kernel/.config
+	make -C kernel/ INSTALL_HDR_PATH=../obj/kernel headers_install
 	make -C obj/kernel/ bzImage
 
 clean:
