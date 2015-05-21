@@ -34,7 +34,7 @@ bootstrap-gcc: bootstrap-binutils
 build-bootstrap: bootstrap-binutils bootstrap-gcc
 	rm -rf ../bootstrap/tools
 	mkdir ../bootstrap/tools
-	cp -Rv ../bootstrap/binutils/_install/* bootstrap/tools/
-	cp -Rv ../bootstrap/gcc/_install/* bootstrap/tools/
+	cp -Rv ../bootstrap/binutils/_install/* ../bootstrap/tools/
+	cp -Rv ../bootstrap/gcc/_install/* ../bootstrap/tools/
 
 build: build-busybox build-binutils build-gcc
