@@ -7,11 +7,11 @@ build-busybox:
 	make -C ../obj/bin/busybox  PREFIX=. install
 
 build-binutils:
-	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; cd ../obj/bin/binutils; ../../../bin/binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-nls --disable-shared --disable-werror --disable-install-libbfd --host=x86_64-unknown-linux-musl
+	export PATH=`pwd`/../bootstrap/tools/bin:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; cd ../obj/bin/binutils; ../../../bin/binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-nls --disable-shared --disable-werror --disable-install-libbfd --host=x86_64-unknown-linux-musl
 	rm -rf ../obj/bin/binutils/_install
 	mkdir ../obj/bin/binutils/_install
-	export PATH=`pwd`/../bootstrap/binutils/_install/x86_64-unknown-linux-musl/bin:`pwd`/../bootstrap/gcc/_install/bin:/bin:/usr/bin; export CFLAGS="-ffunction-sections -fdata-sections"; export LDFLAGS="-s"; export CC="x86_64-unknown-linux-musl-gcc"; make -C ../obj/bin/binutils install-gas install-ld install-binutils tooldir=""
-	export PATH=`pwd`/../bootstrap/binutils/_install/bin:`pwd`/../bootstrap/gcc/_install/bin:/bin:/usr/bin; export CFLAGS="-Os"; export LDFLAGS="-s"; export CC="x86_64-unknown-linux-musl-gcc"; make -C ../obj/bin/binutils install
+	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; make -C ../obj/bin/binutils tooldir=""  CFLAGS="-ffunction-sections -fdata-sections -static -I`pwd`/../bootstrap/tools/include"  LDFLAGS="-static -Wl,--gc-sections" 
+	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; make -C ../obj/bin/binutils install-gas install-ld install-binutils tooldir=""  CFLAGS="-ffunction-sections -fdata-sections -Os"  LDFLAGS="-all-static -static -Wl,--gc-sections"
 
 
 build-gcc:
@@ -24,7 +24,7 @@ bootstrap-binutils:
 	rm -rf ../bootstrap/binutils/_install
 	mkdir ../bootstrap/binutils/_install
 	make -C ../bootstrap/binutils
-	make -C ../bootstrap/binutils install
+	make -C ../bootstrap/binutils install-gas install-ld install-binutils
 
 bootstrap-gcc: 
 	cd ../bootstrap; mkdir gcc; cd gcc; ../../bin/gcc/configure --target=x86_64-unknown-linux-musl  --enable-languages=c --with-newlib --disable-multilib --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap --disable-libgomp --with-sysroot=`pwd`/../tools --prefix=`pwd`/_install

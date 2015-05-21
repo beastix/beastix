@@ -2,6 +2,7 @@ bootstrap: FORCE
 	make -C bin/ build-bootstrap
 	rm -rf bootstrap/tools
 	mkdir bootstrap/tools
+	make -C kernel/ INSTALL_HDR_PATH=../bootstrap/tools headers_install
 	cp -Rv bootstrap/binutils/_install/* bootstrap/tools/
 	cp -Rv bootstrap/gcc/_install/* bootstrap/tools/
 	make -C lib/ build-bootstrap
