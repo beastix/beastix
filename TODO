@@ -1,8 +1,13 @@
 man pages
 musl
+  Basically complete
 gcc + binutils
+  bootstrap versions build correctly
+  static linked binutils build correctly
+  gcc in progress
 cdrtools (required for building ISO image when self-hosting)
 bash or pdksh
 pkgsrc
 OpenSSH
+Cleanup compiler warnings - go through whole build process and cleanup any and all compiler warnings
 X11 set (build through pkgsrc in chroot)
