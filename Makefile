@@ -1,6 +1,8 @@
-bootstrap:
+bootstrap: FORCE
 	make -C bin/ build-bootstrap
 	make -C lib/ build-bootstrap
+
+FORCE:
 
 buildworld:
 	make -C bin/ build
@@ -18,6 +20,7 @@ clean:
 	rm -rf obj/bin/binutils/*
 	rm -rf obj/bin/busybox/*
 	rm -rf obj/bin/gcc/*
+	rm -rf obj/kernel/*
 	rm -rf releng/release/*
 	rm -rf bootstrap/binutils/_install
 	rm -rf bootstrap/gcc/_install
