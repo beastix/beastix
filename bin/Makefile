@@ -7,10 +7,9 @@ build-busybox:
 	make -C ../obj/bin/busybox  PREFIX=. install
 
 build-gcc:
-	cd ../obj/bin/gcc; ../../../bin/gcc/configure --target=x86_64-unknown-linux-musl  --enable-languages=c --with-newlib --disable-multilib --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap --disable-libgomp --prefix=`pwd`/_install
-	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; make -C ../obj/bin/gcc all-gcc install-gcc CC=x86_64-unknown-linux-musl-gcc LDFLAGS=-static
-	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin; make -C ../obj/bin/gcc all-target-libgcc install-target-libgcc CC=x86_64-unknown-linux-musl-gcc LDFLAGS=-static
-
+	cd ../obj/bin/gcc; export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin;  export LDFLAGS="-static"; export CFLAGS="-static"; export CPPFLAGS=-I`pwd`/../bootstrap/tools/include/; ../../../bin/gcc/configure --host=x86_64-unknown-linux-musl --target=x86_64-unknown-linux-musl  --enable-languages=c --disable-nls --with-newlib --disable-multilib --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap --disable-libgomp --prefix=`pwd`/_install/
+	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin;  export LDFLAGS="-static"; export CFLAGS="-static"; export CPPFLAGS=-I`pwd`/../bootstrap/tools/include/; make -C ../obj/bin/gcc all-gcc install-gcc CC=x86_64-unknown-linux-musl-gcc 
+	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin;  export LDFLAGS="-static"; export CFLAGS="-static"; export CPPFLAGS=-I`pwd`/../bootstrap/tools/include/; make -C ../obj/bin/gcc all-target-libgcc install-target-libgcc CC=x86_64-unknown-linux-musl-gcc 
 
 bootstrap-binutils:
 	cd ../bootstrap; mkdir binutils; cd binutils; ../../bin/binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-install-libbfd --with-sysroot=`pwd`/../tools
