@@ -10,4 +10,7 @@ bootstrap-musl:
 
 build-bootstrap: bootstrap-musl
 
-build: build-musl
+build-libedit: build-musl
+	cd ../obj/lib/libedit; export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin;  export LDFLAGS="-static"; export CFLAGS="-static"; export CPPFLAGS=-I`pwd`/../bootstrap/tools/include/; ../../../lib/libedit/configure --host=x86_64-unknown-linux-musl --target=x86_64-unknown-linux-musl
+
+build: build-musl build-libedit
