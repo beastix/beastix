@@ -19,11 +19,21 @@ build-gcc:
 	make -C ../obj/bin/gcc install
 
 bootstrap-binutils:
-	cd ../bootstrap; mkdir binutils; cd binutils; ../../binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-install-libbfd
-	make -C ../bootstrap/binutils install-gas install-ld install-binutils
+	cd ../bootstrap; mkdir binutils; cd binutils; ../../bin/binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-install-libbfd
+	rm -rf ../bootstrap/binutils/_install
+	mkdir ../bootstrap/binutils/_install
+	make -C ../bootstrap/binutils
+	make -C ../bootstrap/binutils install
 
-bootstrap-gcc:
+bootstrap-gcc: bootstrap-binutils
+	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; cd ../bootstrap; mkdir gcc; cd gcc; ../../bin/gcc/configure --target=x86_64-unknown-linux-musl --enable-languages=c --with-newlib --disable-multilib --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap --disable-libgomp --prefix=`pwd`/_install
+	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; make -C ../bootstrap/gcc all
+	make -C ../bootstrap/gcc install-gcc
 
 build-bootstrap: bootstrap-binutils bootstrap-gcc
+	rm -rf bootstrap/tools
+	mkdir bootstrap/tools
+	cp -Rv bootstrap/binutils/_install/* bootstrap/tools/
+	cp -Rv bootstrap/gcc/_install/* bootstrap/tools/
 
 build: build-busybox build-binutils build-gcc
