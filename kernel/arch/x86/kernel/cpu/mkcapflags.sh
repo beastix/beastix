@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ash
 #
 # Generate the x86_cap/bug_flags[] arrays from include/asm/cpufeature.h
 #

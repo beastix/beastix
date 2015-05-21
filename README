@@ -35,6 +35,7 @@ Assuming you're already on a GNU/Linux system, first you need to bootstrap the c
 On debian you can install the build dependencies like so:
 
 	sudo apt-get install build-essential
+	sudo apt-get install ash
 
 The method for other systems may vary, but you need to have available a working gcc install and GNU make to get started. gcc version 4.7.2 is recommended and is the version currently in Beastix itself.
 
