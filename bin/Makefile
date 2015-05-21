@@ -27,7 +27,7 @@ bootstrap-binutils:
 
 bootstrap-gcc: bootstrap-binutils
 	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; cd ../bootstrap; mkdir gcc; cd gcc; ../../bin/gcc/configure --target=x86_64-unknown-linux-musl --enable-languages=c --with-newlib --disable-multilib --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap --disable-libgomp --prefix=`pwd`/_install
-	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; make -C ../bootstrap/gcc all
+	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; make -C ../bootstrap/gcc all-gcc
 	make -C ../bootstrap/gcc install-gcc
 
 build-bootstrap: bootstrap-binutils bootstrap-gcc
