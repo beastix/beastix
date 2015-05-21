@@ -41,6 +41,12 @@ At release time, the version number is bumped in the following locations:
 	releng/cd_templ/boot.txt
 	rootfs/etc/beastix_version
 	rootfs/etc/announce
+	README
+
+The following files are also updated in the ports tree:
+	VERSION
+
+The ports tree is branched in the same manner as the base system.
 
 A -RELENG branch is then created and feature freezed, no new features are allowed into -RELENG, only bugfixes and security patches
 

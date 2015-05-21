@@ -32,7 +32,9 @@ src:
 	cd release; tar cvf src.tar src/*; gzip src.tar;
 	rm -rf release/src
 
-release: initrd src
+ports:
+
+release: initrd src ports
 	cp ../obj/kernel/arch/x86_64/boot/bzImage release/
 	mv release/rootfs.tar.gz release/base.tgz
 	mv release/rootfs.cpio.gz release/initrd_live.img

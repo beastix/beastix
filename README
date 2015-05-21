@@ -1,20 +1,81 @@
-This is an attempt at a BSD-style base system for linux.
 
-The root makefile contains 2 targets:
-    make buildkernel
-    make buildworld
-You should execute them in that order and then cd into releng/ and do "make release" to get a bootable live ISO image
+	Beastix Release 0.1-CURRENT
 
-Project is structured as follows:
 
-bin/busybox/
-   A local copy of the busybox source tree
-kernel/
-   The linux kernel
-obj/
-   A build directory, everything builds into here by default
-   To clean the tree, just wipe obj/ and then update
-rootfs/
-   The basic root directory
-sbin/
-   Root-user only tools (currently empty)
+WHAT IS BEASTIX?
+
+Beastix is a BSD-style base system for the Linux kernel consisting of the kernel, basic unix utilities, a compiler toolchain and pkgsrc as well as other useful tools.
+The goal is to have an operating system that updates all in one piece similar to how BSD systems handle updates with the whole system in one piece rather than multiple packages.
+
+Note that at present the only supported platform is x86_64 though the system should be possible to port to other platforms easily.
+
+
+
+BUILDING AND INSTALLING
+
+There are two methods to get started with Beastix, either starting from source or using the installer CD. If you are using the installer CD, simply burn it to a disc, boot up and select the install option.
+At the present time the installer does not support dual-boot configurations and will use the full harddisk, therefore please back up any important data before installing.
+
+Alternatively, follow the instructions below to get started from source.
+
+Assuming you're already on a GNU/Linux system, first you need to bootstrap the compiler toolchain. Beastix makes use of musl as the libc and the binutils and gcc in the tree have been patched.
+
+On debian you can install the build dependencies like so:
+
+	sudo apt-get install build-essential
+
+The method for other systems may vary, but you need to have available a working gcc install and GNU make to get started. gcc version 4.7.2 is recommended and is the version currently in Beastix itself.
+
+After installing dependencies you can bootstrap the musl toolchain by issuing the following command:
+
+	make bootstrap
+
+You should not encounter any errors at this point on most systems, if you do encounter a build error please double check you have the correct gcc version installed and try again. Should the bootstrap fail
+please report the issue at https://github.com/beastix/beastix/issues and provide a full copy of all build output and details about the platform you are building on.
+
+After bootstrapping, you can issue these famous commands to build the system:
+
+	make buildkernel
+	make buildworld
+
+This process can take a long time, so please be patient. When complete, binaries will be placed in obj/ and you can prepare for installation using the releng (release engineering) scripts:
+	
+	cd releng/
+	make release
+
+The releng scripts attempt to create an iso, to do so syslinux is used in combo with mkisoimage from cdrtools, if you require the installer iso please ensure these packages are available before issuing
+the "make release" command.
+
+After all this, you will find a copy of the system in releng/release that can be installed to a real system or booted inside of an emulator such as qemu. During development, the system is commonly tested
+with kvm-qemu to directly load the kernel and initrd_live.img files and then by booting the iso image.
+
+
+
+USING THE SYSTEM
+
+After the system is built, it can be booted up from the iso image and used directly in live mode or installed to a harddrive. Whatever method is chosen, the system boots up fairly quickly and presents a
+standard login prompt.
+
+By default the root password is empty (though the installer will configure a real password for you), it is recommended that you change this first thing.
+
+After changing the root password a good first test of the system is to rebuild it by extracting the source tree into /usr/src and performing the following as root, note that this should not be attempted on
+the live CD unless plenty of RAM is available:
+	
+	make buildworld
+	make buildkernel
+	make installkernel
+	make installworld
+
+If all goes well, the system will rebuild itself and reinstall, this process is also used for updates. Once the system is rebuilt, reboot to ensure a clean environment.
+
+At this stage you are ready to start installing packages via the ports tree from the CD:
+	
+	mkdir /usr/ports
+	mount /dev/sr0 /mnt/cdrom
+	cd /usr/ports
+	cp /mnt/cdrom/ports.tgz .
+	gunzip ports.tgz
+	tar xvf ports.tar
+	rm ports.tar
+
+The ports tree is also available from git at https://github.com/beastix/beastix-ports and follows the same branching policy as the base system, it should be updated any time you update the base system.
