@@ -7,11 +7,11 @@ build-busybox:
 	make -C ../obj/bin/busybox  PREFIX=. install
 
 build-binutils:
-	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; cd ../obj/bin/binutils; ../../bin/binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-nls --disable-shared --disable-werror --disable-install-libbfd --host=x86_64-unknown-linux-musl
+	export PATH=../../bootstrap/binutils/_install/bin:/bin:/usr/bin; cd ../obj/bin/binutils; ../../../bin/binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-nls --disable-shared --disable-werror --disable-install-libbfd --host=x86_64-unknown-linux-musl
 	rm -rf ../obj/bin/binutils/_install
 	mkdir ../obj/bin/binutils/_install
-	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; make -C ../obj/bin/binutils
-	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; make -C ../obj/bin/binutils install
+	export PATH=`pwd`/../bootstrap/binutils/_install/bin/:/bin:/usr/bin; export CFLAGS="-Os"; export LDFLAGS="-s"; export CC="x86_64-unknown-musl-gcc"; make -C ../obj/bin/binutils
+	export PATH=`pwd`/../bootstrap/binutils/_install/bin/:/bin:/usr/bin; export CFLAGS="-Os"; export LDFLAGS="-s"; export CC="x86_64-unknown-musl-gcc"; make -C ../obj/bin/binutils install
 
 
 build-gcc:
