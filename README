@@ -11,6 +11,18 @@ Note that at present the only supported platform is x86_64 though the system sho
 
 
 
+FREQUENTLY ASKED QUESTIONS
+
+Q: Is it possible to update the versions of components included in the base system?
+A: The kernel can probably be replaced with any other linux kernel, though the build process will not work the same way. Other components (such as gcc) have been specially patched and can't easily
+   be replaced with newer versions. It is highly recommended that you instead install updated packages from ports if you require them.
+
+Q: Why musl instead of glibc?
+A: glibc is the most widely used C library on GNU/Linux distributions, but it is not necessarily the best and can have some performance issues. Aside from that, musl is far slimmer and takes up less
+   space.
+
+
+
 BUILDING AND INSTALLING
 
 There are two methods to get started with Beastix, either starting from source or using the installer CD. If you are using the installer CD, simply burn it to a disc, boot up and select the install option.
