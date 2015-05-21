@@ -12,8 +12,8 @@ bootstrap: FORCE
 FORCE:
 
 buildworld:
-	make -C bin/ build
 	make -C lib/ build
+	make -C bin/ build
 	./update_rootfs.sh
 
 buildkernel:
