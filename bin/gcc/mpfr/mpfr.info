@@ -1,4 +1,5 @@
-This is mpfr.info, produced by makeinfo version 4.13 from mpfr.texi.
+This is ../../../bin/gcc/mpfr/mpfr.info, produced by makeinfo version
+4.13 from ../../../bin/gcc/mpfr/mpfr.texi.
 
 This manual documents how to install and use the Multiple Precision
 Floating-Point Reliable Library, version 2.4.2.
@@ -3588,34 +3589,34 @@ Function and Type Index
 
 
 Tag Table:
-Node: Top868
-Node: Copying2107
-Node: Introduction to MPFR3837
-Node: Installing MPFR5749
-Node: Reporting Bugs9367
-Node: MPFR Basics10983
-Node: MPFR Interface26220
-Node: Initialization Functions28439
-Node: Assignment Functions35007
-Node: Combined Initialization and Assignment Functions42602
-Node: Conversion Functions43884
-Node: Basic Arithmetic Functions50591
-Node: Comparison Functions59443
-Node: Special Functions62865
-Node: Input and Output Functions75336
-Node: Formatted Output Functions77266
-Node: Integer Related Functions86778
-Node: Rounding Related Functions91669
-Node: Miscellaneous Functions94139
-Node: Exception Related Functions100925
-Node: Compatibility with MPF107078
-Node: Custom Interface109570
-Node: Internals113753
-Node: Contributors115076
-Node: References117241
-Node: GNU Free Documentation License118549
-Node: Concept Index140992
-Node: Function Index146076
+Node: Top912
+Node: Copying2151
+Node: Introduction to MPFR3881
+Node: Installing MPFR5793
+Node: Reporting Bugs9411
+Node: MPFR Basics11027
+Node: MPFR Interface26264
+Node: Initialization Functions28483
+Node: Assignment Functions35051
+Node: Combined Initialization and Assignment Functions42646
+Node: Conversion Functions43928
+Node: Basic Arithmetic Functions50635
+Node: Comparison Functions59487
+Node: Special Functions62909
+Node: Input and Output Functions75380
+Node: Formatted Output Functions77310
+Node: Integer Related Functions86822
+Node: Rounding Related Functions91713
+Node: Miscellaneous Functions94183
+Node: Exception Related Functions100969
+Node: Compatibility with MPF107122
+Node: Custom Interface109614
+Node: Internals113797
+Node: Contributors115120
+Node: References117285
+Node: GNU Free Documentation License118593
+Node: Concept Index141036
+Node: Function Index146120
 
 End Tag Table
 

@@ -1346,6 +1346,7 @@ case $os in
 	      | -cygwin* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
 	      | -mingw32* | -linux-gnu* | linux-musl* | -linux-android* \
 	      | -linux-newlib* | -linux-uclibc* \
+	      | -linux-musl* \
 	      | -uxpv* | -beos* | -mpeix* | -udk* \
 	      | -interix* | -uwin* | -mks* | -rhapsody* | -darwin* | -opened* \
 	      | -openstep* | -oskit* | -conix* | -pw32* | -nonstopux* \

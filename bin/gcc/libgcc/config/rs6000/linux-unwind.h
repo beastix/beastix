@@ -176,6 +176,7 @@ get_regs (struct _Unwind_Context *context)
 }
 #endif
 
+#ifdef __GLIBC__
 /* Find an entry in the process auxiliary vector.  The canonical way to
    test for VMX is to look at AT_HWCAP.  */
 
@@ -207,6 +208,7 @@ ppc_linux_aux_vector (long which)
       return auxp->a_val;
   return 0;
 }
+#endif
 
 /* Do code reading to identify a signal frame, and set the frame
    state data appropriately.  See unwind-dw2.c for the structs.  */
@@ -253,7 +255,11 @@ ppc_fallback_frame_state (struct _Unwind_Context *context,
 
   if (hwcap == 0)
     {
+#ifdef __GLIBC__
       hwcap = ppc_linux_aux_vector (16);
+#else
+      hwcap = -1;
+#endif
       /* These will already be set if we found AT_HWCAP.  A nonzero
 	 value stops us looking again if for some reason we couldn't
 	 find AT_HWCAP.  */

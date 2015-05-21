@@ -19,3 +19,5 @@ along with GCC; see the file COPYING3.  If not see
 <http://www.gnu.org/licenses/>.  */
 
 #define GLIBC_DYNAMIC_LINKER "/lib/ld.so.1"
+
+#define MUSL_DYNAMIC_LINKER "/lib/ld-musl-mips.so.1"

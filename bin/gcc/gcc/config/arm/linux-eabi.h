@@ -64,6 +64,10 @@
 #undef  GLIBC_DYNAMIC_LINKER
 #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux.so.3"
 
+/* musl has no "classic" (i.e. broken) mode */
+#undef  MUSL_DYNAMIC_LINKER
+#define MUSL_DYNAMIC_LINKER "/lib/ld-musl-arm.so.1"
+
 /* At this point, bpabi.h will have clobbered LINK_SPEC.  We want to
    use the GNU/Linux version, not the generic BPABI version.  */
 #undef  LINK_SPEC

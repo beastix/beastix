@@ -33,10 +33,12 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define OPTION_GLIBC  (DEFAULT_LIBC == LIBC_GLIBC)
 #define OPTION_UCLIBC (DEFAULT_LIBC == LIBC_UCLIBC)
 #define OPTION_BIONIC (DEFAULT_LIBC == LIBC_BIONIC)
+#define OPTION_MUSL   (DEFAULT_LIBC == LIBC_MUSL)
 #else
 #define OPTION_GLIBC  (linux_libc == LIBC_GLIBC)
 #define OPTION_UCLIBC (linux_libc == LIBC_UCLIBC)
 #define OPTION_BIONIC (linux_libc == LIBC_BIONIC)
+#define OPTION_MUSL   (linux_libc == LIBC_MUSL)
 #endif
 
 #define GNU_USER_TARGET_OS_CPP_BUILTINS()			\
@@ -54,18 +56,21 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
    uClibc or Bionic is the default C library and whether
    -muclibc or -mglibc or -mbionic has been passed to change the default.  */
 
-#define CHOOSE_DYNAMIC_LINKER1(LIBC1, LIBC2, LIBC3, LD1, LD2, LD3)	\
-  "%{" LIBC2 ":" LD2 ";:%{" LIBC3 ":" LD3 ";:" LD1 "}}"
+#define CHOOSE_DYNAMIC_LINKER1(LIBC1, LIBC2, LIBC3, LIBC4, LD1, LD2, LD3, LD4)	\
+  "%{" LIBC2 ":" LD2 ";:%{" LIBC3 ":" LD3 ";:%{" LIBC4 ":" LD4 ";:" LD1 "}}}"
 
 #if DEFAULT_LIBC == LIBC_GLIBC
-#define CHOOSE_DYNAMIC_LINKER(G, U, B) \
-  CHOOSE_DYNAMIC_LINKER1 ("mglibc", "muclibc", "mbionic", G, U, B)
+#define CHOOSE_DYNAMIC_LINKER(G, U, B, M) \
+  CHOOSE_DYNAMIC_LINKER1 ("mglibc", "muclibc", "mbionic", "mmusl", G, U, B, M)
 #elif DEFAULT_LIBC == LIBC_UCLIBC
-#define CHOOSE_DYNAMIC_LINKER(G, U, B) \
-  CHOOSE_DYNAMIC_LINKER1 ("muclibc", "mglibc", "mbionic", U, G, B)
+#define CHOOSE_DYNAMIC_LINKER(G, U, B, M) \
+  CHOOSE_DYNAMIC_LINKER1 ("muclibc", "mglibc", "mbionic", "mmusl", U, G, B, M)
 #elif DEFAULT_LIBC == LIBC_BIONIC
-#define CHOOSE_DYNAMIC_LINKER(G, U, B) \
-  CHOOSE_DYNAMIC_LINKER1 ("mbionic", "mglibc", "muclibc", B, G, U)
+#define CHOOSE_DYNAMIC_LINKER(G, U, B, M) \
+  CHOOSE_DYNAMIC_LINKER1 ("mbionic", "mglibc", "muclibc", "mmusl", B, G, U, M)
+#elif DEFAULT_LIBC == LIBC_MUSL
+#define CHOOSE_DYNAMIC_LINKER(G, U, B, M) \
+  CHOOSE_DYNAMIC_LINKER1 ("mmusl", "mglibc", "muclibc", "mbionic", M, G, U, B)
 #else
 #error "Unsupported DEFAULT_LIBC"
 #endif /* DEFAULT_LIBC */
@@ -85,16 +90,16 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 #define GNU_USER_DYNAMIC_LINKER						\
   CHOOSE_DYNAMIC_LINKER (GLIBC_DYNAMIC_LINKER, UCLIBC_DYNAMIC_LINKER,	\
-			 BIONIC_DYNAMIC_LINKER)
+			 BIONIC_DYNAMIC_LINKER, MUSL_DYNAMIC_LINKER)
 #define GNU_USER_DYNAMIC_LINKER32					\
   CHOOSE_DYNAMIC_LINKER (GLIBC_DYNAMIC_LINKER32, UCLIBC_DYNAMIC_LINKER32, \
-			 BIONIC_DYNAMIC_LINKER32)
+			 BIONIC_DYNAMIC_LINKER32, MUSL_DYNAMIC_LINKER32)
 #define GNU_USER_DYNAMIC_LINKER64					\
   CHOOSE_DYNAMIC_LINKER (GLIBC_DYNAMIC_LINKER64, UCLIBC_DYNAMIC_LINKER64, \
-			 BIONIC_DYNAMIC_LINKER64)
+			 BIONIC_DYNAMIC_LINKER64, MUSL_DYNAMIC_LINKER64)
 #define GNU_USER_DYNAMIC_LINKERX32					\
   CHOOSE_DYNAMIC_LINKER (GLIBC_DYNAMIC_LINKERX32, UCLIBC_DYNAMIC_LINKERX32, \
-			 BIONIC_DYNAMIC_LINKERX32)
+			 BIONIC_DYNAMIC_LINKERX32, MUSL_DYNAMIC_LINKERX32)
 
 /* Determine whether the entire c99 runtime
    is present in the runtime library.  */

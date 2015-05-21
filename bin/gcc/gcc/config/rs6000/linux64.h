@@ -362,17 +362,21 @@ extern int dot_symbols;
 #define GLIBC_DYNAMIC_LINKER64 "/lib64/ld64.so.1"
 #define UCLIBC_DYNAMIC_LINKER32 "/lib/ld-uClibc.so.0"
 #define UCLIBC_DYNAMIC_LINKER64 "/lib/ld64-uClibc.so.0"
+#define MUSL_DYNAMIC_LINKER32 "/lib/ld-musl-powerpc.so.1"
+#define MUSL_DYNAMIC_LINKER64 "/lib/ld-musl-powerpc64.so.1"
 #if DEFAULT_LIBC == LIBC_UCLIBC
-#define CHOOSE_DYNAMIC_LINKER(G, U) "%{mglibc:" G ";:" U "}"
+#define CHOOSE_DYNAMIC_LINKER(G, U, M) "%{mglibc:" G ";:%{mmusl:" M ";:" U "}}"
 #elif DEFAULT_LIBC == LIBC_GLIBC
-#define CHOOSE_DYNAMIC_LINKER(G, U) "%{muclibc:" U ";:" G "}"
+#define CHOOSE_DYNAMIC_LINKER(G, U, M) "%{muclibc:" U ";:%{mmusl:" M ";:" G "}}"
+#elif DEFAULT_LIBC == LIBC_MUSL
+#define CHOOSE_DYNAMIC_LINKER(G, U, M) "%{mglibc:" G ";:%{muclibc:" U ";:" M "}}"
 #else
 #error "Unsupported DEFAULT_LIBC"
 #endif
 #define GNU_USER_DYNAMIC_LINKER32 \
-  CHOOSE_DYNAMIC_LINKER (GLIBC_DYNAMIC_LINKER32, UCLIBC_DYNAMIC_LINKER32)
+  CHOOSE_DYNAMIC_LINKER (GLIBC_DYNAMIC_LINKER32, UCLIBC_DYNAMIC_LINKER32, MUSL_DYNAMIC_LINKER32)
 #define GNU_USER_DYNAMIC_LINKER64 \
-  CHOOSE_DYNAMIC_LINKER (GLIBC_DYNAMIC_LINKER64, UCLIBC_DYNAMIC_LINKER64)
+  CHOOSE_DYNAMIC_LINKER (GLIBC_DYNAMIC_LINKER64, UCLIBC_DYNAMIC_LINKER64, MUSL_DYNAMIC_LINKER64)
 
 
 #define LINK_OS_LINUX_SPEC32 "-m elf32ppclinux %{!shared: %{!static: \
