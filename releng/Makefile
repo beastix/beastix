@@ -21,6 +21,9 @@ initrd:
 	# musl
 	cp -R --preserve ../obj/lib/musl/_install/* tmproot/
 	
+	# libedit
+	cp -R --preserve ../obj/lib/libedit/_install/* tmproot/
+	
 	# make
 	cp -R --preserve ../obj/bin/make/_install/* tmproot/
 	
