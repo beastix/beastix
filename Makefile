@@ -17,13 +17,9 @@ buildworld:
 	./update_rootfs.sh
 
 buildkernel:
-	make -C kernel/ INSTALL_HDR_PATH=../obj/kernel headers_install
 	make -C kernel/ O=../obj/kernel/ mrproper
 	make -C kernel/ O=../obj/kernel/ defconfig
 	sed -i "s/.*CONFIG_DEFAULT_HOSTNAME.*/CONFIG_DEFAULT_HOSTNAME=\"beastix\"/" obj/kernel/.config
-	cp -Rv kernel/arch/x86/include/generated/* obj/kernel/include/
-	cp -Rv kernel/include/generated/* obj/kernel/include/
-	cp -Rv kernel/include/* obj/kernel/include/
 	make -C obj/kernel/ bzImage
 
 clean:
