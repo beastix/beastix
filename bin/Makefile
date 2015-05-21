@@ -7,11 +7,12 @@ build-busybox:
 	make -C ../obj/bin/busybox  PREFIX=. install
 
 build-binutils:
-	cd ../obj/bin/binutils; ../../../bin/binutils/configure --prefix=`pwd` --disable-nls --disable-werror --disable-shared
-	make -C ../obj/bin/binutils clean
-	export LDFLAGS="-all-static"; make -C ../obj/bin/binutils configure-host
-	export LDFLAGS="-all-static"; make -C ../obj/bin/binutils all LDFLAGS="-all-static"
-	export LDFLAGS="-all-static"; make -C ../obj/bin/binutils PREFIX=. install
+	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; cd ../obj/bin/binutils; ../../bin/binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-nls --disable-shared --disable-werror --disable-install-libbfd --host=x86_64-unknown-linux-musl
+	rm -rf ../obj/bin/binutils/_install
+	mkdir ../obj/bin/binutils/_install
+	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; make -C ../obj/bin/binutils
+	export PATH=../bootstrap/binutils/_install/bin:/bin:/usr/bin; make -C ../obj/bin/binutils install
+
 
 build-gcc:
 	cd ../obj/bin/gcc; ../../../bin/gcc/configure --prefix=`pwd` --disable-nls --enable-languages=c,c++ --without-headers --enable-static
