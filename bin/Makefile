@@ -18,6 +18,12 @@ build-gcc:
 	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/; make -C ../obj/bin/gcc all
 	make -C ../obj/bin/gcc install
 
+bootstrap-binutils:
+	cd ../bootstrap; mkdir binutils; cd binutils; ../../binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-install-libbfd
+	make -C ../bootstrap/binutils install-gas install-ld install-binutils
+
+bootstrap-gcc:
+
 build-bootstrap: bootstrap-binutils bootstrap-gcc
 
 build: build-busybox build-binutils build-gcc
