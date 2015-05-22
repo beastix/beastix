@@ -4,7 +4,6 @@ bootstrap: FORCE
 	mkdir bootstrap/tools
 	make -C kernel/ INSTALL_HDR_PATH=../bootstrap/tools headers_install
 	cp -Rv bootstrap/binutils/_install/* bootstrap/tools/
-	cp -Rv bootstrap/gcc/_install/* bootstrap/tools/
 	make -C lib/ build-bootstrap
 	cp -Rv bootstrap/musl/_install/* bootstrap/tools/
 	cd bootstrap/tools; mkdir usr; cp -Rv include usr/
