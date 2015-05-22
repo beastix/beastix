@@ -60,6 +60,9 @@ extern "C" {
 typedef unsigned char u_int8_t;
 typedef unsigned short u_int16_t;
 typedef unsigned u_int32_t;
+typedef unsigned short u_short, ushort;
+typedef unsigned u_int, uint;
+
 
 #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
 typedef char *caddr_t;

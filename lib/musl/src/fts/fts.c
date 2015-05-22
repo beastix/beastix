@@ -99,7 +99,7 @@ fts_open( char * const *argv, register int options,
 
 	/* Options check. */
 	if (options & ~FTS_OPTIONMASK) {
-		__set_errno (EINVAL);
+		errno = EINVAL;
 		return (NULL);
 	}
 
@@ -137,7 +137,7 @@ fts_open( char * const *argv, register int options,
 		/* Don't allow zero-length paths. */
 		size_t len = strlen(*argv);
 		if (len == 0) {
-			__set_errno (ENOENT);
+			errno = ENOENT;
 			goto mem3;
 		}
 
@@ -261,7 +261,7 @@ fts_close(FTS *sp)
 		if (saved_errno != 0) {
 			/* Free up the stream pointer. */
 			free(sp);
-			__set_errno (saved_errno);
+			errno = saved_errno;
 			return (-1);
 		}
 	}
@@ -433,7 +433,7 @@ name:		t = sp->fts_path + NAPPEND(p->fts_parent);
 		 * can distinguish between error and EOF.
 		 */
 		free(p);
-		__set_errno (0);
+		errno = 0;
 		return (sp->fts_cur = NULL);
 	}
 
@@ -454,7 +454,7 @@ name:		t = sp->fts_path + NAPPEND(p->fts_parent);
 		if (FCHDIR(sp, p->fts_symfd)) {
 			saved_errno = errno;
 			(void)close(p->fts_symfd);
-			__set_errno (saved_errno);
+			errno = saved_errno;
 			SET(FTS_STOP);
 			return (NULL);
 		}
@@ -480,7 +480,7 @@ fts_set(FTS *sp, FTSENT *p, int instr)
 {
 	if (instr != 0 && instr != FTS_AGAIN && instr != FTS_FOLLOW &&
 	    instr != FTS_NOINSTR && instr != FTS_SKIP) {
-		__set_errno (EINVAL);
+		errno = EINVAL;
 		return (1);
 	}
 	p->fts_instr = instr;
@@ -494,7 +494,7 @@ fts_children(register FTS *sp, int instr)
 	int fd;
 
 	if (instr != 0 && instr != FTS_NAMEONLY) {
-		__set_errno (EINVAL);
+		errno = EINVAL;
 		return (NULL);
 	}
 
@@ -505,7 +505,7 @@ fts_children(register FTS *sp, int instr)
 	 * Errno set to 0 so user can distinguish empty directory from
 	 * an error.
 	 */
-	__set_errno (0);
+	errno = 0;
 
 	/* Fatal errors stop here. */
 	if (ISSET(FTS_STOP))
@@ -702,7 +702,7 @@ mem1:				saved_errno = errno;
 				(void)closedir(dirp);
 				cur->fts_info = FTS_ERR;
 				SET(FTS_STOP);
-				__set_errno (saved_errno);
+				errno = saved_errno;
 				return (NULL);
 			}
 			/* Did realloc() change the pointer? */
@@ -726,7 +726,7 @@ mem1:				saved_errno = errno;
 			(void)closedir(dirp);
 			cur->fts_info = FTS_ERR;
 			SET(FTS_STOP);
-			__set_errno (ENAMETOOLONG);
+			errno = ENAMETOOLONG;
 			return (NULL);
 		}
 		p->fts_level = level;
@@ -870,7 +870,7 @@ fts_stat(FTS *sp, register FTSENT *p, int follow)
 		if (stat(p->fts_accpath, sbp)) {
 			saved_errno = errno;
 			if (!lstat(p->fts_accpath, sbp)) {
-				__set_errno (0);
+				errno = 0;
 				return (FTS_SLNONE);
 			}
 			p->fts_errno = saved_errno;
@@ -1024,7 +1024,7 @@ fts_palloc(FTS *sp, size_t more)
 	if (sp->fts_pathlen < 0 || sp->fts_pathlen >= USHRT_MAX) {
 		free(sp->fts_path);
 		sp->fts_path = NULL;
-		__set_errno (ENAMETOOLONG);
+		errno = ENAMETOOLONG;
 		return (1);
 	}
 	p = realloc(sp->fts_path, sp->fts_pathlen);
@@ -1100,7 +1100,7 @@ fts_safe_changedir(FTS *sp, FTSENT *p, int fd, const char *path)
 		goto bail;
 	}
 	if (p->fts_dev != sb.st_dev || p->fts_ino != sb.st_ino) {
-		__set_errno (ENOENT);		/* disinformation */
+		errno = ENOENT;		/* disinformation */
 		ret = -1;
 		goto bail;
 	}
@@ -1109,6 +1109,6 @@ bail:
 	oerrno = errno;
 	if (fd < 0)
 		(void)close(newfd);
-	__set_errno (oerrno);
+	errno = oerrno;
 	return (ret);
 }
