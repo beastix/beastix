@@ -17,10 +17,10 @@ buildworld:
 	./update_rootfs.sh
 
 buildkernel:
-	make -C kernel/ O=../obj/kernel/ mrproper
-	make -C kernel/ O=../obj/kernel/ defconfig
+	cd kernel; make mrproper
+	cd kernel; make defconfig O=../obj/kernel/
 	sed -i "s/.*CONFIG_DEFAULT_HOSTNAME.*/CONFIG_DEFAULT_HOSTNAME=\"beastix\"/" obj/kernel/.config
-	make -C obj/kernel/ bzImage
+	cd kernel; make bzImage O=../obj/kernel/
 
 clean:
 	rm -rf obj/lib/musl/*
