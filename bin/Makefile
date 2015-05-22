@@ -28,7 +28,10 @@ build-binutils:
 
 build-make:
 	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; cd ../obj/bin/make; ../../../bin/make/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-nls --without-guile
-	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; make -C ../obj/bin/make install
+	export PATH=../../../bootstrap/tools/bin:/bin:/usr/bin; cd ../obj/bin/make; ./build.sh
+	rm -rf ../obj/bin/make/_install
+	mkdir ../obj/bin/make/_install; mkdir ../obj/bin/make/_install/bin;
+	cp ../obj/bin/make/make ../obj/bin/make/_install/bin
 
 bootstrap-gcc: 
 	cd ../bootstrap; mkdir gcc; cd gcc; ../../bin/gcc/configure --build=x86_64-unknown-linux-musl --target=x86_64-unknown-linux-musl  --enable-languages=c --with-newlib --disable-multilib --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap --disable-libgomp --with-sysroot=`pwd`/../tools --prefix=`pwd`/../tools 
