@@ -8,6 +8,7 @@ bootstrap: FORCE
 	make -C lib/ build-bootstrap
 	cp -Rv bootstrap/musl/_install/* bootstrap/tools/
 	cd bootstrap/tools; mkdir usr; cp -Rv include usr/
+	cp -Rv lib/musl/arch/x86_64/* bootstrap/tools/include/
 
 FORCE:
 
