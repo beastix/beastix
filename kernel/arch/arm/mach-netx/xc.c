@@ -123,9 +123,9 @@ int xc_request_firmware(struct xc *x)
 	const void *src;
 	unsigned long dst;
 
-	sprintf(name, "xc%d.bin", x->no);
+	sprintf(name, "/*(DEBLOBBED)*/", x->no);
 
-	ret = request_firmware(&fw, name, x->dev);
+	ret = reject_firmware(&fw, name, x->dev);
 
 	if (ret < 0) {
 		dev_err(x->dev, "request_firmware failed\n");

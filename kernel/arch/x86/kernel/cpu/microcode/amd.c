@@ -402,26 +402,11 @@ enum ucode_state load_microcode_amd(int cpu, u8 family, const u8 *data, size_t s
 	return ret;
 }
 
-/*
- * AMD microcode firmware naming convention, up to family 15h they are in
- * the legacy file:
- *
- *    amd-ucode/microcode_amd.bin
- *
- * This legacy file is always smaller than 2K in size.
- *
- * Beginning with family 15h, they are in family-specific firmware files:
- *
- *    amd-ucode/microcode_amd_fam15h.bin
- *    amd-ucode/microcode_amd_fam16h.bin
- *    ...
- *
- * These might be larger than 2K.
- */
+/*(DEBLOBBED)*/
 static enum ucode_state request_microcode_amd(int cpu, struct device *device,
 					      bool refresh_fw)
 {
-	char fw_name[36] = "amd-ucode/microcode_amd.bin";
+	char fw_name[36] = "/*(DEBLOBBED)*/";
 	struct cpuinfo_x86 *c = &cpu_data(cpu);
 	enum ucode_state ret = UCODE_NFOUND;
 	const struct firmware *fw;
@@ -431,9 +416,9 @@ static enum ucode_state request_microcode_amd(int cpu, struct device *device,
 		return UCODE_OK;
 
 	if (c->x86 >= 0x15)
-		snprintf(fw_name, sizeof(fw_name), "amd-ucode/microcode_amd_fam%.2xh.bin", c->x86);
+		snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", c->x86);
 
-	if (request_firmware_direct(&fw, (const char *)fw_name, device)) {
+	if (reject_firmware_direct(&fw, (const char *)fw_name, device)) {
 		pr_debug("failed to load file %s\n", fw_name);
 		goto out;
 	}

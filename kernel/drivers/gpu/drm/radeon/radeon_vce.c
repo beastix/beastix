@@ -38,9 +38,9 @@
 #define VCE_IDLE_TIMEOUT_MS	1000
 
 /* Firmware Names */
-#define FIRMWARE_BONAIRE	"radeon/BONAIRE_vce.bin"
+#define FIRMWARE_BONAIRE	"/*(DEBLOBBED)*/"
 
-MODULE_FIRMWARE(FIRMWARE_BONAIRE);
+/*(DEBLOBBED)*/
 
 static void radeon_vce_idle_work_handler(struct work_struct *work);
 
@@ -75,7 +75,7 @@ int radeon_vce_init(struct radeon_device *rdev)
 		return -EINVAL;
 	}
 
-	r = request_firmware(&rdev->vce_fw, fw_name, rdev->dev);
+	r = reject_firmware(&rdev->vce_fw, fw_name, rdev->dev);
 	if (r) {
 		dev_err(rdev->dev, "radeon_vce: Can't load firmware \"%s\"\n",
 			fw_name);

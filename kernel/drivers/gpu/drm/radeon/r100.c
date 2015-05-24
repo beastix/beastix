@@ -45,21 +45,15 @@
 #include "rn50_reg_safe.h"
 
 /* Firmware Names */
-#define FIRMWARE_R100		"radeon/R100_cp.bin"
-#define FIRMWARE_R200		"radeon/R200_cp.bin"
-#define FIRMWARE_R300		"radeon/R300_cp.bin"
-#define FIRMWARE_R420		"radeon/R420_cp.bin"
-#define FIRMWARE_RS690		"radeon/RS690_cp.bin"
-#define FIRMWARE_RS600		"radeon/RS600_cp.bin"
-#define FIRMWARE_R520		"radeon/R520_cp.bin"
+#define FIRMWARE_R100		"/*(DEBLOBBED)*/"
+#define FIRMWARE_R200		"/*(DEBLOBBED)*/"
+#define FIRMWARE_R300		"/*(DEBLOBBED)*/"
+#define FIRMWARE_R420		"/*(DEBLOBBED)*/"
+#define FIRMWARE_RS690		"/*(DEBLOBBED)*/"
+#define FIRMWARE_RS600		"/*(DEBLOBBED)*/"
+#define FIRMWARE_R520		"/*(DEBLOBBED)*/"
 
-MODULE_FIRMWARE(FIRMWARE_R100);
-MODULE_FIRMWARE(FIRMWARE_R200);
-MODULE_FIRMWARE(FIRMWARE_R300);
-MODULE_FIRMWARE(FIRMWARE_R420);
-MODULE_FIRMWARE(FIRMWARE_RS690);
-MODULE_FIRMWARE(FIRMWARE_RS600);
-MODULE_FIRMWARE(FIRMWARE_R520);
+/*(DEBLOBBED)*/
 
 #include "r100_track.h"
 
@@ -1038,7 +1032,7 @@ static int r100_cp_init_microcode(struct radeon_device *rdev)
 		fw_name = FIRMWARE_R520;
 	}
 
-	err = request_firmware(&rdev->me_fw, fw_name, rdev->dev);
+	err = reject_firmware(&rdev->me_fw, fw_name, rdev->dev);
 	if (err) {
 		printk(KERN_ERR "radeon_cp: Failed to load firmware \"%s\"\n",
 		       fw_name);

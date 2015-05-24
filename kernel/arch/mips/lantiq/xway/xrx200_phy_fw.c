@@ -30,7 +30,7 @@ static dma_addr_t xway_gphy_load(struct platform_device *pdev)
 	}
 
 	dev_info(&pdev->dev, "requesting %s\n", fw_name);
-	if (request_firmware(&fw, fw_name, &pdev->dev)) {
+	if (reject_firmware(&fw, fw_name, &pdev->dev)) {
 		dev_err(&pdev->dev, "failed to load firmware: %s\n", fw_name);
 		return 0;
 	}

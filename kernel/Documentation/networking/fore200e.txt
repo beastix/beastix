@@ -29,32 +29,7 @@ Firmware Updates
 
 The FORE Systems 200E-series driver is shipped with firmware data being 
 uploaded to the ATM adapters at system boot time or at module loading time. 
-The supplied firmware images should work with all adapters.
-
-However, if you encounter problems (the firmware doesn't start or the driver
-is unable to read the PROM data), you may consider trying another firmware
-version. Alternative binary firmware images can be found somewhere on the
-ForeThought CD-ROM supplied with your adapter by FORE Systems.
-
-You can also get the latest firmware images from FORE Systems at
-http://en.wikipedia.org/wiki/FORE_Systems. Register TACTics Online and go to
-the 'software updates' pages. The firmware binaries are part of
-the various ForeThought software distributions.
-
-Notice that different versions of the PCA-200E firmware exist, depending
-on the endianness of the host architecture. The driver is shipped with
-both little and big endian PCA firmware images.
-
-Name and location of the new firmware images can be set at kernel
-configuration time:
-
-1. Copy the new firmware binary files (with .bin, .bin1 or .bin2 suffix)
-   to some directory, such as linux/drivers/atm.
-
-2. Reconfigure your kernel to set the new firmware name and location.
-   Expected pathnames are absolute or relative to the drivers/atm directory.
-
-3. Rebuild and re-install your kernel or your module.
+/*(DEBLOBBED)*/
 
 
 Feedback

@@ -40,26 +40,7 @@
 #define R700_PM4_UCODE_SIZE 1360
 
 /* Firmware Names */
-MODULE_FIRMWARE("radeon/R600_pfp.bin");
-MODULE_FIRMWARE("radeon/R600_me.bin");
-MODULE_FIRMWARE("radeon/RV610_pfp.bin");
-MODULE_FIRMWARE("radeon/RV610_me.bin");
-MODULE_FIRMWARE("radeon/RV630_pfp.bin");
-MODULE_FIRMWARE("radeon/RV630_me.bin");
-MODULE_FIRMWARE("radeon/RV620_pfp.bin");
-MODULE_FIRMWARE("radeon/RV620_me.bin");
-MODULE_FIRMWARE("radeon/RV635_pfp.bin");
-MODULE_FIRMWARE("radeon/RV635_me.bin");
-MODULE_FIRMWARE("radeon/RV670_pfp.bin");
-MODULE_FIRMWARE("radeon/RV670_me.bin");
-MODULE_FIRMWARE("radeon/RS780_pfp.bin");
-MODULE_FIRMWARE("radeon/RS780_me.bin");
-MODULE_FIRMWARE("radeon/RV770_pfp.bin");
-MODULE_FIRMWARE("radeon/RV770_me.bin");
-MODULE_FIRMWARE("radeon/RV730_pfp.bin");
-MODULE_FIRMWARE("radeon/RV730_me.bin");
-MODULE_FIRMWARE("radeon/RV710_pfp.bin");
-MODULE_FIRMWARE("radeon/RV710_me.bin");
+/*(DEBLOBBED)*/
 
 
 int r600_cs_legacy(struct drm_device *dev, void *data, struct drm_file *filp,
@@ -350,8 +331,8 @@ static int r600_cp_init_microcode(drm_radeon_private_t *dev_priv)
 
 	DRM_INFO("Loading %s CP Microcode\n", chip_name);
 
-	snprintf(fw_name, sizeof(fw_name), "radeon/%s_pfp.bin", chip_name);
-	err = request_firmware(&dev_priv->pfp_fw, fw_name, &pdev->dev);
+	snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", chip_name);
+	err = reject_firmware(&dev_priv->pfp_fw, fw_name, &pdev->dev);
 	if (err)
 		goto out;
 	if (dev_priv->pfp_fw->size != pfp_req_size) {
@@ -362,8 +343,8 @@ static int r600_cp_init_microcode(drm_radeon_private_t *dev_priv)
 		goto out;
 	}
 
-	snprintf(fw_name, sizeof(fw_name), "radeon/%s_me.bin", chip_name);
-	err = request_firmware(&dev_priv->me_fw, fw_name, &pdev->dev);
+	snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", chip_name);
+	err = reject_firmware(&dev_priv->me_fw, fw_name, &pdev->dev);
 	if (err)
 		goto out;
 	if (dev_priv->me_fw->size != me_req_size) {

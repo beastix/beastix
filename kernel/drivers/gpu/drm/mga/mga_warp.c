@@ -36,11 +36,10 @@
 #include <drm/mga_drm.h>
 #include "mga_drv.h"
 
-#define FIRMWARE_G200 "matrox/g200_warp.fw"
-#define FIRMWARE_G400 "matrox/g400_warp.fw"
+#define FIRMWARE_G200 "/*(DEBLOBBED)*/"
+#define FIRMWARE_G400 "/*(DEBLOBBED)*/"
 
-MODULE_FIRMWARE(FIRMWARE_G200);
-MODULE_FIRMWARE(FIRMWARE_G400);
+/*(DEBLOBBED)*/
 
 #define MGA_WARP_CODE_ALIGN		256	/* in bytes */
 
@@ -77,7 +76,7 @@ int mga_warp_install_microcode(drm_mga_private_t *dev_priv)
 		DRM_ERROR("mga: Failed to register microcode\n");
 		return PTR_ERR(pdev);
 	}
-	rc = request_ihex_firmware(&fw, firmware_name, &pdev->dev);
+	rc = reject_firmware(&fw, firmware_name, &pdev->dev);
 	platform_device_unregister(pdev);
 	if (rc) {
 		DRM_ERROR("mga: Failed to load microcode \"%s\"\n",

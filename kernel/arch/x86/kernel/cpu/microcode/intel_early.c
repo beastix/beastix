@@ -542,7 +542,7 @@ out:
 EXPORT_SYMBOL_GPL(save_mc_for_early);
 #endif
 
-static __initdata char ucode_name[] = "kernel/x86/microcode/GenuineIntel.bin";
+static __initdata char ucode_name[] = "/*(DEBLOBBED)*/";
 static __init enum ucode_state
 scan_microcode(unsigned long start, unsigned long end,
 		struct mc_saved_data *mc_saved_data,

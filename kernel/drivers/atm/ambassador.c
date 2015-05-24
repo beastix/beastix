@@ -1928,7 +1928,7 @@ static int ucode_init(loader_block *lb, amb_dev *dev)
   const char *errmsg = NULL;
   int res;
 
-  res = request_ihex_firmware(&fw, "atmsar11.fw", &dev->pci_dev->dev);
+  res = reject_firmware(&fw, "/*(DEBLOBBED)*/", &dev->pci_dev->dev);
   if (res) {
     PRINTK (KERN_ERR, "Cannot load microcode data");
     return res;
@@ -2357,7 +2357,7 @@ static void __init amb_check_args (void) {
 MODULE_AUTHOR(maintainer_string);
 MODULE_DESCRIPTION(description_string);
 MODULE_LICENSE("GPL");
-MODULE_FIRMWARE("atmsar11.fw");
+/*(DEBLOBBED)*/
 module_param(debug,   ushort, 0644);
 module_param(cmds,    uint, 0);
 module_param(txs,     uint, 0);

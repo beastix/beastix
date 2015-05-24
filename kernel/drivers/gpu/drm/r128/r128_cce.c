@@ -40,9 +40,9 @@
 
 #define R128_FIFO_DEBUG		0
 
-#define FIRMWARE_NAME		"r128/r128_cce.bin"
+#define FIRMWARE_NAME		"/*(DEBLOBBED)*/"
 
-MODULE_FIRMWARE(FIRMWARE_NAME);
+/*(DEBLOBBED)*/
 
 static int R128_READ_PLL(struct drm_device *dev, int addr)
 {
@@ -152,7 +152,7 @@ static int r128_cce_load_microcode(drm_r128_private_t *dev_priv)
 		printk(KERN_ERR "r128_cce: Failed to register firmware\n");
 		return PTR_ERR(pdev);
 	}
-	rc = request_firmware(&fw, FIRMWARE_NAME, &pdev->dev);
+	rc = reject_firmware(&fw, FIRMWARE_NAME, &pdev->dev);
 	platform_device_unregister(pdev);
 	if (rc) {
 		printk(KERN_ERR "r128_cce: Failed to load firmware \"%s\"\n",

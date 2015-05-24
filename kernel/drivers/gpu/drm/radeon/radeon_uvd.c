@@ -40,23 +40,16 @@
 #define UVD_IDLE_TIMEOUT_MS	1000
 
 /* Firmware Names */
-#define FIRMWARE_R600		"radeon/R600_uvd.bin"
-#define FIRMWARE_RS780		"radeon/RS780_uvd.bin"
-#define FIRMWARE_RV770		"radeon/RV770_uvd.bin"
-#define FIRMWARE_RV710		"radeon/RV710_uvd.bin"
-#define FIRMWARE_CYPRESS	"radeon/CYPRESS_uvd.bin"
-#define FIRMWARE_SUMO		"radeon/SUMO_uvd.bin"
-#define FIRMWARE_TAHITI		"radeon/TAHITI_uvd.bin"
-#define FIRMWARE_BONAIRE	"radeon/BONAIRE_uvd.bin"
+#define FIRMWARE_R600		"/*(DEBLOBBED)*/"
+#define FIRMWARE_RS780		"/*(DEBLOBBED)*/"
+#define FIRMWARE_RV770		"/*(DEBLOBBED)*/"
+#define FIRMWARE_RV710		"/*(DEBLOBBED)*/"
+#define FIRMWARE_CYPRESS	"/*(DEBLOBBED)*/"
+#define FIRMWARE_SUMO		"/*(DEBLOBBED)*/"
+#define FIRMWARE_TAHITI		"/*(DEBLOBBED)*/"
+#define FIRMWARE_BONAIRE	"/*(DEBLOBBED)*/"
 
-MODULE_FIRMWARE(FIRMWARE_R600);
-MODULE_FIRMWARE(FIRMWARE_RS780);
-MODULE_FIRMWARE(FIRMWARE_RV770);
-MODULE_FIRMWARE(FIRMWARE_RV710);
-MODULE_FIRMWARE(FIRMWARE_CYPRESS);
-MODULE_FIRMWARE(FIRMWARE_SUMO);
-MODULE_FIRMWARE(FIRMWARE_TAHITI);
-MODULE_FIRMWARE(FIRMWARE_BONAIRE);
+/*(DEBLOBBED)*/
 
 static void radeon_uvd_idle_work_handler(struct work_struct *work);
 
@@ -130,7 +123,7 @@ int radeon_uvd_init(struct radeon_device *rdev)
 		return -EINVAL;
 	}
 
-	r = request_firmware(&rdev->uvd_fw, fw_name, rdev->dev);
+	r = reject_firmware(&rdev->uvd_fw, fw_name, rdev->dev);
 	if (r) {
 		dev_err(rdev->dev, "radeon_uvd: Can't load firmware \"%s\"\n",
 			fw_name);

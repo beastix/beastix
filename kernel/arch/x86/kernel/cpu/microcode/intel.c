@@ -275,10 +275,10 @@ static enum ucode_state request_microcode_fw(int cpu, struct device *device,
 	const struct firmware *firmware;
 	enum ucode_state ret;
 
-	sprintf(name, "intel-ucode/%02x-%02x-%02x",
+	sprintf(name, "/*(DEBLOBBED)*/",
 		c->x86, c->x86_model, c->x86_mask);
 
-	if (request_firmware_direct(&firmware, name, device)) {
+	if (reject_firmware_direct(&firmware, name, device)) {
 		pr_debug("data file %s load failed\n", name);
 		return UCODE_NFOUND;
 	}

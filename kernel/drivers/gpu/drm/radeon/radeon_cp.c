@@ -41,21 +41,15 @@
 #define RADEON_FIFO_DEBUG	0
 
 /* Firmware Names */
-#define FIRMWARE_R100		"radeon/R100_cp.bin"
-#define FIRMWARE_R200		"radeon/R200_cp.bin"
-#define FIRMWARE_R300		"radeon/R300_cp.bin"
-#define FIRMWARE_R420		"radeon/R420_cp.bin"
-#define FIRMWARE_RS690		"radeon/RS690_cp.bin"
-#define FIRMWARE_RS600		"radeon/RS600_cp.bin"
-#define FIRMWARE_R520		"radeon/R520_cp.bin"
+#define FIRMWARE_R100		"/*(DEBLOBBED)*/"
+#define FIRMWARE_R200		"/*(DEBLOBBED)*/"
+#define FIRMWARE_R300		"/*(DEBLOBBED)*/"
+#define FIRMWARE_R420		"/*(DEBLOBBED)*/"
+#define FIRMWARE_RS690		"/*(DEBLOBBED)*/"
+#define FIRMWARE_RS600		"/*(DEBLOBBED)*/"
+#define FIRMWARE_R520		"/*(DEBLOBBED)*/"
 
-MODULE_FIRMWARE(FIRMWARE_R100);
-MODULE_FIRMWARE(FIRMWARE_R200);
-MODULE_FIRMWARE(FIRMWARE_R300);
-MODULE_FIRMWARE(FIRMWARE_R420);
-MODULE_FIRMWARE(FIRMWARE_RS690);
-MODULE_FIRMWARE(FIRMWARE_RS600);
-MODULE_FIRMWARE(FIRMWARE_R520);
+/*(DEBLOBBED)*/
 
 static int radeon_do_cleanup_cp(struct drm_device * dev);
 static void radeon_do_cp_start(drm_radeon_private_t * dev_priv);
@@ -528,7 +522,7 @@ static int radeon_cp_init_microcode(drm_radeon_private_t *dev_priv)
 		fw_name = FIRMWARE_R520;
 	}
 
-	err = request_firmware(&dev_priv->me_fw, fw_name, &pdev->dev);
+	err = reject_firmware(&dev_priv->me_fw, fw_name, &pdev->dev);
 	platform_device_unregister(pdev);
 	if (err) {
 		printk(KERN_ERR "radeon_cp: Failed to load firmware \"%s\"\n",

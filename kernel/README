@@ -1,16 +1,47 @@
-        Linux kernel release 3.x <http://kernel.org/>
+        GNU Linux-libre <http://linux-libre.fsfla.org>
 
-These are the release notes for Linux version 3.  Read them carefully,
+These are the release notes for GNU Linux-libre  Read them carefully,
 as they tell you what this is all about, explain how to install the
 kernel, and what to do if something goes wrong. 
 
+WHAT IS GNU Linux-libre?
+
+  GNU Linux-libre is a Free version of the kernel Linux (see below),
+  suitable for use with the GNU Operating System in 100% Free
+  GNU/Linux-libre System Distributions.
+  http://www.gnu.org/distros/
+
+  It removes non-Free components from Linux, that are disguised as
+  source code or distributed in separate files.  It also disables
+  run-time requests for non-Free components, shipped separately or as
+  part of Linux, and documentation pointing to them, so as to avoid
+  (Free-)baiting users into the trap of non-Free Software.
+  http://www.fsfla.org/anuncio/2010-11-Linux-2.6.36-libre-debait
+
+  Linux-libre started within the gNewSense GNU/Linux distribution.
+  It was later adopted by Jeff Moe, who coined its name, and in 2008
+  it became a project maintained by FSF Latin America.  In 2012, it
+  became part of the GNU Project.
+
+  The GNU Linux-libre project takes a minimal-changes approach to
+  cleaning up Linux, making no effort to substitute components that
+  need to be removed with functionally equivalent Free ones.
+  Nevertheless, we encourage and support efforts towards doing so.
+  http://libreplanet.org/wiki/LinuxLibre:Devices_that_require_non-free_firmware
+
+  Our mascot is Freedo, a light-blue penguin that has just come out
+  of the shower.  Although we like penguins, GNU is a much greater
+  contribution to the entire system, so its mascot deserves more
+  promotion.  See our web page for their images.
+  http://linux-libre.fsfla.org/
+
 WHAT IS LINUX?
 
-  Linux is a clone of the operating system Unix, written from scratch by
+  Linux is a clone of the Unix kernel, written from scratch by
   Linus Torvalds with assistance from a loosely-knit team of hackers across
   the Net. It aims towards POSIX and Single UNIX Specification compliance.
 
-  It has all the features you would expect in a modern fully-fledged Unix,
+  It has all the features you would expect in a modern fully-fledged Unix kernel,
   including true multitasking, virtual memory, shared libraries, demand
   loading, shared copy-on-write executables, proper memory management,
   and multistack networking including IPv4 and IPv6.

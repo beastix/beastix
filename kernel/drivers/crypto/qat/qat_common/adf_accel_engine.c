@@ -58,7 +58,7 @@ int adf_ae_fw_load(struct adf_accel_dev *accel_dev)
 	void *uof_addr;
 	uint32_t uof_size;
 
-	if (request_firmware(&loader_data->uof_fw, hw_device->fw_name,
+	if (reject_firmware(&loader_data->uof_fw, hw_device->fw_name,
 			     &accel_dev->accel_pci_dev.pci_dev->dev)) {
 		pr_err("QAT: Failed to load firmware %s\n", hw_device->fw_name);
 		return -EFAULT;

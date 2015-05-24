@@ -2,14 +2,14 @@
 #include <linux/firmware.h>
 #include <drm/drmP.h>
 #include "ast_drv.h"
-MODULE_FIRMWARE("ast_dp501_fw.bin");
+/*(DEBLOBBED)*/
 
 int ast_load_dp501_microcode(struct drm_device *dev)
 {
 	struct ast_private *ast = dev->dev_private;
-	static char *fw_name = "ast_dp501_fw.bin";
+	static char *fw_name = "/*(DEBLOBBED)*/";
 	int err;
-	err = request_firmware(&ast->dp501_fw, fw_name, dev->dev);
+	err = reject_firmware(&ast->dp501_fw, fw_name, dev->dev);
 	if (err)
 		return err;
 

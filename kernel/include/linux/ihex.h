@@ -71,4 +71,34 @@ static inline int request_ihex_firmware(const struct firmware **fw,
 	*fw = lfw;
 	return 0;
 }
+#ifndef _LINUX_LIBRE_IHEX_H
+#define _LINUX_LIBRE_IHEX_H
+
+static inline int
+maybe_reject_ihex_firmware(const struct firmware **fw,
+			   const char *name, struct device *device)
+{
+	if (strstr (name, NONFREE_FIRMWARE))
+		return reject_firmware(fw, name, device);
+	else
+		return request_ihex_firmware(fw, name, device);
+}
+
+#endif /* _LINUX_LIBRE_IHEX_H */
+
+#ifndef _LINUX_LIBRE_IHEX_H
+#define _LINUX_LIBRE_IHEX_H
+
+static inline int
+maybe_reject_ihex_firmware(const struct firmware **fw,
+			   const char *name, struct device *device)
+{
+	if (strstr (name, NONFREE_FIRMWARE))
+		return reject_firmware(fw, name, device);
+	else
+		return request_ihex_firmware(fw, name, device);
+}
+
+#endif /* _LINUX_LIBRE_IHEX_H */
+
 #endif /* __LINUX_IHEX_H__ */

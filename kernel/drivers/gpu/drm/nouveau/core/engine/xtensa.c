@@ -109,10 +109,10 @@ _nouveau_xtensa_init(struct nouveau_object *object)
 		return ret;
 
 	if (!xtensa->gpu_fw) {
-		snprintf(name, sizeof(name), "nouveau/nv84_xuc%03x",
+		snprintf(name, sizeof(name), "/*(DEBLOBBED)*/",
 			 xtensa->addr >> 12);
 
-		ret = request_firmware(&fw, name, nv_device_base(device));
+		ret = reject_firmware(&fw, name, nv_device_base(device));
 		if (ret) {
 			nv_warn(xtensa, "unable to load firmware %s\n", name);
 			return ret;

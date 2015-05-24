@@ -189,8 +189,8 @@ page-types
 parse.c
 parse.h
 patches*
-pca200e.bin
-pca200e_ecd.bin2
+/*(DEBLOBBED)*/
+/*(DEBLOBBED)*/
 perf.data
 perf.data.old
 perf-archive

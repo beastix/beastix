@@ -1388,26 +1388,26 @@ static int load_firmware(struct pci_dev *pdev,
 
 	switch (signature) {
 	case 0xa5:
-		name = "isi608.bin";
+		name = "/*(DEBLOBBED)*/";
 		break;
 	case 0xbb:
-		name = "isi608em.bin";
+		name = "/*(DEBLOBBED)*/";
 		break;
 	case 0xcc:
-		name = "isi616em.bin";
+		name = "/*(DEBLOBBED)*/";
 		break;
 	case 0xdd:
-		name = "isi4608.bin";
+		name = "/*(DEBLOBBED)*/";
 		break;
 	case 0xee:
-		name = "isi4616.bin";
+		name = "/*(DEBLOBBED)*/";
 		break;
 	default:
 		dev_err(&pdev->dev, "Unknown signature.\n");
 		goto end;
 	}
 
-	retval = request_firmware(&fw, name, &pdev->dev);
+	retval = reject_firmware(&fw, name, &pdev->dev);
 	if (retval)
 		goto end;
 
@@ -1729,8 +1729,4 @@ module_exit(isicom_exit);
 MODULE_AUTHOR("MultiTech");
 MODULE_DESCRIPTION("Driver for the ISI series of cards by MultiTech");
 MODULE_LICENSE("GPL");
-MODULE_FIRMWARE("isi608.bin");
-MODULE_FIRMWARE("isi608em.bin");
-MODULE_FIRMWARE("isi616em.bin");
-MODULE_FIRMWARE("isi4608.bin");
-MODULE_FIRMWARE("isi4616.bin");
+/*(DEBLOBBED)*/

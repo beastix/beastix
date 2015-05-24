@@ -1113,7 +1113,7 @@ _request_firmware(const struct firmware **firmware_p, const char *name,
 		goto out;
 
 	ret = 0;
-	timeout = firmware_loading_timeout();
+	timeout = is_nonfree_firmware(name) ? 1 : firmware_loading_timeout();
 	if (opt_flags & FW_OPT_NOWAIT) {
 		timeout = usermodehelper_read_lock_wait(timeout);
 		if (!timeout) {

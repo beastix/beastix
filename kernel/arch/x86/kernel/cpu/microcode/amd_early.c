@@ -33,7 +33,7 @@ static struct cpio_data ucode_cpio;
  * Microcode patch container file is prepended to the initrd in cpio format.
  * See Documentation/x86/early-microcode.txt
  */
-static __initdata char ucode_path[] = "kernel/x86/microcode/AuthenticAMD.bin";
+static __initdata char ucode_path[] = "/*(DEBLOBBED)*/";
 
 static struct cpio_data __init find_ucode_in_initrd(void)
 {
