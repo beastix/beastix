@@ -36,5 +36,5 @@ clean-bootstrap:
 	make -i -C ${SRC_ROOT}/world/musl distclean clean
 	rm -rf ${SRC_ROOT}/tools/*
 
-bootstrap: bootstrap-musl bootstrap-binutils bootstrap-gcc bootstrap-syslinux
+bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-syslinux
 	cd ${BOOTSTRAP_TOOLS}; mkdir -p usr; ln -sf include usr/include
