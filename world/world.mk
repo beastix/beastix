@@ -25,6 +25,12 @@ buildworld-musl:
 	mkdir -p ${WORLD_BUILD}/musl/_install/bin
 	cd ${WORLD_BUILD}/musl/_install; ln -sf lib/libc.so bin/ldd; ln -sf lib/libc.so lib/ld-musl-x86_64.so.1
 
+buildworld-make:
+	mkdir -p ${WORLD_BUILD}/make/_install
+	${WORLDENV} cd ${WORLD_BUILD}/make; ${SRC_ROOT}/world/make/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/make/_install --disable-nls --without-guile --without-libiconv
+	${WORLDENV} make -C ${WORLD_BUILD}/make
+	${WORLDENV} make -C ${WORLD_BUILD}/make install
+
 buildworld-binutils:
 	mkdir -p ${WORLD_BUILD}/binutils/_install
 	${WORLDENV} cd ${WORLD_BUILD}/binutils; ${SRC_ROOT}/world/binutils/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/binutils/_install --disable-install-libbfd --disable-shared

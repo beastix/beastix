@@ -94,6 +94,7 @@ case $2 in --version|--help) exit $st;; esac
 if test $st -eq 63; then
   msg="probably too old"
 elif test $st -eq 127; then
+  export st=0
   # Program was missing.
   msg="missing on your system"
 else
