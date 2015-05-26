@@ -31,6 +31,11 @@ buildworld-make:
 	${WORLDENV} make -C ${WORLD_BUILD}/make
 	${WORLDENV} make -C ${WORLD_BUILD}/make install
 
+buildworld-syslinux:
+	mkdir -p ${WORLD_BUILD}/syslinux/_install
+	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} O=${WORLD_BUILD}/syslinux 
+	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} install O=${WORLD_BUILD}/syslinux INSTALLROOT=${WORLDBUILD}/syslinux/_install
+
 buildworld-binutils:
 	mkdir -p ${WORLD_BUILD}/binutils/_install
 	${WORLDENV} cd ${WORLD_BUILD}/binutils; ${SRC_ROOT}/world/binutils/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/binutils/_install --disable-install-libbfd --disable-shared
