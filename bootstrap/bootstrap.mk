@@ -22,7 +22,7 @@ bootstrap-syslinux:
 clean-bootstrap:
 	make -i -C ${SRC_ROOT}/bootstrap/binutils distclean clean
 	make -i -C ${SRC_ROOT}/bootstrap/gcc distclean clean
-	make -i -C ${SRC_ROOT}/bootstrap/gcc distclean clean
+	make -i -C ${SRC_ROOT}/world/musl distclean clean
 	rm -rf ${SRC_ROOT}/tools/*
 
 bootstrap: bootstrap-musl bootstrap-binutils bootstrap-gcc bootstrap-syslinux

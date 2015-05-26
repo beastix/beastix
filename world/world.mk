@@ -1,3 +1,5 @@
+WORLDENV := export PATH=${BOOTSTRAP_PATH}; export CFLAGS=${WORLD_CFLAGS}; export LDFLAGS=${WORLD_LDFLAGS}; export CC=${WORLD_CC};
+
 buildworld-busybox:
 	mkdir -p ${WORLD_BUILD}/busybox
 	make -C ${SRC_ROOT}/world/busybox O=${WORLD_BUILD}/busybox defconfig
@@ -7,30 +9,32 @@ buildworld-busybox:
 	make -C ${WORLD_BUILD}/busybox/ 
 	make -C ${WORLD_BUILD}/busybox/ PREFIX=. install
 
-buildworld-gcc:
-	mkdir -p ${WORLD_BUILD}/gcc
-	cd ${WORLD_BUILD}/gcc; export PATH=${BOOTSTRAP_PATH};
-	cd ../obj/bin/gcc; export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin;  export LDFLAGS="-static"; export CFLAGS="-static"; export CPPFLAGS=-I`pwd`/../bootstrap/tools/include/; ../../../bin/gcc/configure --host=x86_64-unknown-linux-musl --target=x86_64-unknown-linux-musl  --enable-languages=c --disable-nls --with-newlib --disable-multilib --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap --disable-libgomp --prefix=`pwd`/_install/
-	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin;  export LDFLAGS="-static"; export CFLAGS="-static"; export CPPFLAGS=-I`pwd`/../bootstrap/tools/include/; export CC=x86_64-unknown-linux-musl-gcc; export CC_FOR_BUILD=x86_64-unknown-linux-musl-gcc; make -C ../obj/bin/gcc all-gcc install-gcc CC=x86_64-unknown-linux-musl-gcc CC_FOR_BUILD=x86_64-unknown-linux-musl-gcc
-	export PATH=`pwd`/../bootstrap/tools/bin/:`pwd`/../bootstrap/tools/x86_64-unknown-linux-musl/bin:/bin:/usr/bin;  export LDFLAGS="-static"; export CFLAGS="-static"; export CPPFLAGS=-I`pwd`/../bootstrap/tools/include/; export CC=x86_64-unknown-linux-musl-gcc; export CC_FOR_BUILD=x86_64-unknown-linux-musl-gcc; make -C ../obj/bin/gcc all-target-libgcc install-target-libgcc CC=x86_64-unknown-linux-musl-gcc 
+buildworld-gcc: bootstrap buildworld-binutils
+	mkdir -p ${WORLD_BUILD}/gcc/_install
+	${WORLDENV} cd ${WORLD_BUILD}/gcc; ${SRC_ROOT}/world/gcc/configure ${WORLD_CONFIG}  --enable-languages=c --disable-nls --with-newlib --disable-multilib --disable-libssp \
+                                                                                            --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap \
+                                                                                            --disable-libgomp --prefix=${WORLD_BUILD}/gcc/_install
+	${WORLDENV} make -C ${WORLD_BUILD}/gcc all-gcc install-gcc CC=${WORLD_CC} CC_FOR_BUILD=${WORLD_CC}
+	${WORLDENV} make -C ${WORLD_BUILD}/gcc all-target-libgcc install-gcc install-target-libgcc
 
+buildworld-musl: bootstrap
+	mkdir -p ${WORLD_BUILD}/musl/_install
+	cd ${SRC_ROOT}/musl; ./configure --prefix=${WORLD_BUILD}/musl/_install --disable-gcc-wrapper
+	make -C ${SRC_ROOT}/musl
+	make -C ${SRC_ROOT}/musl install
+	cd ${WORLD_BUILD}/musl/_install; ln -sf lib/libc.so bin/ldd; ln -sf lib/libc.so lib/ld-musl-x86_64.so.1
 
+buildworld-binutils: bootstrap
+	mkdir -p ${WORLD_BUILD}/binutils/_install
+	${WORLDENV} cd ${WORLD_BUILD}/binutils; ${SRC_ROOT}/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/binutils/_install --disable-install-libbfd --disable-shared
+	${WORLDENV} make -C ${WORLD_BUILD}/binutils
+	${WORLDENV} make -C ${WORLD_BUILD}/binutils install-gas install-ld install-binutils
 
-buildworld-binutils:
-	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; cd ../obj/bin/binutils; ../../../bin/binutils/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-install-libbfd --disable-shared
-	rm -rf ../bootstrap/binutils/_install
-	mkdir ../bootstrap/binutils/_install
-	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; export LDFLAGS="-static"; export CFLAGS="-static -I`pwd`/../bootstrap/tools/include/"; make -C ../obj/bin/binutils
-	make -C ../obj/bin/binutils install-gas install-ld install-binutils
+clean-world:
+	make -i -C ${SRC_ROOT}/world/binutils distclean clean
+	make -i -C ${SRC_ROOT}/world/gcc distclean clean
+	make -i -C ${SRC_ROOT}/world/musl distclean clean	
 
-
-buildworld-make:
-	export PATH=`pwd`/../bootstrap/tools/bin:/bin:/usr/bin; export CC="x86_64-unknown-linux-musl-gcc"; cd ../obj/bin/make; ../../../bin/make/configure --target=x86_64-unknown-linux-musl --prefix=`pwd`/_install --disable-nls --without-guile
-	export PATH=../../../bootstrap/tools/bin:/bin:/usr/bin; cd ../obj/bin/make; ./build.sh
-	rm -rf ../obj/bin/make/_install
-	mkdir ../obj/bin/make/_install; mkdir ../obj/bin/make/_install/bin;
-	cp ../obj/bin/make/make ../obj/bin/make/_install/bin
-
-buildworld: buildworld-busybox
+buildworld: buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc
 
 installworld:
