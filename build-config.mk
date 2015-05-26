@@ -14,5 +14,4 @@ WORLD_LDFLAGS     := -static ${LDFLAGS}
 WORLD_BUILD       := ${PWD}/obj
 SRC_ROOT          := ${PWD}
 INSTALL_ROOT      := 
-
-
+BEASTIX_VER       := 0.1-CURRENT

@@ -54,7 +54,7 @@ install_stage_two() {
 	tar xvf /mnt/cdrom/src.tar.gz
 	
 	echo "Installing ports tree..."
-	mkdir -p /usr/ports
+	mkdir -p /mnt/target/usr/ports
 	cd /mnt/target/usr/ports
 	tar xvf /mnt/cdrom/ports.tar.gz
 	
