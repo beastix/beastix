@@ -21,7 +21,11 @@ Q: Why musl instead of glibc?
 A: glibc is the most widely used C library on GNU/Linux distributions, but it is not necessarily the best and can have some performance issues. Aside from that, musl is far slimmer and takes up less
    space.
 
+Q: How do I configure my network?
+A: At present time, you do so by adding ifconfig and route commands to /etc/rc.network - this will be replaced with a real configuration file in a future release
 
+Q: How can I make the compilation go faster?
+A: Throwing more silicon at it always helps, alternatively if you have enough RAM you can build the system in RAM, just clone the source tree into /dev/shm/beastix and build in there
 
 BUILDING AND INSTALLING
 
