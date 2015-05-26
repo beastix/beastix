@@ -16,7 +16,7 @@ bootstrap-musl: bootstrap-gcc bootstrap-binutils
 	                                                                                                                    --disable-gcc-wrapper --disable-shared --enable-static
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; make -C ${SRC_ROOT}/world/musl install
 
-buildworld-util-linux:
+bootstrap-util-linux:
 	cd ${SRC_ROOT}/bootstrap/util-linux; ${SRC_ROOT}/world/util-linux/configure ${BOOTSTRAP_CONFIG} --prefix=${WORLD_BUILD}/util-linux/_install --disable-nls --enable-static --disable-rpath \
 	                                                                                                 --disable-all-programs --disable-bash-completion --disable-makeinstall-setuid --without-selinux \
 	                                                                                                 --without-udev --without-libiconv --without-libintl-prefix --without-slang \
