@@ -9,13 +9,14 @@ buildworld-busybox:
 	${MAKE} -C ${WORLD_BUILD}/busybox/ 
 	${MAKE} -C ${WORLD_BUILD}/busybox/ PREFIX=. install
 
+# gcc can't build multicore
 buildworld-gcc: 
 	mkdir -p ${WORLD_BUILD}/gcc/_install
 	${WORLDENV} cd ${WORLD_BUILD}/gcc; ${SRC_ROOT}/world/gcc/configure ${WORLD_CONFIG}  --enable-languages=c --disable-nls --with-newlib --disable-multilib --disable-libssp \
                                                                                             --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap \
                                                                                             --disable-libgomp --prefix=${WORLD_BUILD}/gcc/_install
-	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/gcc all-gcc install-gcc CC=${WORLD_CC} CC_FOR_BUILD=${WORLD_CC}
-	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/gcc all-target-libgcc install-gcc install-target-libgcc
+	${WORLDENV} make -C ${WORLD_BUILD}/gcc all-gcc install-gcc CC=${WORLD_CC} CC_FOR_BUILD=${WORLD_CC}
+	${WORLDENV} make -C ${WORLD_BUILD}/gcc all-target-libgcc install-gcc install-target-libgcc
 
 buildworld-musl:
 	mkdir -p ${WORLD_BUILD}/musl/_install
