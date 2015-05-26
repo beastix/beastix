@@ -18,6 +18,7 @@ minimal-root:
 	cd ${RELEASE_BUILD}/minroot; ln -sf /lib/libc.so bin/ldd
 	cd ${RELEASE_BUILD}/minroot; ln -sf /lib/libc.so lib/ld-musl-x86_64.so.1
 	mkdir -p ${RELEASE_BUILD}/minroot/usr
+	rm -rf ${RELEASE_BUILD}/minroot/usr/include
 	cd ${RELEASE_BUILD}/minroot/usr; ln -sf ../include
 
 base-root: minimal-root
@@ -31,10 +32,10 @@ base-root: minimal-root
 
 base-tarball: base-root
 	cd ${RELEASE_BUILD}/baseroot; tar cvf ../base.tar ./*
-	gzip ${RELEASE_BUILD}/base.tar.gz
+	gzip ${RELEASE_BUILD}/base.tar
 
 live-initrd: base-root
-	cd ${RELEASE_BUILd}/baseroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/live-initrd.img
+	cd ${RELEASE_BUILD}/baseroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/live_initrd.img
 
 installer-initrd: minimal-root
 	@echo installer not yet implemented
@@ -53,27 +54,25 @@ place-docs:
 	mkdir -p ${RELEASE_BUILD}/doc
 	cp ${SRC_ROOT}/README ${RELEASE_BUILD}/doc/
 
-checksums: release-final
-	cd ${RELEASE_FINAL}; md5sum * >MD5SUMS
-	cd ${RELEASE_FINAL}; sha256sum * >SHA256SUMS
+checksums:
+	cd ${RELEASE_FINAL}; sh -c "md5sum * >MD5SUMS; exit 0"
+	cd ${RELEASE_FINAL}; sh -c "sha256sum * >SHA256SUMS; exit 0"
 
 release-final: release-final-dir base-tarball live-initrd installer-initrd source-tarball ports-tarball place-docs
 	cp -v ${RELEASE_BUILD}/base.tar.gz                 ${RELEASE_FINAL}/
-	cp -v ${RELEASE_BUILD}/live-initrd.img             ${RELEASE_FINAL}/
+	cp -v ${RELEASE_BUILD}/live_initrd.img             ${RELEASE_FINAL}/
 #	cp -v ${RELEASE_BUILD}/installer_initrd.img        ${RELEASE_FINAL}/
-	cp -v ${RELEASE_BUILD}/source.tar.gz               ${RELEASE_FINAL}/
+	cp -v ${RELEASE_BUILD}/src.tar.gz                  ${RELEASE_FINAL}/
 	cp -v ${RELEASE_BUILD}/ports.tar.gz                ${RELEASE_FINAL}/
 	cp -rv ${RELEASE_BUILD}/doc                        ${RELEASE_FINAL}/doc
 	cp ${SRC_ROOT}/obj/kernel/arch/x86_64/boot/bzImage ${RELEASE_FINAL}/
 
-iso-root: release-final checksums
+iso-root: checksums
 	mkdir -p ${RELEASE_BUILD}/isoroot
-	cp -R --preserve ${SRC_DIR}/releng/cd_templ/* ${RELEASE_BUILD}/isoroot
+	cp -R --preserve ${SRC_ROOT}/releng/cd_templ/* ${RELEASE_BUILD}/isoroot
 	cp -R --preserve ${RELEASE_FINAL}/* ${RELEASE_BUILD}/isoroot/
-	mkdir -p ${RELEASE_BUILD}/isoroot/images
-	mv ${RELEASE_BUILD}/isoroot/*.img ${RELEASE_BUILD}/isoroot/images/
 
-iso-image: iso-root release-final
+iso-image: iso-root 
 	make -C ${SRC_ROOT}/obj/kernel isoimage
 	cp ${SRC_ROOT}/obj/kernel/arch/x86/boot/isoimage/isolinux.bin ${RELEASE_BUILD}/isoroot/
 	genisoimage -l -J -r -o ${RELEASE_FINAL}/beastix.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table ${RELEASE_BUILD}/isoroot
