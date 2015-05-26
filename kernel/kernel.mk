@@ -6,6 +6,6 @@ buildkernel:
 
 installkernel:
 
-cleankernel:
+clean-kernel:
 	make -C kernel/ mrproper
 	make -C kernel/ clean O=../obj/kernel

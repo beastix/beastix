@@ -31,9 +31,9 @@ buildworld-binutils: bootstrap
 	${WORLDENV} make -C ${WORLD_BUILD}/binutils install-gas install-ld install-binutils
 
 clean-world:
-	make -i -C ${SRC_ROOT}/world/binutils distclean clean
-	make -i -C ${SRC_ROOT}/world/gcc distclean clean
-	make -i -C ${SRC_ROOT}/world/musl distclean clean	
+	make -i -C ${WORLD_BUILD}/binutils distclean clean
+	make -i -C ${WORLD_BUILD}gcc distclean clean
+	make -i -C ${WORLD_BUILD}/musl distclean clean	
 
 buildworld: buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc
 
