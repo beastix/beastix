@@ -9,7 +9,7 @@ buildworld-busybox:
 	make -C ${WORLD_BUILD}/busybox/ 
 	make -C ${WORLD_BUILD}/busybox/ PREFIX=. install
 
-buildworld-gcc: bootstrap buildworld-binutils
+buildworld-gcc: buildworld-binutils
 	mkdir -p ${WORLD_BUILD}/gcc/_install
 	${WORLDENV} cd ${WORLD_BUILD}/gcc; ${SRC_ROOT}/world/gcc/configure ${WORLD_CONFIG}  --enable-languages=c --disable-nls --with-newlib --disable-multilib --disable-libssp \
                                                                                             --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap \
@@ -17,14 +17,15 @@ buildworld-gcc: bootstrap buildworld-binutils
 	${WORLDENV} make -C ${WORLD_BUILD}/gcc all-gcc install-gcc CC=${WORLD_CC} CC_FOR_BUILD=${WORLD_CC}
 	${WORLDENV} make -C ${WORLD_BUILD}/gcc all-target-libgcc install-gcc install-target-libgcc
 
-buildworld-musl: bootstrap
+buildworld-musl:
 	mkdir -p ${WORLD_BUILD}/musl/_install
-	cd ${SRC_ROOT}/musl; ./configure --prefix=${WORLD_BUILD}/musl/_install --disable-gcc-wrapper
-	make -C ${SRC_ROOT}/musl
-	make -C ${SRC_ROOT}/musl install
+	cd ${SRC_ROOT}/world/musl; ./configure --prefix=${WORLD_BUILD}/musl/_install --disable-gcc-wrapper
+	make -C ${SRC_ROOT}/world/musl
+	make -C ${SRC_ROOT}/world/musl install
+	mkdir -p ${WORLD_BUILD}/musl/_install/bin
 	cd ${WORLD_BUILD}/musl/_install; ln -sf lib/libc.so bin/ldd; ln -sf lib/libc.so lib/ld-musl-x86_64.so.1
 
-buildworld-binutils: bootstrap
+buildworld-binutils:
 	mkdir -p ${WORLD_BUILD}/binutils/_install
 	${WORLDENV} cd ${WORLD_BUILD}/binutils; ${SRC_ROOT}/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/binutils/_install --disable-install-libbfd --disable-shared
 	${WORLDENV} make -C ${WORLD_BUILD}/binutils
@@ -35,6 +36,6 @@ clean-world:
 	make -i -C ${WORLD_BUILD}gcc distclean clean
 	make -i -C ${WORLD_BUILD}/musl distclean clean	
 
-buildworld: buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc
+buildworld: bootstrap buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc
 
 installworld:

@@ -51,6 +51,7 @@ ports-tarball:
 
 place-docs:
 	mkdir -p ${RELEASE_BUILD}/doc
+	cp ${SRC_ROOT}/README ${RELEASE_BUILD}/doc/
 
 checksums: release-final
 	cd ${RELEASE_FINAL}; md5sum * >MD5SUMS
