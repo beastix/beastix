@@ -1,0 +1,119 @@
+#!/bin/ash
+
+install_stage_one() {
+	echo
+	echo "***CAUTION***"
+	echo "This process will wipe all data on selected drive - please ensure important data is backed up before proceeding"
+	echo
+	echo "You have the following disks available:"
+	fdisk -l | grep Disk | grep -v identifier
+	DISKS=`fdisk -l | grep Disk | grep -v identifier | awk {'print $2'} | sed s/://`
+	echo
+	echo "Available disks: $DISKS"
+	echo
+	echo
+	read -p "Please enter the full device name of the disk you wish to install to: " install_dest
+	echo
+	echo "Last chance to reboot before data is wiped, press enter to continue"
+	read
+
+	echo "Creating partition..."
+	echo -e "o\nn\np\n1\n\n\nw" | fdisk $install_dest
+
+	echo "Formatting root filesystem..."
+	mke2fs ${install_dest}1
+
+	echo "Mounting root filesystem..."
+	mkdir /mnt/target
+	mount ${install_dest}1 /mnt/target
+
+	echo "Installing bootloader..."
+	mkdir /mnt/target/boot
+	extlinux --install /mnt/target/boot
+	
+	echo "Installing kernel..."
+	cp /mnt/cdrom/bzImage /mnt/target/boot/
+	
+	echo "Installing rescue image..."
+	cp /mnt/cdrom/live_initrd.img /mnt/target/boot/rescue_initrd.img
+}
+
+install_stage_two() {
+	echo
+	echo "Ready to install the system!"
+	echo
+	echo "Hit enter to continue"
+	read
+	cd /mnt/target/
+
+	echo "Base system installing..."
+	tar xvf /mnt/cdrom/base.tar.gz
+	
+	echo "Installing source tree..."
+	cd /mnt/target/usr/src
+	tar xvf /mnt/cdrom/src.tar.gz
+	
+	echo "Installing ports tree..."
+	cd /mnt/target/usr/ports
+	tar xvf /mnt/cdrom/ports.tar.gz
+	
+	echo "Base system is installed, ready to chroot into it and configure settings"
+	echo
+	echo "Hit enter to continue"
+	read
+}
+
+install_stage_three() {
+	echo "Copying installer stage 3 to harddrive...."
+	cp /bin/installer_stage3.sh /mnt/target/bin
+	
+	echo "Starting configuration...."
+	chroot /mnt/target /bin/installer_stage3.sh
+	
+}
+
+do_install() {
+	echo "Installer stage one starting:"
+	install_stage_one
+
+	echo "Installer stage two starting:"
+	install_stage_two
+	
+	echo "Installer stage three starting:"
+	install_stage_three
+	
+	echo "Installation complete!"
+	echo "Remove any installation media and enter reboot to enter your new system"
+	echo
+	/bin/sh
+}
+
+do_upgrade() {
+	echo
+	echo "You can't upgrade from the installer yet, sorry"
+	echo
+}
+
+do_shell() {
+	echo
+	echo "Type exit to return to menu"
+	echo
+	/bin/sh
+}
+
+mount /dev/sr0 /mnt/cdrom
+
+echo "Welcome to the Beastix installer!"
+echo
+
+while :; do
+	read -r -n 1 -p "I)nstall U)pgrade S)hell  " action
+	case $action in
+	    i) do_install; ;;
+	    u) do_upgrade; ;;
+	    s) do_shell; ;;
+	    *) echo; ;;
+	esac
+done
+
+

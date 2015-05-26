@@ -38,7 +38,9 @@ live-initrd: base-root
 	cd ${RELEASE_BUILD}/baseroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/live_initrd.img
 
 installer-initrd: minimal-root
-	@echo installer not yet implemented
+	mkdir -p ${RELEASE_BUILD}/installerroot
+	cp -R --preserve ${SRC_ROOT}/installer/_install/* ${RELEASE_BUILD}/installerroot/
+	cd ${RELEASE_BUILD}/installerroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/installer_initrd.img
 
 source-tarball:
 	git clone --single-branch ${SRC_ROOT} ${RELEASE_BUILD}/src
@@ -61,7 +63,7 @@ checksums:
 release-final: release-final-dir base-tarball live-initrd installer-initrd source-tarball ports-tarball place-docs
 	cp -v ${RELEASE_BUILD}/base.tar.gz                 ${RELEASE_FINAL}/
 	cp -v ${RELEASE_BUILD}/live_initrd.img             ${RELEASE_FINAL}/
-#	cp -v ${RELEASE_BUILD}/installer_initrd.img        ${RELEASE_FINAL}/
+	cp -v ${RELEASE_BUILD}/installer_initrd.img        ${RELEASE_FINAL}/
 	cp -v ${RELEASE_BUILD}/src.tar.gz                  ${RELEASE_FINAL}/
 	cp -v ${RELEASE_BUILD}/ports.tar.gz                ${RELEASE_FINAL}/
 	cp -rv ${RELEASE_BUILD}/doc                        ${RELEASE_FINAL}/doc
@@ -79,6 +81,6 @@ iso-image: iso-root
 	isohybrid ${RELEASE_FINAL}/beastix.iso
 
 blank-hdimage:
-	@echo Currently not implemented
+	dd if=/dev/zero of=${RELEASE_BUILD}/beastix_hdd.img bs=1M count=4096
 
 clean: clean-build clean-final
