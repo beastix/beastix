@@ -1,11 +1,24 @@
-add network fetching support to installer
-patch kernel to build in self hosting mode (or import tools from FreeBSD)
-man pages
-cdrtools (required for building ISO image when self-hosting)
-bash or pdksh
-pkgsrc
-  Need to port to GNU make, or port BSD make to beastix
-OpenSSH + libressl
-Cleanup compiler warnings - go through whole build process and cleanup any and all compiler warnings
-X11 set (build through pkgsrc in chroot)
-complete bsdtools, integrate
+For release 0.1:
+	Add cdrtools to world
+	man pages
+	Self-hosting build fully working
+	ports fully working
+	Unattended build script fully working
+
+For release 0.2:
+	Configuration files (/etc/rc.conf)
+	Replace busybox shell with a BSD shell from bsdtools
+	Seperate minroot and base into seperate sets
+        Seperate out gcc+binutils into seperate devel set
+
+For release 0.3:
+	OpenSSH + libressl
+        Network fetching of sets in installer
+	Integrate bsdtools into base
+	Minimal installer iso
+
+For release 0.4:
+	X11 set + default desktop environment
+	Better installer partitioning
+	Port more BSD tools
+
