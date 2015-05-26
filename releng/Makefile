@@ -23,10 +23,10 @@ minimal-root:
 base-root: minimal-root
 	mkdir ${RELEASE_BUILD}/baseroot
 	cp -R --preserve ${RELEASE_BUILD}/minroot/*            ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/world/gcc/_install/*      ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/world/binutils/_install/* ${RELEASE_BUILD}/baseroot/
-#	cp -R --preserve ${SRC_ROOT}/world/make/_install/*     ${RELEASE_BUILD}/baseroot/
-#	cp -R --preserve ${SRC_ROOT}/world/syslinux/_install/* ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/gcc/_install/*      ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/binutils/_install/* ${RELEASE_BUILD}/baseroot/
+#	cp -R --preserve ${SRC_ROOT}/obj/make/_install/*     ${RELEASE_BUILD}/baseroot/
+#	cp -R --preserve ${SRC_ROOT}/obj/syslinux/_install/* ${RELEASE_BUILD}/baseroot/
 
 
 base-tarball: base-root
