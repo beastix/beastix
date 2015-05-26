@@ -31,6 +31,16 @@ buildworld-make:
 	${WORLDENV} make -C ${WORLD_BUILD}/make
 	${WORLDENV} make -C ${WORLD_BUILD}/make install
 
+buildworld-util-linux:
+	mkdir -p ${WORLD_BUILD}/util-linux/_install
+	${WORLDENV} cd ${WORLD_BUILD}/util-linux; ${SRC_ROOT}/world/util-linux/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/util-linux/_install --disable-nls --enable-static --disable-rpath \
+	                                                                                                 --disable-all-programs --disable-bash-completion --disable-makeinstall-setuid --without-selinux \
+	                                                                                                 --without-udev --without-libiconv --without-libintl-prefix --without-slang \
+	                                                                                                 --without-ncurses --without-utempter --without-user --without-systemd --without-smack \
+	                                                                                                 --without-python --enable-libuuid
+	${WORLDENV} make -C ${WORLD_BUILD}/util-linux
+	${WORLDENV} make -C ${WORLD_BUILD}/util-linux install
+
 buildworld-syslinux:
 	mkdir -p ${WORLD_BUILD}/syslinux/_install
 	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} O=${WORLD_BUILD}/syslinux 
@@ -47,6 +57,6 @@ clean-world:
 	make -i -C ${WORLD_BUILD}/gcc distclean clean
 	make -i -C ${WORLD_BUILD}/musl distclean clean	
 
-buildworld: bootstrap buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make
+buildworld: bootstrap buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux
 
 installworld:

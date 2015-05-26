@@ -2,6 +2,8 @@
 
 echo "Booting Beastix..."
 
+hostname -F /etc/hostname
+
 dmesg -n 1
 mount -t devtmpfs none /dev
 mount -t proc none /proc
