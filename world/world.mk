@@ -1,4 +1,4 @@
-WORLDENV := export PATH=${BOOTSTRAP_PATH}; export CFLAGS=${WORLD_CFLAGS}; export LDFLAGS=${WORLD_LDFLAGS}; export CC=${WORLD_CC};
+WORLDENV := export PATH="${BOOTSTRAP_PATH}"; export CFLAGS="${WORLD_CFLAGS}"; export LDFLAGS="${WORLD_LDFLAGS}"; export CC="${WORLD_CC}";
 
 buildworld-busybox:
 	mkdir -p ${WORLD_BUILD}/busybox
@@ -9,7 +9,7 @@ buildworld-busybox:
 	make -C ${WORLD_BUILD}/busybox/ 
 	make -C ${WORLD_BUILD}/busybox/ PREFIX=. install
 
-buildworld-gcc: buildworld-binutils
+buildworld-gcc: 
 	mkdir -p ${WORLD_BUILD}/gcc/_install
 	${WORLDENV} cd ${WORLD_BUILD}/gcc; ${SRC_ROOT}/world/gcc/configure ${WORLD_CONFIG}  --enable-languages=c --disable-nls --with-newlib --disable-multilib --disable-libssp \
                                                                                             --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap \
@@ -27,7 +27,7 @@ buildworld-musl:
 
 buildworld-binutils:
 	mkdir -p ${WORLD_BUILD}/binutils/_install
-	${WORLDENV} cd ${WORLD_BUILD}/binutils; ${SRC_ROOT}/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/binutils/_install --disable-install-libbfd --disable-shared
+	${WORLDENV} cd ${WORLD_BUILD}/binutils; ${SRC_ROOT}/world/binutils/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/binutils/_install --disable-install-libbfd --disable-shared
 	${WORLDENV} make -C ${WORLD_BUILD}/binutils
 	${WORLDENV} make -C ${WORLD_BUILD}/binutils install-gas install-ld install-binutils
 

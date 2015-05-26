@@ -1,4 +1,3 @@
-reorganise build system to allow dependency tracking across components
 patch kernel to build in self hosting mode (or import tools from FreeBSD)
 man pages
 cdrtools (required for building ISO image when self-hosting)
@@ -8,3 +7,4 @@ pkgsrc
 OpenSSH + libressl
 Cleanup compiler warnings - go through whole build process and cleanup any and all compiler warnings
 X11 set (build through pkgsrc in chroot)
+complete bsdtools, integrate
