@@ -27,7 +27,7 @@ base-root: minimal-root
 	cp -R --preserve ${SRC_ROOT}/obj/gcc/_install/*        ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/binutils/_install/*   ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/make/_install/*       ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/util-linux_install/*  ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/util-linux/_install/*  ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/syslinux/_install/* ${RELEASE_BUILD}/baseroot/
 
 
