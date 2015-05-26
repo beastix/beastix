@@ -24,10 +24,11 @@ minimal-root:
 base-root: minimal-root
 	mkdir -p ${RELEASE_BUILD}/baseroot
 	cp -R --preserve ${RELEASE_BUILD}/minroot/*            ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/gcc/_install/*      ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/binutils/_install/* ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/make/_install/*     ${RELEASE_BUILD}/baseroot/
-#	cp -R --preserve ${SRC_ROOT}/obj/syslinux/_install/* ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/gcc/_install/*        ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/binutils/_install/*   ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/make/_install/*       ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/util-linux_install/*  ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/syslinux/_install/* ${RELEASE_BUILD}/baseroot/
 
 
 base-tarball: base-root
@@ -38,9 +39,11 @@ live-initrd: base-root
 	cd ${RELEASE_BUILD}/baseroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/live_initrd.img
 
 installer-initrd: minimal-root
+	make -C ${SRC_ROOT} build-installer
 	mkdir -p ${RELEASE_BUILD}/installerroot
-	cp -R --preserve ${RELEASE_BUILD}/minroot/* ${RELEASE_BUILD}/installerroot/
-	cp -R --preserve ${SRC_ROOT}/installer/_install/* ${RELEASE_BUILD}/installerroot/
+	cp -R --preserve ${RELEASE_BUILD}/minroot/*          ${RELEASE_BUILD}/installerroot/
+	cp -R --preserve ${SRC_ROOT}/installer/_install/*    ${RELEASE_BUILD}/installerroot/
+	cp -R --preserve ${SRC_ROOT}/obj/syslinux/_install/* ${RELEASE_BUILD}/installerroot/
 	cd ${RELEASE_BUILD}/installerroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/installer_initrd.img
 
 source-tarball:
