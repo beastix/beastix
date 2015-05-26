@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Booting Beastix..."
+
 dmesg -n 1
 mount -t devtmpfs none /dev
 mount -t proc none /proc
@@ -18,9 +20,9 @@ mknod /dev/hdc     b  22  0
 mknod /dev/hdd     b  22 64
 mknod /dev/hde     b  33  0
 
+echo "Network starting"
+/etc/rc.network
 
-ip link set lo up
-ip link set eth0 up
-udhcpc -b -i eth0 -s /etc/rc.dhcp
-
+echo "Local startup scripts"
 /etc/rc.local
+
