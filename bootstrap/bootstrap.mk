@@ -29,7 +29,7 @@ bootstrap-util-linux:
 
 bootstrap-linux-headers:
 	make -C ${SRC_ROOT}/obj/kernel INSTALL_HDR_PATH=${BOOTSTRAP_TOOLS} headers_install
-
+	cd ${BOOTSTRAP_TOOLS}; mkdir -p usr; ln -sf ${BOOTSTRAP_TOOLS}/include usr/include
 
 bootstrap-syslinux:
 	@echo syslinux not yet integrated
@@ -41,4 +41,3 @@ clean-bootstrap:
 	rm -rf ${SRC_ROOT}/tools/*
 
 bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-syslinux
-	cd ${BOOTSTRAP_TOOLS}; mkdir -p usr; ln -sf ${BOOTSTRAP_TOOLS}/include usr/include
