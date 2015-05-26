@@ -59,10 +59,11 @@ After bootstrapping, you can issue these famous commands to build the system:
 This process can take a long time, so please be patient. When complete, binaries will be placed in obj/ and you can prepare for installation using the releng (release engineering) scripts:
 	
 	cd releng/
-	make release
+	make release-final
+	make iso-image
 
 The releng scripts attempt to create an iso, to do so syslinux is used in combo with mkisoimage from cdrtools, if you require the installer iso please ensure these packages are available before issuing
-the "make release" command.
+the "make iso-image" command.
 
 After all this, you will find a copy of the system in releng/release that can be installed to a real system or booted inside of an emulator such as qemu. During development, the system is commonly tested
 with kvm-qemu to directly load the kernel and initrd_live.img files and then by booting the iso image. If you test this way, be sure to use a system with at least 1GB of RAM allocated.
