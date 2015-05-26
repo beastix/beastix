@@ -1,5 +1,5 @@
 PWD             != pwd
-SRC_ROOT        := ${pwd}/..
+SRC_ROOT        := ${PWD}/..
 PORTS_ROOT      := ~/beastix-ports
 BEASTIX_VERSION := 0.1
 BEASTIX_BRANCH  := CURRENT
