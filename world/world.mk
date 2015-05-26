@@ -44,7 +44,7 @@ buildworld-binutils:
 
 clean-world:
 	make -i -C ${WORLD_BUILD}/binutils distclean clean
-	make -i -C ${WORLD_BUILD}gcc distclean clean
+	make -i -C ${WORLD_BUILD}/gcc distclean clean
 	make -i -C ${WORLD_BUILD}/musl distclean clean	
 
 buildworld: bootstrap buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make
