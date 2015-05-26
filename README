@@ -48,6 +48,8 @@ After installing dependencies you can bootstrap the musl toolchain by issuing th
 
 	make bootstrap
 
+Note that "make bootstrap" will sometimes fail if the kernel has not yet been built, if that is the case simply run "make buildkernel" before bootstrapping.
+
 You should not encounter any errors at this point on most systems, if you do encounter a build error please double check you have the correct gcc version installed and try again. Should the bootstrap fail
 please report the issue at https://github.com/beastix/beastix/issues and provide a full copy of all build output and details about the platform you are building on.
 
