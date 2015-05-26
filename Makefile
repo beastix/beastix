@@ -1,34 +1,14 @@
-bootstrap: FORCE
-	rm -rf bootstrap/tools
-	mkdir bootstrap/tools
-	make -C bin/ build-bootstrap
-	make -C kernel/ INSTALL_HDR_PATH=../bootstrap/tools headers_install
-	cp -Rv bootstrap/binutils/_install/* bootstrap/tools/
-	make -C lib/ build-bootstrap
-	cp -Rv bootstrap/musl/_install/* bootstrap/tools/
-	cd bootstrap/tools; mkdir usr; cp -Rv include usr/
-	cp -Rv lib/musl/arch/x86_64/* bootstrap/tools/include/
+include build-config.mk
+include kernel/kernel.mk
+include bootstrap/bootstrap.mk
+include world/world.mk
 
-FORCE:
+bootstrap: bootstrap-binutils bootstrap-musl bootstrap-gcc bootstrap-syslinux
 
-buildworld:
-	make -C lib/ build
-	make -C bin/ build
-	./update_rootfs.sh
+buildworld: buildworld-kernel-headers buildworld-musl buildworld-binutils buildworld-gcc buildworld-make buildworld-busybox buildworld-rootfs buildworld-syslinux
 
-buildkernel:
-	cd kernel; make mrproper
-	cd kernel; make defconfig O=../obj/kernel/
-	sed -i "s/.*CONFIG_DEFAULT_HOSTNAME.*/CONFIG_DEFAULT_HOSTNAME=\"beastix\"/" obj/kernel/.config
-	cd kernel; make bzImage O=../obj/kernel/
+installworld: installworld-musl installworld-binutils installworld-gcc installworld-make installworld-rootfs installworld-syslinux
 
-clean:
-	rm -rf obj/lib/musl/*
-	rm -rf obj/lib/libedit/*
-	rm -rf obj/bin/binutils/*
-	rm -rf obj/bin/busybox/*
-	rm -rf obj/bin/gcc/*
-	rm -rf obj/kernel/*
-	rm -rf releng/release/*
-	rm -rf bootstrap/binutils/_install
-	rm -rf bootstrap/gcc/_install
+installer: build-installer
+
+clean: clean-kernel clean-bootstrap clean-world
