@@ -7,8 +7,8 @@ bootstrap-gcc:
 	cd ${SRC_ROOT}/bootstrap/gcc; ${SRC_ROOT}/world/gcc/configure ${BOOTSTRAP_CONFIG} --build=x86_64-unknown-linux-musl --enable-languages=c --with-newlib --disable-multilib \
                                                                                           --disable-libssp --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared \
                                                                                           --disable-libmudflap --disable-libgomp
-	${MAKE} -C ${SRC_ROOT}/bootstrap/gcc all-gcc install-gcc
-	${MAKE} -C ${SRC_ROOT}/bootstrap/gcc all-target-libgcc install-gcc install-target-libgcc
+	make -C ${SRC_ROOT}/bootstrap/gcc all-gcc install-gcc
+	make -C ${SRC_ROOT}/bootstrap/gcc all-target-libgcc install-gcc install-target-libgcc
 	cd ${BOOTSTRAP_TOOLS}/bin; ln -sf x86_64-unknown-linux-musl-gcc x86_64-unknown-linux-musl-cc
 
 bootstrap-musl:
