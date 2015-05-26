@@ -34,11 +34,11 @@ buildworld-make:
 
 buildworld-util-linux:
 	mkdir -p ${WORLD_BUILD}/util-linux/_install
-	${WORLDENV} cd ${WORLD_BUILD}/util-linux; ${SRC_ROOT}/world/util-linux/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/util-linux/_install --disable-nls --enable-static --disable-rpath \
+	ssh -c "${WORLDENV} cd ${WORLD_BUILD}/util-linux; ${SRC_ROOT}/world/util-linux/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/util-linux/_install --disable-nls --enable-static --disable-rpath \
 	                                                                                                 --disable-all-programs --disable-bash-completion --disable-makeinstall-setuid --without-selinux \
 	                                                                                                 --without-udev --without-libiconv --without-libintl-prefix --without-slang \
 	                                                                                                 --without-ncurses --without-utempter --without-user --without-systemd --without-smack \
-	                                                                                                 --without-python --enable-libuuid
+	                                                                                                 --without-python --enable-libuuid; exit 0"
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/util-linux
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/util-linux install
 
