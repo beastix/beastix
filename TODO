@@ -10,6 +10,7 @@ For release 0.2:
 	Replace busybox shell with a BSD shell from bsdtools
 	Seperate minroot and base into seperate sets
         Seperate out gcc+binutils into seperate devel set
+	Simple sysmerge script
 
 For release 0.3:
 	OpenSSH + libressl
