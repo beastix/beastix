@@ -37,4 +37,4 @@ clean-bootstrap:
 	rm -rf ${SRC_ROOT}/tools/*
 
 bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-syslinux
-	cd ${BOOTSTRAP_TOOLS}; mkdir -p usr; ln -sf include usr/include
+	cd ${BOOTSTRAP_TOOLS}; mkdir -p usr; ln -sf ${BOOTSTRAP_TOOLS}/include usr/include
