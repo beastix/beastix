@@ -1,3 +1,4 @@
+add network fetching support to installer
 patch kernel to build in self hosting mode (or import tools from FreeBSD)
 man pages
 cdrtools (required for building ISO image when self-hosting)
