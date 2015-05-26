@@ -35,7 +35,7 @@ install_stage_one() {
 	cp /mnt/cdrom/bzImage /mnt/target/boot/
 	
 	echo "Installing rescue image..."
-	cp /mnt/cdrom/live_initrd.img /mnt/target/boot/rescue_initrd.img
+	cp /mnt/cdrom/live-initrd.img /mnt/target/boot/rescue-initrd.img
 }
 
 install_stage_two() {
@@ -68,7 +68,7 @@ install_stage_three() {
 	cp /bin/installer_stage3.sh /mnt/target/bin
 	
 	echo "Starting configuration...."
-	chroot /mnt/target /bin/installer_stage3.sh
+	chroot /mnt/target /bin/sh /bin/installer_stage3.sh
 	
 }
 
@@ -83,9 +83,15 @@ do_install() {
 	install_stage_three
 	
 	echo "Installation complete!"
-	echo "Remove any installation media and enter reboot to enter your new system"
+	echo "Remove any installation media and hit enter to reboot"
 	echo
-	/bin/sh
+	read
+
+	echo "Unmounting filesystem..."
+	umount /mnt/target
+	
+	echo "Rebooting in 10 seconds..."
+	reboot -d 10 -f
 }
 
 do_upgrade() {

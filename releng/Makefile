@@ -10,7 +10,7 @@ release-final-dir:
 	mkdir ${RELEASE_FINAL}
 
 minimal-root:
-	mkdir ${RELEASE_BUILD}/minroot
+	mkdir -p ${RELEASE_BUILD}/minroot
 	cp -R --preserve ${SRC_ROOT}/world/rootfs/*         ${RELEASE_BUILD}/minroot/
 	cp -R --preserve ${SRC_ROOT}/obj/musl/_install/*    ${RELEASE_BUILD}/minroot/
 	cp -R --preserve ${SRC_ROOT}/obj/busybox/_install/* ${RELEASE_BUILD}/minroot/
@@ -22,7 +22,7 @@ minimal-root:
 	cd ${RELEASE_BUILD}/minroot/usr; ln -sf ../include
 
 base-root: minimal-root
-	mkdir ${RELEASE_BUILD}/baseroot
+	mkdir -p ${RELEASE_BUILD}/baseroot
 	cp -R --preserve ${RELEASE_BUILD}/minroot/*            ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/gcc/_install/*      ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/binutils/_install/* ${RELEASE_BUILD}/baseroot/
@@ -39,6 +39,7 @@ live-initrd: base-root
 
 installer-initrd: minimal-root
 	mkdir -p ${RELEASE_BUILD}/installerroot
+	cp -R --preserve ${RELEASE_BUILD}/minroot/* ${RELEASE_BUILD}/installerroot/
 	cp -R --preserve ${SRC_ROOT}/installer/_install/* ${RELEASE_BUILD}/installerroot/
 	cd ${RELEASE_BUILD}/installerroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/installer_initrd.img
 
