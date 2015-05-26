@@ -39,7 +39,6 @@ live-initrd: base-root
 	cd ${RELEASE_BUILD}/baseroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/live_initrd.img
 
 installer-initrd: minimal-root
-	make -C ${SRC_ROOT} build-installer
 	mkdir -p ${RELEASE_BUILD}/installerroot
 	cp -R --preserve ${RELEASE_BUILD}/minroot/*          ${RELEASE_BUILD}/installerroot/
 	cp -R --preserve ${SRC_ROOT}/installer/_install/*    ${RELEASE_BUILD}/installerroot/
