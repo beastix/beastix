@@ -1,0 +1,144 @@
+.\" genisoimagerc.5 -*- nroff -*-
+.\" Derived from genisoimage.1
+.\" Copyright 1993-1998 by Yggdrasil Computing
+.\" Copyright 1996-1997 by Robert Leslie
+.\" Copyright 1997-2001 by James Pearson
+.\" Copyright 1999-2006 by Joerg Schilling
+.\" Copyright 2002-2003 by Jungshik Shin
+.\" Copyright 2003 by Jaakko Heinonen
+.\" Copyright 2006 by the Cdrkit maintainers
+.\"
+.TH GENISOIMAGERC 5 "13 Dec 2006"
+.\" ----------------------------------------
+.SH NAME
+genisoimagerc \- startup configuration file for genisoimage
+.SH DESCRIPTION
+.BR genisoimage (1)
+searches for a configuration file in several places; it uses the first
+one it is able to open.  First, if the
+.B GENISOIMAGERC
+environment variable is set, its value is used as the filename;
+likewise for the
+.B MKISOFSRC
+environment variable.  Next,
+.B genisoimage
+looks for files named
+.IR .genisoimagerc " or " .mkisofsrc ,
+first in the current working directory, then in the user's home
+directory.  Next, it looks for
+.IR /etc/genisoimagerc .
+Finally, it looks for a
+.I .genisoimagerc
+in the same directory as
+.B genisoimage
+itself is stored.
+.PP
+The
+.I .genisoimagerc
+file contains lines of the form
+.IP
+.BI TAG= value
+.PP
+where
+.B TAG
+is one of the settings defined below.  The case of the tag is not
+significant.  All settings have command-line equivalents; if the
+command-line parameter is specified, it takes priority over the
+configuration file.
+.PP
+Blank lines and lines beginning with `#' are ignored.
+.\" ----------------------------------------
+.SH "CONFIGURATION SETTINGS"
+.IP ABST
+The abstract information, typically the name of a file on the disc
+containing an abstract.  There is space for 37 characters.
+Equivalent to the
+.B \-abstract
+command-line option.
+.IP APPI
+The application identifier should describe the application that will be
+on the disc.  There is space for 128 characters.  Equivalent to the
+.B \-A
+command-line option.
+.IP BIBL
+The bibliographic information, often the name of a file on the disc
+containing a bibliography.  There is space for 37 characters.
+Equivalent to the
+.B \-biblio
+command-line option.
+.IP COPY
+The copyright information, typically the name of a file on the disc
+containing the copyright notice.  There is space for 37 characters.
+Equivalent to the
+.B \-copyright
+command-line option.
+.IP HFS_TYPE
+The default
+.B TYPE
+for Macintosh files. Must be exactly 4 characters.  Equivalent to the
+.B \-hfs\-type
+command-line option.  The default value is
+.IR TEXT .
+.IP HFS_CREATOR
+The default
+.B CREATOR
+for Macintosh files. Must be exactly 4 characters.  Equivalent to the
+.B \-hfs\-creator
+command-line option.  The default value is
+.IR Unix .
+.IP PREP
+This should describe the preparer of the CD-ROM, usually with a mailing
+address and phone number.  There is space for 128 characters.
+Equivalent to the
+.B \-p
+command-line option.
+.IP PUBL
+This should describe the publisher of the CD-ROM, usually with a
+mailing address and phone number.  There is space for 128 characters.
+Equivalent to the
+.B \-publisher
+command-line option.
+.IP SYSI
+The System Identifier.  There is space for 32 characters.
+Equivalent to the
+.B \-sysid
+command-line option.
+.IP VOLI
+The Volume Identifier.  There is space for 32 characters.
+Equivalent to the
+.B \-V
+command-line option.
+.IP VOLS
+The Volume Set Name.  There is space for 128 characters.
+Equivalent to the
+.B \-volset
+command-line option.
+.PP
+.B genisoimage
+can also be configured at compile time with defaults for many of these
+fields.  See the file
+.IR defaults.h .
+.\" ----------------------------------------
+.SH EXAMPLES
+The following file
+.IP
+.nf
+COPY=src/COPYING
+SYSI=Multics 75
+.fi
+.PP
+is equivalent to the
+.B genisoimage
+command-line parameters
+.IP
+.I "\-copyright src/COPYING \-sysid \(dqMultics 75\(dq"
+.\" ----------------------------------------
+.SH "SEE ALSO"
+.BR genisoimage (1).
+.\" ----------------------------------------
+.SH AUTHORS
+See the
+.BR genisoimage (1)
+manual page for credits for the
+.B genisoimage
+program and documentation.

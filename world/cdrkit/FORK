@@ -1,0 +1,63 @@
+Forking cdrtools as cdrkit
+--------------------------
+
+
+So, why the fork? CD/DVD burning is a complicated business that needs a
+lot of knowledge, so forking such a big collection isn't a step to be
+taken lightly. It requires a lot of development effort that could be put to
+better use elsewhere.
+
+In the past, we, the Debian maintainers of cdrtools, had a good and
+mutually cooperative relationship with Jörg Schilling.  He even
+commented on Debian bug reports, which is one of the best things an
+upstream maintainer can do.  Naturally, there were occasionally
+disagreements, but this is normal.
+
+
+Unfortunately Sun then developed the CDDL[1] and Jörg Schilling
+released parts of recent versions of cdrtools under this license.
+The CDDL is incompatible with the GPL.  The FSF itself says that this
+is the case as do people who helped draft the CDDL. One current and
+one former Sun employee visited the annual Debian conference in Mexico
+in 2006. Danese Cooper clearly stated there that the CDDL was
+intentionally modelled on the MPL in order to make it GPL-
+incompatible. For everyone who wants to hear this first-hand, we have
+video from that talk available at [2].
+
+You can read the FSF position about the CDDL at [3]. The thread behind
+[4] contains statements on the issue made by Debian people; for more
+context also see the other mails in that thread.
+In short -  the CDDL has extra restrictions, which the GPL does not
+allow.  Jörg has a different opinion about this and has repeatedly
+stated that the CDDL is not incompatible, interpreting a facial
+expression in the above-mentioned video, calling us liars and generally
+appearing unwilling to consider our concerns (he never replied to the
+parts where we explained why it is incompatible). As he has basically
+ignored what we have said, we have no choice but to fork. While the CDDL
+*may* be a free license, we never questioned if it is free or not, as it
+is not our place to decide this as the Debian cdrtools
+maintainers. However, having been approved by OSI doesn't mean it's ok
+for any usage, as Jörg unfortunately seems to assume. There are several
+OSI-approved licenses that are GPL-incompatible and CDDL is one of
+them. That is and always was our point.
+
+
+For our fork we used the last GPL-licensed version of the program code
+from Cdrtools [5] and killed the incompatibly licensed build system. It
+is now replaced by a cmake system, and the whole source we distribute
+should be free of other incompatibilities, as to the best of our current
+knowledge.
+
+
+Anyone who wants to help with this fork, particularly developers of
+other distributions, is welcome to join our efforts. You can contact us
+on IRC, server irc.oftc.net, channel #debburn, or via mail at
+debburn-devel@lists.alioth.debian.org. Our svn repository is
+http://svn.debian.org/wsvn/debburn.
+
+
+[1] http://www.opensource.org/licenses/cddl1.php
+[2] http://meetings-archive.debian.net/pub/debian-meetings/2006/debconf6/theora-small/2006-05-14/tower/OpenSolaris_Java_and_Debian-Simon_Phipps__Alvaro_Lopez_Ortega.ogg
+[3] http://www.gnu.org/licenses/license-list.html
+[4] http://lists.debian.org/debian-devel/2006/08/msg00552.html
+[5] Cdrtools 2.01.01a08 from May 2006, http://cdrecord.berlios.de

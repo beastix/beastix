@@ -1,0 +1,85 @@
+Wodim and genisoimage allow you to create multi-session CD's with all
+supported drives.
+
+According to www.cd-info.com, a CD+ is a CD with two sessions.
+The first session is an audio session, the second session a data
+session.
+
+Creating a CD+ is first writing an audio session in 
+multi session mode and then writing a data session.
+
+If you like to append a filesystem to a audio CD, first extract the 
+CD by calling:
+
+	icedax -B -vall
+
+This first audio session may be written in TAO mode with the command
+
+	wodim -multi -audio file1 ....
+
+or in DAO mode with the command
+
+	wodim -dao -multi -useinfo -audio file1 ....
+
+To add the second session that contains the data track, you need
+to create an ISO-9660 file system that starts not at sector 0.
+
+With the current genisoimage, you must use the following method:
+
+-	First call wodim -msinfo for your prepared multi-session audio CD.
+
+	you will get something like 0,12345
+
+-	Now call genisoimage:
+
+	genisoimage -o fs.raw -C 0,12345 root_directory_for_new_cd
+
+	replace 0,12345 with your actual wodim -msinfo output.
+
+the image in fs.raw may now be written with wodim as second session.
+
+See my README.multi for more info on how to create multi session CD's
+
+
+The procedure again in short form:
+
+	icedax -vall -B
+
+	wodim -multi -audio audio_tracks ....
+or
+	wodim -dao -useinfo -multi -audio audio_tracks ....
+
+	wodim -msinfo ....
+	(output is e.g. 0,12345)
+
+	genisoimage -R -o cd_plus.raw -C 0,12345 root_dir_of_fs
+
+	wodim -data cd_plus.raw
+or
+	wodim -multi cd_plus.raw
+
+
+Note: If you want to create an HFS hybrid as the data track, then you must
+use the '-part' option to genisoimage. Otherwise, the data track will be mounted
+as an ISO9660/Joliet CD when used on a Mac.
+	
+Jörg
+
+Edited for cdrkit by Christian Fromme <kaner@strace.org> and Eduard Bloch
+
+This describes the programs as shipped with cdrkit, a spinoff from the
+cdrtools project. However, the cdrtools developers are no longer
+involved in the development of this spinoff and therefore shall not
+be made responsible for any problem caused by it. Do not try to get
+support for this program by contacting the original authors.
+
+If you have support questions, send them to
+
+debburn-devel@lists.alioth.debian.org
+
+If you have definitely found a bug, send a mail to this list or to
+
+submit@bugs.debian.org
+
+writing at least a short description into the Subject and "Package: cdrkit" 
+into the first line of the mail body.

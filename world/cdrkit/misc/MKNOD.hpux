@@ -1,0 +1,59 @@
+#!/bin/sh
+################################################################
+# make SCSI device files according to: man scsi_ctl
+#
+# Copyright (c) 1997 J. Schilling
+################################################################
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2
+# as published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; see the file COPYING.  If not, write to the Free Software
+# Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+################################################################
+
+mknod="echo mknod"
+mkdir="echo mkdir -p"
+chmod="echo chmod"
+
+mknod="/usr/sbin/mknod"
+mkdir="mkdir -p"
+chmod="chmod"
+
+scsi=/dev/scsi
+rscsi=/dev/rscsi
+
+${mkdir}  ${scsi}
+${mkdir} ${rscsi}
+
+bus=0
+target=0
+lun=0
+
+for bus in 0 1 2 3 4 5 6 7 8 9 a b c d e f; do
+	for target in 0 1 2 3 4 5 6 7 8 9 a b c d e f; do
+		for lun in 0 1 2 3 4 5 6 7; do
+#
+#	Newer HP-UX versions seem to have
+#	/dev/rscsi/citxdy
+#	but it uses the "non-raw" interface type
+#			dev=c${bus}t${target}d${lun} 
+#	We follow the HP-UX documentation and create
+#	/dev/rscsi/citxty with the raw bit set
+
+			dev=c${bus}t${target}l${lun} 
+
+			$mknod  ${scsi}/${dev} c 203 0x${bus}${target}${lun}00
+			$chmod 0600  ${scsi}/${dev}
+
+			$mknod ${rscsi}/${dev} c 203 0x${bus}${target}${lun}02
+			$chmod 0600  ${rscsi}/${dev}
+		done
+	done
+done

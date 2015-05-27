@@ -1,0 +1,28 @@
+# README.alphaboot    Steve McIntyre <steve@einval.com> 2004/07/19
+
+The alpha boot support allows you to create a bootable CD which will
+work with DEC/Compaq/HP Alpha machines, for example bootable
+installation media.
+
+The method used for this is the same as in aboot, the bootloader for
+Linux on Alpha, and works with SRM firmware. See the SRM Firmware
+HOWTO at http://www.alphalinux.org/faq/SRM-HOWTO/ for more details
+about SRM.
+
+In common with many Unix systems, the SRM code reads the first
+512-byte "sector" off a disk and parses information in that
+sector. The information in question is the location (start "sector")
+and length of the first stage boot loader. On a Linux system, this
+file will normally be called bootlx.
+
+SRM will load and execute the first stage boot loader, and from that
+point the system should be able to find the normal OS kernel and start
+up fully.
+
+To use the Alpha boot support code in genisoimage, simply specify the
+location of the first stage boot loader (relative to the CD root)
+using the -alpha-boot command line switch:
+
+genisoimage ... -alpha-boot boot/bootlx -o alpha.iso files
+
+

@@ -1,0 +1,29 @@
+# README.mipselboot    Steve McIntyre <steve@einval.com> 2004/07/19
+
+The mips/DEC boot support allows you to create a bootable CD which
+will work with little-endian mips DEC machines (e.g. older
+DECstations), for example bootable installation media.
+
+The method used for this is the same as in delo, the Linux-on-mipsel
+bootloader. See the delo README for more information about how to
+configure the DECstation's firmware to find and boot the CDROM.
+
+The DEC firmware reads the first 512-byte "sector" off a disk and
+parses information from that sector. The information in question is
+the location (start sector) and length of the first stage boot
+loader.
+
+(On Linux, this boot loader is in ELF format and the firmware does not
+know how to deal with ELF directly, we have to parse the ELF headers
+and find the raw binary data needed inside it. Pointers to the start
+and length of that raw binary are what is stored in the boot sector.)
+
+The firmware will load and execute the first stage boot loader, and
+from that point the system should be able to find the normal OS kernel
+and start up fully.
+
+To use the DEC boot support code in genisoimage, simply specify the kernel
+file location (relative to the CD root) as follows:
+
+genisoimage ... -mipsel-boot <kernel file> -o mipsel.iso mipsel-files
+

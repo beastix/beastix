@@ -1,0 +1,120 @@
+.\" $Id: mkzftree.1,v 1.13 2004/07/20 04:03:53 hpa Exp $
+.\" -----------------------------------------------------------------------
+.\"   
+.\"   Copyright 2001 H. Peter Anvin - All Rights Reserved
+.\"
+.\"   This program is free software; you can redistribute it and/or modify
+.\"   it under the terms of the GNU General Public License as published by
+.\"   the Free Software Foundation, Inc., 675 Mass Ave, Cambridge MA 02139,
+.\"   USA; either version 2 of the License, or (at your option) any later
+.\"   version; incorporated herein by reference.
+.\"
+.\" -----------------------------------------------------------------------
+.TH MKZFTREE "1" "30 July 2001" "zisofs-tools" "H. Peter Anvin"
+.SH NAME
+mkzftree \- Create a zisofs/RockRidge compressed file tree
+.SH SYNOPSIS
+.B mkzftree
+[\fIOPTIONS\fR]... \fIINPUT\fR \fIOUTPUT\fR
+.SH DESCRIPTION
+.PP
+Takes an input file tree (\fIINPUT\fR) and create a corresponding
+compressed file tree (\fIOUTPUT\fR) that can be used with an
+appropriately patched
+.BR mkisofs (8)
+to create a transparent-compression ISO 9660/Rock Ridge filesystem using
+the "ZF" compression records.
+.SH OPTIONS
+.TP
+\fB\-f\fP, \fB\-\-force\fP
+Always compress all files, even if they get larger when compressed.
+.TP
+\fB\-z\fP \fIlevel\fP, \fB\-\-level\fP \fIlevel\fP
+Select compression level (1-9, default is 9).  Lower compression
+levels are faster, but typically result in larger output.
+.TP
+\fB\-u\fP, \fB\-\-uncompress\fP
+Uncompress an already compressed tree.  This can be used to read a
+compressed filesystem on a system which cannot read them natively.
+.TP
+\fB\-p\fP \fIparallelism\fP, \fB\-\-parallelism\fP \fIparallelism\fP
+Compress in parallel.  The
+.I parallelism
+value indicates how many compression threads are allowed to run.
+.TP
+\fB\-x\fP, \fB\-\-one-filesystem\fP
+Do not cross filesystem boundaries, but create directory stubs at
+mount points.
+.TP
+\fB\-X\fP, \fB\-\-strict-one-filesystem\fP
+Do not cross filesystem boundaries, and do not create directory stubs
+at mount points.
+.TP
+\fB\-C\fP \fIpath\fP, \fB\-\-crib-path\fP \fIpath\fP
+Steal ("crib") files from another directory if it looks (based on
+name, size, type and modification time) like they match entries in the
+new filesystem.  The "crib tree" is usually the compressed version of
+an older version of the same workload; this thus allows for
+"incremental rebuilds" of a compressed filesystem tree.  The files are
+hardlinked from the crib tree to the output tree, so if it is
+desirable to keep the link count correct the crib path should be
+deleted before running \fBmkisofs\fP.  The crib tree must be on the
+same filesystem as the output tree.
+.TP
+\fB\-l\fP, \fB\-\-local\fP
+Do not recurse into subdirectories, but create the directories
+themselves.
+.TP
+\fB\-L\fP, \fB\-\-strict-local\fP
+Do not recurse into subdirectories, and do not create directories.
+.TP
+\fB\-F\fP, \fB\-\-file\fP
+Indicates that \fIINPUT\fP may not necessarily be a directory; this
+allows operation on a single file.  Note especially that if \fI\-F\fP
+is specified, and \fIINPUT\fP is a symlink, the symlink itself will be
+copied rather than whatever it happens to point to.
+.TP
+\fB\-s\fP, \fB\-\-sloppy\fP
+Treat file modes, times and ownership data as less than precious
+information and don't abort if they cannot be set.  This may be useful
+if running
+.B mkisofs
+on an input tree you do not own.
+.TP
+\fB\-v\fP, \fB\-\-verbose\fP
+Increase the program verbosity.
+.TP
+\fB\-V\fP \fIvalue\fP, \fB\-\-verbosity\fP \fIvalue\fP
+Set the program verbosity to
+.IR value .
+.TP
+\fB\-q\fP, \fB\-\-quiet\fP
+Issue no messages whatsoever, including error messages.  This is the same
+as specifying
+.IR "\-V\ 0" .
+.TP
+\fB\-h\fP, \fB\-\-help\fP
+Display a brief help message.
+.TP
+\fB\-w\fP, \fB\-\-version\fP
+Display the release version.
+.SH BUGS
+Long options (beginning with \fI\-\-\fP) may not work on all systems.
+See the message printed out by \fImkzftree\ \-h\fP to see if this
+applies to your system.
+.PP
+Inode change times (ctimes) are not copied.  This is a system
+limitation and applies to all file copy programs.
+.PP
+If using the parallel option (\fI\-z\fP) the access times (atimes) on
+directories may or may not be copied.  If it is important that the
+atimes on directories are copied exactly, avoid using \fI\-z\fP.
+.SH AUTHOR
+Written by H. Peter Anvin <hpa@zytor.com>.
+.SH COPYRIGHT
+Copyright \(co 2001-2002 H. Peter Anvin.
+.br
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+.SH "SEE ALSO"
+.BR mkisofs (8)

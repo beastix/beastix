@@ -1,0 +1,29 @@
+
+This is an example of how to install wodim and other cdrkit applications to get
+the root permissions in a safer way.
+
+Usually it is not a good idea to run the applications as root or to
+give users the means to run wodim as root. This gives them an easy way
+to fetch sensitive data by writing it to the disk, or pass arbitrary
+SCSI commands, e.g. formatting a SCSI disk.
+
+This also applies to root-mode wrappers like sudo, they should be used with
+the most possible care.
+
+The alternative way is installing wodim as suid-root application. In this
+mode, wodim checks permission of the device access by comparing the ownership
+of the device node user/group attributes for the real UID/GID of the calling
+user.
+
+To give all user access to use wodim, enter:
+
+   chown root /usr/local/bin/wodim
+   chmod 4711 /usr/local/bin/wodim
+
+To give a restricted group of users access to wodim, add a group
+"cdburners" to your system and add the trusted users to this group.
+Then enter:
+
+   chown root:cdburners /usr/local/bin/wodim
+   chmod 4710 /usr/local/bin/wodim
+

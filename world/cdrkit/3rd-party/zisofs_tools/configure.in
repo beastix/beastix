@@ -1,0 +1,58 @@
+dnl
+dnl autoconf input file to generate MCONFIG
+dnl
+
+AC_PREREQ(2.57)
+AC_REVISION([$Id: configure.in,v 1.7 2004/07/20 04:04:22 hpa Exp $])
+AC_INIT(MCONFIG.in)
+AC_PREFIX_DEFAULT(/usr)
+
+AC_PROG_CC
+AC_GNU_SOURCE
+AC_SYS_LARGEFILE
+AC_C_CONST
+AC_C_INLINE
+
+PA_ADD_CFLAGS(-Wall)
+PA_ADD_CFLAGS(-W)
+PA_ADD_CFLAGS(-Wpointer-arith)
+PA_ADD_CFLAGS(-Wbad-function-cast)
+PA_ADD_CFLAGS(-Wcast-equal)
+PA_ADD_CFLAGS(-Wstrict-prototypes)
+PA_ADD_CFLAGS(-Wmissing-prototypes)
+PA_ADD_CFLAGS(-Wmissing-declarations)
+PA_ADD_CFLAGS(-Wnested-externs)
+PA_ADD_CFLAGS(-Winline)
+PA_ADD_CFLAGS(-Wshadow)
+PA_ADD_CFLAGS(-Wcast-align)
+PA_ADD_CFLAGS(-pipe)
+
+AC_CHECK_HEADERS(inttypes.h)
+AC_CHECK_HEADERS(sysexits.h)
+AC_CHECK_HEADERS(getopt.h)
+AC_CHECK_HEADERS(endian.h)
+
+AC_CHECK_TYPE(off_t, signed long)
+AC_CHECK_TYPE(size_t, unsigned long)
+AC_CHECK_TYPE(ssize_t, signed long)
+
+AC_CHECK_FUNCS(lchown)
+AC_CHECK_FUNCS(utimes)
+
+AC_CHECK_MEMBERS(struct stat.st_mtim.tv_usec, , , [#include <sys/stat.h>])
+AH_TEMPLATE([HAVE_STRUCT_STAT_ST_MTIM_TV_USEC],
+          [Define to 1 if `struct stat.st_[mca]tim' are struct timeval])
+AC_CHECK_MEMBERS(struct stat.st_mtim.tv_nsec, , , [#include <sys/stat.h>])
+AH_TEMPLATE([HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC], 
+          [Define to 1 if `struct stat.st_[mca]tim' are struct timespec])
+
+AC_SEARCH_LIBS(compress2, z, , [AC_MSG_ERROR(zlib not found, cannot continue)])
+AC_SEARCH_LIBS(getopt_long, [getopt getopt_long])
+AC_CHECK_FUNCS(getopt_long)
+AH_TEMPLATE([HAVE_GETOPT_LONG], [Define to 1 if you have the `getopt_long' function])
+
+AC_PROG_RANLIB
+AC_PROG_INSTALL
+
+AC_CONFIG_HEADER(config.h)
+AC_OUTPUT(MCONFIG)

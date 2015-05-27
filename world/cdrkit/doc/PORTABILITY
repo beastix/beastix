@@ -1,0 +1,34 @@
+You may have heard from a certain person that cdrkit is not portable and you
+may need some help to decide whether you shall believe him/her or not. It is,
+as usual, recommended to make your own opinion before adopting someone elses
+which may be biased.
+
+What is portability? Portability is the ability for beeing compiled and
+deployed on a plattform that an application supports. It is obvious that nobody
+can promise the unlimited portability especially not to operating systems to do
+not exist yet or that are long dead (dead like in: unsupported, unmaintained for
+many years, needing hardware which is not available in stores for many years).
+And there could always undocumented bugs which means that real life tests
+should be done on the target plattform(s) again and again.
+
+Therefore, unlimited portability is pure utopia. It is required to define a
+certain degree of portability to meet the needs of the target user base.
+
+How does that work in scope of cdrkit? Main target are mainstream plattforms.
+Currently, it supports Linux, FreeBSD, Cygwin (Win32), SunOS and AIX5l. This
+set should cover the majority of general purpose computer systems in the wild.
+
+Cdrkit sets some requirements on the targeted operating systems. However, most
+modern unix-like OS should be able to fullfill them. Those requirements
+include:
+
+ - an ANSI-C compiler, or a GCC port
+ - GNU make port
+ - Large File Support
+ - sane libc library
+ - some prerequisites to bootstrap CMake
+
+This cuts off support for really old operating systems, but... do you care? Do
+you need it? Or do you want to believe the tales of superiority trough (just
+claimed) portability?
+

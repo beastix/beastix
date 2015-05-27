@@ -1,0 +1,108 @@
+.\" @(#)isodebug.8	1.1 06/02/08 Copyr 2006 J. Schilling
+.\" Manual page for isodebug
+.\" Modified for cdrkit distribution by E.Bloch
+.\"
+.if t .ds a \v'-0.55m'\h'0.00n'\z.\h'0.40n'\z.\v'0.55m'\h'-0.40n'a
+.if t .ds o \v'-0.55m'\h'0.00n'\z.\h'0.45n'\z.\v'0.55m'\h'-0.45n'o
+.if t .ds u \v'-0.55m'\h'0.00n'\z.\h'0.40n'\z.\v'0.55m'\h'-0.40n'u
+.if t .ds A \v'-0.77m'\h'0.25n'\z.\h'0.45n'\z.\v'0.77m'\h'-0.70n'A
+.if t .ds O \v'-0.77m'\h'0.25n'\z.\h'0.45n'\z.\v'0.77m'\h'-0.70n'O
+.if t .ds U \v'-0.77m'\h'0.30n'\z.\h'0.45n'\z.\v'0.77m'\h'-0.75n'U
+.if t .ds s \\(*b
+.if t .ds S SS
+.if n .ds a ae
+.if n .ds o oe
+.if n .ds u ue
+.if n .ds s sz
+.TH ISODEBUG 1 "06/02/08" "J\*org Schilling" "Schily\'s USER COMMANDS"
+.SH NAME
+isodebug \- print genisoimage debug info from ISO-9660 image
+.SH SYNOPSIS
+.B
+isodebug
+[
+.I options
+]
+[
+.I file
+]
+.SH DESCRIPTION
+.B Isodebug
+reads the debug info written by 
+.BR genisoimage (8)
+from within a ISO-9660 file system image and prints them.
+. \" .SH RETURNS
+. \" .SH ERRORS
+.SH OPTIONS
+.TP
+.B \-help
+Prints a short summary of the 
+.B isodebug
+options and exists.
+.TP
+.B \-version
+Prints the 
+.B isodebug
+version number string and exists.
+.TP
+.BI \-i " filename
+Filename to read ISO-9660 image from.
+.TP
+.BI dev= target
+SCSI target to use as CD/DVD-Recorder.
+See
+.BR wodim (1)
+for more information on now to use this option.
+.SH FILES
+.SH "SEE ALSO"
+.BR wodim (1),
+.BR genisoimage (1).
+.SH AUTHOR
+.nf
+J\*org Schilling
+Seestr. 110
+D-13353 Berlin
+Germany
+.fi
+.PP
+
+
+.SH AUTHOR
+.nf
+J\*org Schilling
+Seestr. 110
+D-13353 Berlin
+Germany
+.fi
+
+.PP
+This manpage describes the program implementation of
+.B
+isodebug
+as shipped by the cdrkit distribution. See
+.B
+http://alioth.debian.org/projects/debburn/
+for details. It is a spinoff from the original program distributed in the
+cdrtools package [1]. However, the cdrtools developers are not
+involved in the development of this spinoff and therefore shall not be made
+responsible for any problem caused by it. Do not try to get support for this
+program by contacting the original author(s).
+.PP
+If you have support questions, send them to
+.PP
+.B
+debburn-devel@lists.alioth.debian.org
+.br
+.PP
+If you have definitely found a bug, send a mail to this list or to
+.PP
+.B
+submit@bugs.debian.org
+.br
+.PP
+writing at least a short description into the Subject and "Package: cdrkit" into the first line of the mail body.
+.PP
+.br
+[1] Cdrtools 2.01.01a08 from May 2006, http://cdrecord.berlios.de
+
+

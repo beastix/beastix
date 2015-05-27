@@ -1,0 +1,114 @@
+'\"
+.TH "cdda2ogg" "1"
+.SH "NAME"
+cdda2ogg, cdda2mp3 \(em extract audio CD audio tracks and encode them
+.SH "SYNOPSIS"
+.PP
+.B cdda2ogg
+.PP
+.B cdda2mp3
+.SH "DESCRIPTION"
+.PP
+.B cdda2ogg is a simple script that uses the
+.B icedax <fileprefix>
+command to extract all audio tracks with the
+.B icedax <fileprefix>
+command and encode them using the
+.B ogg123
+respective
+.I <censored>
+MP3
+encoder. The scripts are not intended to be full-featured music archiving
+programs, but only for quick storing of few audio data.
+It does not use databases like CDDB or have any extra features. You may look
+at
+.B icedax
+if you need them.
+.PP
+.B ogg123
+is provided by the
+.B vorbis-tools
+which needs to be installed separately.
+See
+.B www.ogg.org
+for more information.
+
+.SH "CONFIGURATION"
+.PP
+.B cdda2ogg
+and
+.B cdda2mp3
+have predefined values for reading and labeling of the target files.
+You can overwrite them with following environment variables:
+
+.IP "CDDA_DEVICE" 10
+Source device specification to get the data from.
+
+.IP "LIST" 10
+List of track numbers to be read, separated by spaces.
+
+.IP "CDDA2WAV" 10
+Defines the command to run the cdda2wav program
+
+.IP "CDDA2WAV_OPTS" 10
+Miscellaneous options passed to 
+.IR $CDDA2WAV .
+
+.IP "MP_CODER" 10
+The encoder program.
+
+.IP "MP_OPTIONS" 10
+Additional options passed to
+.IR $MP_CODER .
+ 
+.IP "FILEPREFIX" 10
+The base part of the filename of resulting audio files. This can also be specified as the first argument to the script.
+
+.PP
+See cdda2ogg (cdda2mp3) script file to get the default values
+.PP
+System administrator can also set default values by creating of a shell
+include file, defining the variables for the POSIX shell, and storing them as
+/etc/default/cdda2ogg (resp. cdda2mp3).
+.SH "EXAMPLES"
+.PP
+.B CDDA_DEVICE=/dev/cdrom1 cdda2ogg
+.br
+just stores every track in this device in audiotrackNUMBER.ogg
+.PP
+.PP
+.B LIST="1 5 7" cdda2ogg PartsOfBestOfFoo
+.br
+stores the selected tracks from the default cdrom device as 01-PartsOfBestOfFoo.ogg, 05-PartsOfBestOfFoo.ogg, 07-PartsOfBestOfFoo.ogg.
+
+.SH "SEE ALSO"
+.BR icedax (1)
+.SH "AUTHOR"
+.PP
+This manpage describes the program implementation of
+.B
+cdda2ogg
+as shipped by the cdrkit distribution. See
+.B
+http://alioth.debian.org/projects/debburn/
+for details. It is a spinoff from the original program distributed by the cdrtools project. However, the cdrtools developers are not involved in the development of this spinoff and therefore shall not be made responsible for any problem caused by it. Do not try to get support for this program by contacting the original authors.
+.PP
+If you have support questions, send them to
+.PP
+.B
+debburn-devel@lists.alioth.debian.org
+.br
+.PP
+If you have definitely found a bug, send a mail to this list or to
+.PP
+.B
+submit@bugs.debian.org
+.br
+.PP
+writing at least a short description into the Subject and "Package: cdrkit" into the first line of the mail body.
+.PP
+This manual page was written by Eduard Bloch
+(blade@debian.org) for the
+.B "Debian GNU/Linux system (but may be used by others). Permission is granted
+to copy, distribute and/or modify this document under the terms of the GNU
+General Public License, Version 2 as published by the Free Software Foundation.

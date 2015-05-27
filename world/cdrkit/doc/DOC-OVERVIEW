@@ -1,0 +1,35 @@
+This is the documentation collection of the cdrkit package
+
+It has been derived from the cdrtools package maintained by
+Joerg Schilling.  However, other maintainers work on this
+spinoff of the documentation.
+
+Keep in mind that cdrkit is not cdrtools when you read the
+documentation. Some details may be void in context of
+cdrkit.
+
+Contents:
+
+ANNOUNCEMENTs : directory containing AN* files with release
+                notes from old cdrtools releases
+
+READMEs : contains HOWTOs and instructions relevant to
+          various tasks, especially such where multiple
+          programs are involved
+
+wodim : contains README files relevant for the work with the
+        wodim application (writting data) and details specific
+        to its usage
+
+genisoimage : documentation for work with genisoimage program, a
+              ISO9660 filesystem creator. See genisoimage/README for
+              details.
+
+icedax : contains documentation for the CD audio
+           extraction utility icedax. See icedax/README for
+           details.
+
+plattforms : contains notes about portability to different
+           plattforms
+
+

@@ -1,0 +1,27 @@
+*0.3.3: 2006/03
+
+* code refactoring, much more readable now
+* dropped the "du" exploration mode
+* dropped the read-from-file mode and input "correct" cludge
+	* Use the new -T option to specify arbitrary input, and avoid dupes.
+	* Use the new option -F to follow symlinks
+* option name fixes
+* new option simple/stupid mode
+	* no space-efficiency optimisation, instead trying to store in alphabetic
+	  order
+
+0.3.2:
+
+* cosmetic, correct usage and long help
+
+0.3.1:
+
+* proper fix for the = filenames
+
+0.3:
+
+* rewrite of some data input code, now using internal directory scanning
+(exploration) go get data, not trusting du -a crap
+* estimative calculation for filesystem overhead for directory entries
+* workaround for = in filenames
+* much, much more

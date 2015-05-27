@@ -1,0 +1,10 @@
+
+Cdrkit have been built and partially tested on SunOS 5.8.
+
+To compile, run "gmake". CMake must be installed (with its modules), the cmake
+binary must available in your path. Installing GNU libiconv is also recommended.
+
+On linking problems with 3rd-party libraries involved, make sure that you have
+matching configuration of CFLAGS and LDFLAGS vars.
+
+ -- Eduard Bloch -- Tue, 28 Nov 2006 00:01:47 +0100

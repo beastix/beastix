@@ -1,0 +1,7 @@
+Package: dirsplit
+License: GPLv2 (until I change my mind)
+Purpose: put files from a directory structure in subdirectories of specified
+size or create catalogues for mkisofs so that generated volumes waste as few
+space as possible
+Algrorithm: randomising FirstFit or BestFit
+Usage:   Selfexplaining

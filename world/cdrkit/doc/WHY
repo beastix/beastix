@@ -1,0 +1,26 @@
+Why cdrkit? Why wodim? Why genisoimage? Because:
+
+ - it won't tell you that you have no /dev/pg* device file thing foo, that you
+   have never seen and you will never need
+ 
+ - it won't require to be executed as root, fail with obscure messages without
+   such permissions
+
+ - it won't force you to wait 3 seconds every time you want to start, no matter
+   what you specify as gracetime=
+ 
+ - it won't kill another burning process when you do -scanbus in another shell
+
+ - it will let you specify your device directly in the way you know it, rather
+   than forcing some weird TARGET,BUS,LUN syntax with weird numbers
+ 
+ - it will not wreak random havoc if you used spaces and not tabs in the config file
+
+ - genisoimage won't stop accepting the well known option -L in the near future
+
+ - genisoimage will stop on 2.1GiB large files rather than just "forgetting"
+   them and let you burn crap
+ 
+ - users are respected and not used as pinballs between us and the OS kernel
+   developers
+

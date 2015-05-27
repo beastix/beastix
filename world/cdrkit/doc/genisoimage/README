@@ -1,0 +1,26 @@
+Cdrkit carries a fork of the mkisofs program called genisoimage.
+
+The acompanying documentation consists of the manual page genisoimage.8 and
+README files found in the following locations (shell globing used):
+
+doc/:
+
+README.multi: documentation and examples for creating
+  multi-session CDs and DVDs
+
+README.cdplus: documentation and examples for creating
+  CD-plus (aka CD-extra) disks
+
+doc/genisoimage:
+
+README.releasenotes: release notes for old mkisofs releases
+
+README.*boot: documentation for various boot loader related
+  extensions for different architectures
+
+README.hfs*: hints and usage for HFS related features
+
+README.*: additional docs for special features
+
+Eduard Bloch -- Mon, 11 Sep 2006 23:05:29 +0200
+

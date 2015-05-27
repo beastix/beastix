@@ -1,0 +1,26 @@
+# README.mipsboot    Steve McIntyre <steve@einval.com> 2004/07/19
+
+The mips/SGI boot support allows you to create a bootable CD which
+will work with big-endian mips SGI machines, for example bootable
+installation media.
+
+The method used for this is the same as in genisovh, a tool to make
+CDs bootable for Linux on SGI.
+
+The SGI firmware reads the first 512-byte "sector" off a disk and
+parses information from a volume descriptor header in that sector. The
+information in question is the location (start sector) and length of
+bootable kernel images; up to 15 are supported.
+
+The firmware will load and execute kernels listed. (I'm not sure what
+it will do if more than one kernel is listed - it may display a boot
+menu).
+
+To use the SGI boot support code in genisoimage, simply specify the kernel
+file locations (relative to the CD root) as follows:
+
+genisoimage ... -mips-boot <kernel file #1> \
+            ... 
+            -mips-boot <kernel file #n> \
+            -o mips.iso mips-files
+

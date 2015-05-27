@@ -1,0 +1,87 @@
+Howto setup an ATAPI CD-RW/DVD+-RW recorder on Debian/Ubuntu
+============================================================
+
+This guide should be applicable to most kernel 2.6 using distributions of
+GNU/Linux. For installations with kernel 2.4, continue reading below.
+
+Kernel 2.6.*
+============
+
+If you have just one CD writer in your computer, CD-writing should work out of
+the box. There should be a symbolic link /dev/cdrw which points to your actual
+CD-Writer's device (e. g. /dev/hdb). If the link is not present (eg.  the
+system is not using udev/devfs) or if you want to use a different device as
+default, you can configure the device in /etc/wodim.conf:
+
+  CDR_DEVICE=/dev/hdd
+
+would configure the default device to be /dev/hdd, i. e. the slave
+device on the secondary IDE bus.
+
+You can always override this default setting with wodim's "dev"
+option:
+
+    wodim dev=/dev/hdc ...
+
+Only users part of the system group "cdrom" are able to write CDs.
+If you wish to allow non-root users to write CDs then add your users to the
+cdrom group ("adduser user cdrom") and let the user completely logout and
+re-login.
+Note: with certain kernel versions wodim can fail with this message:
+"wodim: Operation not permitted. Cannot send SCSI cmd via ioctl"
+In this case it still does need the suid bit - please send patches if you have
+identified the reason of that problem.
+
+Kernel 2.4.* (for 2.5/2.6, see above)
+=====================================
+
+Where we start:
+   Linux: Kernel 2.4.20-bf2.4 (Debian package kernel-image-2.4.20-bf2.4)
+   Distribution: Debian Woody 3.0r2, i386
+   Devices: one CDRW-Writer, one CDROM-drive, both ATAPI
+
+1. Become root, try "grep hd.: /var/log/kern.log" to find out where your
+   ATAPI-devices are connected to (hd?-names).
+2. Edit your boot configuration file, eg. /etc/lilo.conf if you use
+   lilo or the batch-file if you boot via loadlin.
+3. Find a line where you can append additional kernel parameters, eg.
+   "append=" in lilo.conf or the loadlin-line in the batch file.
+4. Append sth. like this: "hdb=ide-scsi hdc=ide-scsi max_scsi_luns=1"
+   The hdX-parameters defines devices that should be mapped to SCSI
+   latter. You may do it with non-writers too, since the emulation layer
+   is almost complete. Or omit some so the devices will use their
+   native drivers (eg. ide-cd).
+5. Save the file, reinstall the bootloader (ie. running "/sbin/lilo")
+6. Call "modconf" in a console or xterm, enter the section 
+   "kernel/drivers/scsi", load "sg" and "ide-scsi"
+7. Reboot Debian, watch while booting, you should see a line like this:
+   "Detected scsi CD-ROM sr0 at scsi0, channel 0, id 0, lun 0".
+   Your old ATAPI devices virtually don't exist any longer, you cannot refer to
+   /dev/hd* as CDROM drives. Use the SCSI equivalents instead, /dev/sr*.
+8. Become root, setup devices:
+      cd /dev
+      MAKEDEV sg scd
+      ln -s scd0 cdrom # NOTE: or cdrw, first check which drive is here
+      ln -s scd1 cdrw  # NOTE: see above, maybe cdrom
+   Check the new SCSI settings:
+      wodim -scanbus
+   Setup wodim's environment - edit /etc/wodim.conf:
+      CDR_DEVICE=cdrw
+      cdrw=1,0,0        4       8m
+      cdrom=1,2,0       0       0m
+   Insert the right values, the fields are described in the manpage
+   of wodim. Alternatively, you may use these values as
+   wodim-parameter or take a frontend with an own configuration
+   scheme, then you don't need to modify /etc/wodim.conf.
+   The columns must be separated by tabs.
+9. It's done! Insert a CD and try "wodim -v -toc". To create your first CD-ROM, try:
+   
+   mkisofs -v -r -J /directory/to/be/written | wodim -v -dummy -
+
+   (read wodim(1), "man 1 wodim", for details)
+
+10. If you wish to allow non-root users to write CDs, you must give them 
+    permissions to do so. Set suid-root permissions on the executable,
+    then add your users to the cdrom group ("adduser user cdrom") and
+    let the user completely logout and re-login.
+

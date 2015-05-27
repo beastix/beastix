@@ -1,0 +1,138 @@
+Index: wodim/CMakeLists.txt
+===================================================================
+--- wodim/CMakeLists.txt	(Revision 579)
++++ wodim/CMakeLists.txt	(Arbeitskopie)
+@@ -21,7 +21,17 @@
+ 
+ ADD_DEFINITIONS(-DHAVE_LIB_EDC_ECC -DCLONE_WRITE)
+ 
+-ADD_EXECUTABLE (wodim ${CDRECORD_SRCS})
++SET(CDRECORD_SRCS wodim.c audiosize.c auinfo.c  cdr_drv.c cdtext.c clone.c crc16.c cue.c  diskid.c drv_7501.c drv_jvc.c drv_mmc.c drv_philips.c drv_simul.c drv_sony.c fifo.c  isosize.c scsi_cdr_mmc4.c scsi_mmc4.c sector.c subchan.c wm_packet.c wm_session.c wm_track.c xio.c)
++SET(CDRECORD_COMMON_SRCS cd_misc.c defaults.c getnum.c misc.c modes.c movesect.c scsi_cdr.c scsi_mmc.c scsi_scan.c)
++
++IF(SHLIB_STYLE)
++   ADD_EXECUTABLE (wodim ${CDRECORD_SRCS})
++   ADD_LIBRARY (wodimstuff SHARED ${CDRECORD_COMMON_SRCS})
++   LIST(APPEND EXTRA_LIBS wodimstuff)
++ELSE(SHLIB_STYLE)
++   ADD_EXECUTABLE (wodim ${CDRECORD_SRCS} ${CDRECORD_COMMON_SRCS})
++ENDIF(SHLIB_STYLE)
++
+ TARGET_LINK_LIBRARIES(wodim ${EXTRA_LIBS} deflt edc)
+ SET_TARGET_PROPERTIES(wodim PROPERTIES SKIP_BUILD_RPATH TRUE)
+ 
+Index: genisoimage/CMakeLists.txt
+===================================================================
+--- genisoimage/CMakeLists.txt	(Revision 579)
++++ genisoimage/CMakeLists.txt	(Arbeitskopie)
+@@ -27,6 +27,13 @@
+ 
+ SET(MKISOFS_MOST_SRCS apple.c boot.c cd_misc.c defaults.c desktop.c dvd_file.c dvd_reader.c eltorito.c exclude.c files.c fnmatch.c getnum.c hash.c ifo_read.c joliet.c mac_label.c match.c modes.c multi.c name.c rock.c scsi.c scsi_cdr.c stream.c tree.c udf.c vms.c volume.c write.c boot-alpha.c boot-hppa.c boot-mips.c md5.c jte.c rsync.c
+  	boot-mipsel.c endian.c )
++
++IF(SHLIB_STYLE)
++   SET(MKISOFS_MOST_SRCS apple.c boot.c cd_misc.c defaults.c desktop.c dvd_file.c dvd_reader.c eltorito.c exclude.c files.c fnmatch.c getnum.c hash.c ifo_read.c joliet.c mac_label.c match.c modes.c multi.c name.c rock.c scsi.c scsi_cdr.c stream.c tree.c udf.c vms.c volume.c write.c boot-alpha.c boot-hppa.c boot-mips.c md5.c jte.c rsync.c
++      boot-mipsel.c endian.c )
++   LIST ( APPEND EXTRA_LIBS  wodimstuff )
++   message(FATAL_ERROR "fixme, half done, see experimental branch, needs to change other tools to libwodimstuff, etc.")
++ENDIF(SHLIB_STYLE)
+   
+ INCLUDE(CheckFunctionExists)
+ SET(CMAKE_REQUIRED_DEFINITIONS -D_GNU_SOURCE)
+@@ -37,7 +44,7 @@
+  
+ 
+ #SET_SOURCE_FILES_PROPERTIES(${MKISOFS_MOST_SRCS} PROPERTIES )
+-LINK_DIRECTORIES(../libhfs_iso ../librols ../libusal ../libunls ../libdeflt)
++LINK_DIRECTORIES(../libhfs_iso ../librols ../libusal ../libunls ../libdeflt ../wodim)
+ 
+ ADD_EXECUTABLE (genisoimage genisoimage.c ${MKISOFS_MOST_SRCS})
+ TARGET_LINK_LIBRARIES(genisoimage hfs_iso deflt ${MAGICLIBS} c unls z ${EXTRA_LIBICONV} ${EXTRA_LIBS})
+Index: libusal/CMakeLists.txt
+===================================================================
+--- libusal/CMakeLists.txt	(Revision 579)
++++ libusal/CMakeLists.txt	(Arbeitskopie)
+@@ -6,5 +6,9 @@
+ #SET(LIBSCG_SRCS rdummy.c usalsettarget.c usaltimes.c scsi-linux-ata.c scsi-linux-pg.c scsi-linux-sg.c scsierrs.c scsihack.c scsihelp.c scsiopen.c scsitransp.c)
+ SET(LIBSCG_SRCS usalsettarget.c usaltimes.c scsierrs.c scsihack.c scsihelp.c scsiopen.c scsitransp.c scsi-remote.c)
+ LINK_DIRECTORIES(../librols)
++IF(SHLIB_STYLE)
++ADD_LIBRARY (usal SHARED ${LIBSCG_SRCS})
++ELSE(SHLIB_STYLE)
+ ADD_LIBRARY (usal STATIC ${LIBSCG_SRCS})
++ENDIF(SHLIB_STYLE)
+ TARGET_LINK_LIBRARIES(usal ${SCG_SELF_LIBS})
+Index: misc/shared_lib_patch_incomplete.diff
+===================================================================
+--- misc/shared_lib_patch_incomplete.diff	(Revision 579)
++++ misc/shared_lib_patch_incomplete.diff	(Arbeitskopie)
+@@ -1,31 +1,29 @@
+ Index: wodim/CMakeLists.txt
+ ===================================================================
+---- wodim/CMakeLists.txt	(Revision 556)
++--- wodim/CMakeLists.txt	(Revision 579)
+ +++ wodim/CMakeLists.txt	(Arbeitskopie)
+-@@ -21,8 +21,18 @@
++@@ -21,7 +21,17 @@
+  
+  ADD_DEFINITIONS(-DHAVE_LIB_EDC_ECC -DCLONE_WRITE)
+  
+ -ADD_EXECUTABLE (wodim ${CDRECORD_SRCS})
+--TARGET_LINK_LIBRARIES(wodim ${EXTRA_LIBS} deflt edc)
+++SET(CDRECORD_SRCS wodim.c audiosize.c auinfo.c  cdr_drv.c cdtext.c clone.c crc16.c cue.c  diskid.c drv_7501.c drv_jvc.c drv_mmc.c drv_philips.c drv_simul.c drv_sony.c fifo.c  isosize.c scsi_cdr_mmc4.c scsi_mmc4.c sector.c subchan.c wm_packet.c wm_session.c wm_track.c xio.c)
+++SET(CDRECORD_COMMON_SRCS cd_misc.c defaults.c getnum.c misc.c modes.c movesect.c scsi_cdr.c scsi_mmc.c scsi_scan.c)
+ +
+ +IF(SHLIB_STYLE)
+-+   SET(CDRECORD_SRCS wodim.c audiosize.c auinfo.c  cdr_drv.c cdtext.c clone.c crc16.c cue.c  diskid.c drv_7501.c drv_jvc.c drv_mmc.c drv_philips.c drv_simul.c drv_sony.c fifo.c  isosize.c scsi_cdr_mmc4.c scsi_mmc4.c sector.c subchan.c wm_packet.c wm_session.c wm_track.c xio.c)
+-+   SET(CDRECORD_COMMON_SRCS cd_misc.c defaults.c getnum.c misc.c modes.c movesect.c scsi_cdr.c scsi_mmc.c scsi_scan.c)
+ +   ADD_EXECUTABLE (wodim ${CDRECORD_SRCS})
+ +   ADD_LIBRARY (wodimstuff SHARED ${CDRECORD_COMMON_SRCS})
+-+   TARGET_LINK_LIBRARIES(wodim ${EXTRA_LIBS} deflt edc wodimstuff)
+++   LIST(APPEND EXTRA_LIBS wodimstuff)
+ +ELSE(SHLIB_STYLE)
+-+   ADD_EXECUTABLE (wodim ${CDRECORD_SRCS})
+-+   TARGET_LINK_LIBRARIES(wodim ${EXTRA_LIBS} deflt edc)
+++   ADD_EXECUTABLE (wodim ${CDRECORD_SRCS} ${CDRECORD_COMMON_SRCS})
+ +ENDIF(SHLIB_STYLE)
+ +
++ TARGET_LINK_LIBRARIES(wodim ${EXTRA_LIBS} deflt edc)
+  SET_TARGET_PROPERTIES(wodim PROPERTIES SKIP_BUILD_RPATH TRUE)
+  
+- INSTALL(TARGETS wodim DESTINATION bin)
+ Index: genisoimage/CMakeLists.txt
+ ===================================================================
+---- genisoimage/CMakeLists.txt	(Revision 556)
++--- genisoimage/CMakeLists.txt	(Revision 579)
+ +++ genisoimage/CMakeLists.txt	(Arbeitskopie)
+ @@ -27,6 +27,13 @@
+  
+@@ -52,7 +50,7 @@
+  TARGET_LINK_LIBRARIES(genisoimage hfs_iso deflt ${MAGICLIBS} c unls z ${EXTRA_LIBICONV} ${EXTRA_LIBS})
+ Index: libusal/CMakeLists.txt
+ ===================================================================
+---- libusal/CMakeLists.txt	(Revision 556)
++--- libusal/CMakeLists.txt	(Revision 579)
+ +++ libusal/CMakeLists.txt	(Arbeitskopie)
+ @@ -6,5 +6,9 @@
+  #SET(LIBSCG_SRCS rdummy.c usalsettarget.c usaltimes.c scsi-linux-ata.c scsi-linux-pg.c scsi-linux-sg.c scsierrs.c scsihack.c scsihelp.c scsiopen.c scsitransp.c)
+@@ -64,20 +62,3 @@
+  ADD_LIBRARY (usal STATIC ${LIBSCG_SRCS})
+ +ENDIF(SHLIB_STYLE)
+  TARGET_LINK_LIBRARIES(usal ${SCG_SELF_LIBS})
+-Index: librols/CMakeLists.txt
+-===================================================================
+---- librols/CMakeLists.txt	(Revision 556)
+-+++ librols/CMakeLists.txt	(Arbeitskopie)
+-@@ -1,7 +1,11 @@
+- PROJECT (LIBROLS)
+- INCLUDE_DIRECTORIES(../include ../libhfs_iso ${CMAKE_BINARY_DIR} ../wodim)
+- 
+--SET(LIBROLS_SRCS  astoi.c astoll.c astoull.c breakline.c cmpbytes.c comerr.c error.c fexec.c fillbytes.c getargs.c getav0.c getdomainname.c geterrno.c gethostid.c gethostname.c getpagesize.c handlecond.c movebytes.c raisecond.c rename.c saveargs.c seterrno.c spawn.c strcatl.c strdup.c streql.c swabbytes.c usleep.c stdio/cvmod.c stdio/dat.c stdio/fcons.c stdio/fcons64.c stdio/fdown.c stdio/fdup.c stdio/fdup64.c stdio/ffileread.c stdio/ffilewrite.c stdio/fgetline.c stdio/file_raise.c stdio/fileclose.c stdio/fileluopen.c stdio/fileluopen64.c stdio/filemopen.c stdio/filemopen64.c stdio/fileopen.c stdio/fileopen64.c stdio/filepos.c stdio/filepos64.c stdio/fileread.c stdio/filereopen.c stdio/filereopen64.c stdio/fileseek.c stdio/fileseek64.c stdio/filesize.c stdio/filesize64.c stdio/filestat.c stdio/filestat64.c stdio/filewrite.c stdio/flag.c stdio/flush.c stdio/fpipe.c stdio/niread.c stdio/niwrite.c stdio/nixread.c stdio/nixwrite.c stdio/openfd.c stdio/openfd64.c stdio/peekc.c )
+-+SET(LIBROLS_SRCS  astoi.c astoll.c astoull.c breakline.c cmpbytes.c comerr.c error.c fexec.c fillbytes.c getargs.c getav0.c getdomainname.c geterrno.c gethostid.c gethostname.c getpagesize.c handlecond.c movebytes.c raisecond.c rename.c saveargs.c seterrno.c spawn.c strcatl.c strdup.c streql.c swabbytes.c usleep.c stdio/cvmod.c stdio/dat.c stdio/fcons.c stdio/fdown.c stdio/fdup.c stdio/ffileread.c stdio/ffilewrite.c stdio/fgetline.c stdio/file_raise.c stdio/fileclose.c stdio/fileluopen.c stdio/filemopen.c stdio/fileopen.c stdio/filepos.c stdio/fileread.c stdio/filereopen.c stdio/fileseek.c stdio/filesize.c stdio/filestat.c stdio/filewrite.c stdio/flag.c stdio/flush.c stdio/fpipe.c stdio/niread.c stdio/niwrite.c stdio/nixread.c stdio/nixwrite.c stdio/openfd.c stdio/peekc.c )
+- 
+-+IF(SHLIB_STYLE)
+-+ADD_LIBRARY (rols SHARED ${CMAKE_CURRENT_SOURCE_DIR}/../include/xconfig.h  ${CMAKE_CURRENT_SOURCE_DIR}/../include/align.h ${LIBROLS_SRCS})
+-+ELSE(SHLIB_STYLE)
+- ADD_LIBRARY (rols STATIC ${CMAKE_CURRENT_SOURCE_DIR}/../include/xconfig.h  ${CMAKE_CURRENT_SOURCE_DIR}/../include/align.h ${LIBROLS_SRCS})
+-+ENDIF(SHLIB_STYLE)
+- 

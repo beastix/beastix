@@ -1,0 +1,8 @@
+PROJECT (ZISOFSTOOLS)
+ADD_DEFINITIONS(-Wall -W -Wpointer-arith -Wbad-function-cast -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Winline -Wshadow -Wcast-align)
+AUX_SOURCE_DIRECTORY(. MKZ_SRCS)
+ADD_EXECUTABLE (mkzftree ${MKZ_SRCS})
+TARGET_LINK_LIBRARIES(mkzftree z)
+SET_TARGET_PROPERTIES(mkzftree PROPERTIES  SKIP_BUILD_RPATH TRUE)
+INSTALL(TARGETS mkzftree DESTINATION bin)
+INSTALL(FILES mkzftree.1 DESTINATION share/man/man1)

@@ -1,0 +1,33 @@
+Frequently Asked Questions about cdrkit
+=======================================
+
+Q: What does "wodim" stand for?
+A: It is not a forest troll and not a winner of the inpronounceability
+   contest. It was simply the next alternative to wom (Writes Optical Media)
+   which was unfortunately already used by other software products.
+
+Q: What this name of ... mean?
+A: Terminology: some names are based on pure imagination, some on
+   abbreviations, some on permutations of chars in descriptions.
+
+      genisoimage: Generate ISO IMAGEs
+      icedax: InCrEdible Audio eXtractor
+      librols: LIB Remains Of LibSchily
+      libusal: LIB Unified/Universal Scsi Access Layer
+      netscsid: NET SCSI Daemon
+      readom: READ Optical Media (see also wodim)
+      wodim: see above
+
+Q: Are there additional depedencies, compared to cdrtools?
+A: Yes. Libcap is required on Linux plattform. Libmagic is needed to support
+   content-based creator/type tables with HFS (optional). Libiconv is needed to
+   support iconv-based filename converstion, eg. from UTF-8 ins Joliet's UCS-2
+   unicode (optional, on plattform where iconv is not already included in the libc
+   system library).
+
+Q: Burning dies with (logical unit communication crc error (ultra-dma/32)).
+   Reason? Solutions?
+A: Try enabling DMA for your device. Some CDROM readers/writters seem to send
+   non-critical UDMA control/error codes without beeing in DMA mode and so
+   those messages are not interpreted by the kernel but delivered to the
+   applications instead.

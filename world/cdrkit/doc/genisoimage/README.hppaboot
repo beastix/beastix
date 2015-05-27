@@ -1,0 +1,38 @@
+# README.hppaboot    Steve McIntyre <steve@einval.com> 2004/07/19
+
+The hppa boot support allows you to create a bootable CD which will
+work with HP PA/RISC machines, for example bootable installation
+media.
+
+The method used for this is the same as in palo, the bootloader for
+Linux on hppa. See the palo README for more details about supported
+hardware etc.
+
+The HPPA firmware reads the first 2048-byte sector off a disk and
+parses information in that sector. The information in question is the
+location (start sector) and length of various files:
+
+ * a 32-bit kernel image
+ * a 64-bit kernel image
+ * first stage bootloader (iplboot)
+ * (optional) ramdisk
+
+and also the system command line to use, e.g.
+
+ "5/vmlinux HOME=/ TERM=linux console=tty"
+
+The firmware will load and execute the first stage boot loader, and
+that should be able to find the (32- or 64-bit) kernel and boot
+normally. Whether you need a 32- or 64-bit kernel depends on your
+hardware; some will even support both.
+
+To use the hppa boot support code in genisoimage, simply specify the boot
+command line and file locations (relative to the CD root) as follows:
+
+genisoimage ... -hppa-cmdline <cmdline, parts separated by spaces or commas> \
+            -hppa-kernel-32  <32-bit kernel> \
+            -hppa-kernel-64  <64-bit kernel> \
+            -hppa-bootloader <bootloader> \
+            -hppa-ramdisk    <ramdisk file> \
+            -o hppa.iso hppa-files
+

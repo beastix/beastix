@@ -1,0 +1,50 @@
+
+ - on various places in drv_dvd.c, check for the correct answer ("long write in
+   progress" and friends) instead of using the dumb wait_unit_ready method.
+
+ - (for consideration) similar got natname management in libusal, add a method
+   to check whether the device can be opened without side effects (for safety)
+   and then get the device capabilities to select the best drive for the input
+   size. Kind of generic implementation of the Linux specific guessing code.
+
+ - look for alternative ways to find the maximum DMA transfer size, Schilling
+   wrote something about SKGETSIZE ioctl being fixed in recent Linux kernel
+   versions
+
+ - wrong buffer size displayed with MMC5 DVD recorders, works with -prcap
+   though. Find a way to get the real one when printing status.
+ 
+ - check OpenBSD issues with OSS libs
+
+ - fix the multi-file in cuefile support at all. First idea:
+   import libcuefile from on cuetools-1.3.1/src/lib (after generating the
+   parser with its build system), add CMakeLists.txt, drop cue.c and make wodim
+   make use of the parsed CUE data if available.
+   But be warned, JS said something about bugs in cuetools code, a proper test
+   suite is required. I doubt he will share his test cases.
+
+   Maybe even do it properly and create a track writting strategy preprocessor
+   module which could be feeded from cue/toc or from CLI options.
+   But OTOH this is similar to what libburnia is going to make real, spare time
+   is better invested there.
+
+ - Scale the command timeout with the recommended WRITE command minimum wait
+   time? See Pioneer specs from DVR-111 for details.
+
+ - check the REMOTE method, especially with real device names and ssh.
+   Something is going wrong.
+   OR
+   Stop supporting it, add a warning to libusal (scsi-remote.c or so) to not
+   use it, add an appropriate comment to a BUGS file
+ - check libparanoia, we may link dynamicaly with it. Quality? Portability?
+ - check notes in help output, drop advisories, notes about future plans...
+ - find out why spawn.c breaks in WAIT_H while the WAIT_UNION check works quite
+   well on sys/wait.h. See include/CMakeLists.txt comments.
+ - wodim -audio wavefile thesamewavefile thesamewavefile fails with obscure
+   symptoms. Why? See .cue file problems above for that topic.
+ - make some deflt.h functions inline, use a define wrapper INLINE which is set
+   empty if the compiler does not support it
+ - review the sort/uniq code in dvd_file.c, see comments there
+ - implement -stream-file-name properly. Then close #157962
+
+

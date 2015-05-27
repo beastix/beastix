@@ -1,0 +1,31 @@
+These instructions have been tested with FreeBSD 6.2-PRERELEASE, but
+should work on any 6.x release.  If you're having trouble (with any
+release, not just 6.x), please let us know.
+
+Building
+========
+
+You need to have cmake installed.  It is available in the ports
+collection or from cmake.org.  You also need GNU make. It is also in the
+ports collection, and can be alternatively obtained from gnu.org.
+
+Most users have libiconv installed under /usr/local.  If you wish to add
+support for it (used by genisoimage, and recommended), build with
+
+	gmake CFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib
+
+instead of just plain
+
+	gmake
+
+Short note on using wodim
+=========================
+
+If you want to use wodim with ATAPI drives, make sure you load the
+atapicam module before using wodim.  Not even "wodim -scanbus" works
+usually if this is not done.  The command for loading the atapicam
+module is (for root)
+
+	/sbin/kldload atapicam
+
+ -- Lorenz Minder -- Mon Nov 27 23:23:01 CET 2006

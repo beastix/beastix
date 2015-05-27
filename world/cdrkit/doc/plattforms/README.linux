@@ -1,0 +1,46 @@
+
+Requirements of cdrkit on Linux:
+
+ - Linux kernel 2.4 or newer 
+ - Glibc 2.2 or newer
+ - libcap library package is required, with development files (headers)
+ - kernel headers useable with the combination of glibc and kernel, as approved
+   by the distribution. Do not blindly use random kernel headers, do not
+   symlink them to /usr/include/linux or /usr/include/asm*.
+
+Notes about support on Linux:
+
+ - Linux kernel versions between 2.6.8 and 2.6.11 are known to have invasive
+   SCSI command filtering which makes the use of wodim almost inpossible or
+   complicated for non-root users. Avoid those kernel versions, unless they
+   have been patched to disable that filtering.
+
+ - support of generic scsi was limited on 2.4, ie. not available directly with
+   IDE/ATAPI devices. The ide-scsi driver could be used map ATAPI devices to
+   SCSI ids, however this driver had other problems. See README.ATAPI for
+   details. Note that there also the ATAPI:... device access method which uses
+   deprecated funtionality of kernel 2.4. Don't use it unless it is really
+   neccessary. The support for it may be removed in future versions of cdrkit.
+
+ - the DMA transfer size is limited with some device controllers and the Linux
+   kernel 2.6.x (2.6.19 currently) provides no method to retrieve it for
+   exactly one device. Wodim scans sysfs to retrieve this information, but it
+   needs to be mounted. Use the ts= option of wodim to limit the transfer size
+   on problems.
+
+
+Additional comments moved from the wodim.1 manpage (originaly cdrecord.1):
+
+The sg driver on Linux has several severe bugs:
+
+ - It cannot see if a SCSI command could not be sent at all.
+ - It cannot get the SCSI status byte.  wodim for that reason cannot report
+   failing SCSI commands in some situations.
+ - It cannot get real DMA count of transfer. wodim cannot tell you if there is
+   an DMA residual count.
+ - It cannot get number of bytes valid in auto sense data. wodim cannot tell
+   you if device transfers no sense data at all.
+ - It fetches too few data in auto request sense (CCS/SCSI-2/SCSI-3 needs
+   >= 18).
+
+ -- Reviewed by Eduard Bloch -- 12/2006

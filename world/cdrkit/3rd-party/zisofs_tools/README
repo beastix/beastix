@@ -1,0 +1,44 @@
+		    H. Peter Anvin <hpa@zytor.com>
+			    June 13, 2004
+
+
+User tools for zisofs:
+
+The user tools for zisofs come in two parts: a utility "mkzftree" and
+mkisofs, which is part of the cdrtools package.  cdrtools 1.11a20 or
+later is required.
+
+First create a directory tree containing compressed files:
+
+	mkzftree input_dir compressed_dir
+
+mkzftree will not overwrite an existing directory; you may want to "rm
+-rf" the directory tree if you are doing this from a script:
+
+Second, invoke the patched mkisofs with the -z option:
+
+	mkisofs -z -R [other options] -o compressed.iso compressed_dir
+
+IMPORTANT: you *must* enable RockRidge (-R or -r) since this is an
+extensions to the RockRidge specification.  Without RockRidge, -z will
+have no effect.
+
+Note that if there are files you do not want compressed (for example,
+files involved in booting, or README files you want to be readable
+under all circumstances) you can simply put them in a separate tree
+and not run mkzftree on that tree.
+
+mkzftree will not compress files that end up larger when compressed;
+if you want it to compress the files anyway, you can give the -f
+option to mkzftree.
+
+mkzftree also accepts a -u option (uncompress), which can be used to
+convert a compressed tree back to normal form.  This can be used to
+read a zisofs CD-ROM on a machine without zisofs kernel support.
+
+This version of mkzftree supports a -p option (parallelize.)
+Specifying -p and a parallelism (e.g. -p4) allows files (up to the
+number specified) to compress in parallel.  Depending on your setup
+and your data set size, this might speed things up if you are not
+completely I/O bound.  Use -p0 to completely disable parallel
+execution; this is the default.

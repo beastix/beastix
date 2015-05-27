@@ -1,0 +1,57 @@
+Changes in zisofs-tools-1.0.6:
+
+	Further portability fixes; use subsecond resolution if available.
+
+Changes in zisofs-tools-1.0.5:
+
+	Portability improvements.
+
+Changes in zisofs-tools-1.0.4:
+
+	Update the documentation.
+
+Changes in zisofs-tools-1.0.3:
+
+	Update cdrtools patch.
+
+Changes in zisofs-tools-1.0.2:
+
+	Add "make install" target :)
+
+Changes in zisofs-tools-1.0.1:
+
+	By default, abort if file modes, times and ownership cannot be
+	set.  Since this isn't always possible, add new option
+	-s/--sloppy to suppress this error.
+
+	Fix man page typo, and add a BUGS section.
+
+	Remove problems with extremely long symlinks.
+
+	Move all command line options into common "opt" structure.
+
+	Fix bug in command line parsing: -z option not recognized.
+
+
+Changes in zisofs-tools-1.0:
+
+	Restructured code; now split into a number of modules.
+
+	Use autoconf for configuration.
+
+	Add support for long options if the platform has
+	getopt_long().
+
+	Support compiling on systems without lchown().
+
+	Support the following new options:
+	  -x	Don't descend into other filesystems
+	  -X	Same as -x, but don't create mount point directories
+	  -l	Don't descend into any subdirectories
+	  -L	Same as -l, but don't create stub directories
+	  -F	Allow compression or decompression of single files.
+	  -V	Explicitly set the verbosity.
+	  -w	Display program version.
+
+	  Update the mkisofs patch to warn if -z is specified without
+	  -r/-R.

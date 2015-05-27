@@ -1,0 +1,2 @@
+build/mkisofs/mkisofs -r -J -o /tmp/cd.iso . 
+build/wodim/wodim -dummy -v speed=24 dev=/dev/cdrw /tmp/cd.iso

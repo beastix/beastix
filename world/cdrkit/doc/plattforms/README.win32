@@ -1,0 +1,31 @@
+
+Cdrkit suite can be compiled on Windows XP (Service Pack 2) using cygwin
+environment and tools set, available on:
+
+	http://sources.redhat.com/cygwin/
+
+and many mirrors.
+
+To compile on Cygwin, execute setup.exe to install it. You will need to select
+cmake, make, libiconv and gcc compiler in the package selection. Also choose
+subversion if you wish to fetch the latest development version.
+
+When done, you can start the Cygwin Shell by the new icon in the Start menu or
+on the desktop. Visit cdrkit.org and download a tarball of a recent version and store it under <cygwin_directory>\home\your_user_name.
+
+Untar the package with tar -z -x -f <tarball>, go into this directory and run
+"make", followed by "make install". Ignore messages about clock skew etc.
+
+NOTE: with some versions of Cygwin or cmake shipped with it, the installation
+fails for unknown reason. In this case, you can browse trough the build/
+directory, pick up the .exe files there and read the manpage files in
+application directories with the man command ("man wodim/wodim.1").
+
+Windows drives are available in paths like /cygdrive/c/, /cygdrive/d/. The
+drive IDs can be detected using "wodim -scanbus". See wodim's manpage for
+details.
+
+STANDARD WARNING: test in dummy mode before you really write data to the disks.
+Report trouble to Cdrkit maintainers.
+
+ -- Eduard Bloch <blade@debian.org> -- Tue, 12 Sep 2006 10:06:34 +0200
