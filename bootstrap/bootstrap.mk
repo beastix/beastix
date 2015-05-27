@@ -10,7 +10,7 @@ bootstrap-gcc:
                                                                                           --disable-libmudflap --disable-libgomp --disable-werror --without-docdir
 	echo "MAKEINFO = :" >> ${SRC_ROOT}/bootstrap/gcc/Makefile
 	make -C ${SRC_ROOT}/bootstrap/gcc all-gcc install-gcc
-	make -C ${SRC_ROOT}/bootstrap/gcc all-target-libgcc install-gcc install-target-libgcc
+	make -C ${SRC_ROOT}/bootstrap/gcc all-target-libgcc install-target-libgcc
 	cd ${BOOTSTRAP_TOOLS}/bin; ln -sf x86_64-unknown-linux-musl-gcc x86_64-unknown-linux-musl-cc
 
 bootstrap-musl:
