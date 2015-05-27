@@ -14,7 +14,6 @@ all tidy dist clean spotless install: subdirs
 chain mboot menu: lib libutil gpllib
 elflink/ldlinux: lib
 gfxboot: lib libutil gpllib
-hdt: lib libupload cmenu gpllib libutil
 modules: lib libutil gpllib
 rosh: lib libutil
 samples: libutil elflink/ldlinux
