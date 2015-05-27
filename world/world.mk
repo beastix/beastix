@@ -14,7 +14,8 @@ buildworld-gcc:
 	mkdir -p ${WORLD_BUILD}/gcc/_install
 	${WORLDENV} cd ${WORLD_BUILD}/gcc; ${SRC_ROOT}/world/gcc/configure ${WORLD_CONFIG}  --enable-languages=c --disable-nls --with-newlib --disable-multilib --disable-libssp \
                                                                                             --disable-libquadmath --disable-threads --disable-decimal-float --disable-shared --disable-libmudflap \
-                                                                                            --disable-libgomp --prefix=${WORLD_BUILD}/gcc/_install
+                                                                                            --disable-libgomp --prefix=${WORLD_BUILD}/gcc/_install --disable-werror --without-docdir
+	echo "MAKEINFO = :" >> ${SRC_ROOT}/obj/gcc/Makefile
 	${WORLDENV} make -C ${WORLD_BUILD}/gcc all-gcc install-gcc CC=${WORLD_CC} CC_FOR_BUILD=${WORLD_CC}
 	${WORLDENV} make -C ${WORLD_BUILD}/gcc all-target-libgcc install-gcc install-target-libgcc
 
@@ -49,7 +50,9 @@ buildworld-syslinux:
 
 buildworld-binutils:
 	mkdir -p ${WORLD_BUILD}/binutils/_install
-	${WORLDENV} cd ${WORLD_BUILD}/binutils; ${SRC_ROOT}/world/binutils/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/binutils/_install --disable-install-libbfd --disable-shared
+	${WORLDENV} cd ${WORLD_BUILD}/binutils; ${SRC_ROOT}/world/binutils/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/binutils/_install --disable-install-libbfd --disable-shared \
+	                                                                                             --disable-werror --without-docdir
+	echo "MAKEINFO = :" >> ${SRC_ROOT}/obj/binutils/Makefile
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/binutils
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/binutils install-gas install-ld install-binutils
 
