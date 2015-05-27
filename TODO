@@ -11,6 +11,7 @@ For release 0.2:
 	Seperate minroot and base into seperate sets
         Seperate out gcc+binutils into seperate devel set
 	Simple sysmerge script
+	Upgrader in installer
 
 For release 0.3:
 	OpenSSH + libressl
