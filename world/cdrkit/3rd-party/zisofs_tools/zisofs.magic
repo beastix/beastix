@@ -1,8 +1,0 @@
-
-#------------------------------------------------------------------------------
-# zisofs: file(1) magic for zisofs/RockRidge compressed files
-#
-# from H. Peter Anvin <hpa@zytor.com> May 4, 2001
-#
-0	string	\x37\xE4\x53\x96\xC9\xDB\xD6\x07	zisofs/Rockridge compressed file
->8	lelong		x		- %d bytes
