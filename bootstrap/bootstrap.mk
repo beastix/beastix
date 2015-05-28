@@ -36,7 +36,7 @@ bootstrap-linux-headers:
 bootstrap-nasm:
 	cd ${SRC_ROOT}/bootstrap/nasm; ${SRC_ROOT}/world/nasm/configure ${BOOTSTRAP_CONFIG}
 	mkdir -p ${SRC_ROOT}/bootstrap/nasm/lib;
-	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm
+	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm nasm 
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm install
 
 bootstrap-syslinux:
