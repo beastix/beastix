@@ -15,7 +15,7 @@
 # Main Makefile for SYSLINUX
 #
 
-all_firmware := bios efi64
+all_firmware := bios 
 
 #
 # topdir is only set when we are doing a recursive make. Do a bunch of
