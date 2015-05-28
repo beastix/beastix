@@ -9,6 +9,8 @@
 
 top_srcdir	= @top_srcdir@
 srcdir		= @srcdir@
+top_builddir	= @top_builddir@
+builddir	= @builddir@
 VPATH		= @srcdir@
 prefix		= @prefix@
 exec_prefix	= @exec_prefix@
@@ -19,7 +21,7 @@ datarootdir	= @datarootdir@
 CC		= @CC@
 CFLAGS		= @CFLAGS@
 BUILD_CFLAGS	= $(CFLAGS) @DEFS@
-INTERNAL_CFLAGS = -I$(srcdir) -I$(top_srcdir)
+INTERNAL_CFLAGS = -I$(srcdir) -I$(top_srcdir) -I$(builddir) -I$(top_builddir)
 ALL_CFLAGS	= $(BUILD_CFLAGS) $(INTERNAL_CFLAGS)
 LDFLAGS		= @LDFLAGS@
 

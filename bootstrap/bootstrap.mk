@@ -33,6 +33,12 @@ bootstrap-linux-headers:
 	make -C ${SRC_ROOT}/obj/kernel INSTALL_HDR_PATH=${BOOTSTRAP_TOOLS} headers_install
 	cd ${BOOTSTRAP_TOOLS}; mkdir -p usr; ln -sf ${BOOTSTRAP_TOOLS}/include usr/include
 
+bootstrap-nasm:
+	cd ${SRC_ROOT}/bootstrap/nasm; ${SRC_ROOT}/world/nasm/configure ${BOOTSTRAP_CONFIG}
+	mkdir -p ${SRC_ROOT}/bootstrap/nasm/lib;
+	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm
+	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm install
+
 bootstrap-syslinux:
 	@echo syslinux not yet integrated
 
@@ -42,4 +48,4 @@ clean-bootstrap:
 	make -i -C ${SRC_ROOT}/world/musl distclean clean
 	rm -rf ${SRC_ROOT}/tools/*
 
-bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-syslinux
+bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-nasm bootstrap-syslinux
