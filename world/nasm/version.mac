@@ -1,0 +1,6 @@
+%define __NASM_MAJOR__ 2
+%define __NASM_MINOR__ 11
+%define __NASM_SUBMINOR__ 8
+%define __NASM_PATCHLEVEL__ 0
+%define __NASM_VERSION_ID__ 0020B0800h
+%define __NASM_VER__ "2.11.08"
