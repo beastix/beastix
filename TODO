@@ -1,7 +1,6 @@
 For release 0.1:
-	Add cdrtools to world
 	man pages
-	Self-hosting build fully working: need nasm,bc,cdrtools
+	Self-hosting build fully working: need cdrkit, flex, bison
 	ports fully working
 	Unattended build script fully working
 
