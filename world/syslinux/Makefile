@@ -153,7 +153,8 @@ MODULES = com32/menu/*.c32 com32/modules/*.c32 com32/mboot/*.c32 \
 endif
 
 # List of module objects that should be installed for all derivatives
-INSTALLABLE_MODULES = $(MODULES)
+#INSTALLABLE_MODULES = $(MODULES)
+INSTALLABLE_MODULES=
 
 # syslinux.exe is BTARGET so as to not require everyone to have the
 # mingw suite installed
