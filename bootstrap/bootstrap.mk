@@ -43,6 +43,13 @@ bootstrap-nasm:
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm nasm 
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm install
 
+bootstrap-cpio:
+	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; cd ${SRC_ROOT}/bootstrap/cpio; ${SRC_ROOT}/world/cpio/configure ${BOOTSTRAP_CONFIG} --disable-nls --without-libintl-prefix
+	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/cpio
+	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/cpio install
+
+	
+
 bootstrap-syslinux:
 	@echo syslinux not yet integrated
 
@@ -52,4 +59,4 @@ clean-bootstrap:
 	make -i -C ${SRC_ROOT}/world/musl distclean clean
 	rm -rf ${SRC_ROOT}/tools/*
 
-bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-nasm bootstrap-syslinux
+bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-nasm bootstrap-syslinux bootstrap-cpio
