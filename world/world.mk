@@ -65,6 +65,31 @@ fixheaders:
 	mkdir -p ${WORLD_BUILD}/headers
 	cp -Rv ${WORLD_BUILD}/bootstrap/tools/include/* ${WORLD_BUILD}/headers/
 
-buildworld: bootstrap fixheaders buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux buildworld-syslinux
+buildworld-m4:
+	mkdir -p ${WORLD_BUILD}/m4/_install
+	${WORLDENV} cd ${WORLD_BUILD}/m4; ${SRC_ROOT}/world/m4/configure {WORLD_CONFIG}
+	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/m4
+	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/m4 install
+
+buildworld-flex:
+	mkdir -p ${WORLD_BUILD}/flex/_install
+	${WORLDENV} cd ${WORLD_BUILD}/flex; ${SRC_ROOT}/world/m4/configure {WORLD_CONFIG}
+	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/flex
+	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/flex install
+
+buildworld-bison:
+	mkdir -p ${WORLD_BUILD}/bison/_install
+	${WORLDENV} cd ${WORLD_BUILD}/bison; ${SRC_ROOT}/world/bison/configure ${WORLD_CONFIG}
+	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bison
+	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bison install
+
+buildworld-bc:
+	mkdir -p ${WORLD_BUILD}/bc/_install
+	${WORLDENV} cd ${WORLD_BUILD}/bc; ${SRC_ROOT}/world/bc/configure ${WORLD_CONFIG}
+	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bc
+	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bc install
+
+
+buildworld: bootstrap fixheaders buildworld-m4 buildworld-flex buildworld-bison buildworld-bc buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux buildworld-syslinux
 
 installworld:

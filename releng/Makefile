@@ -23,13 +23,17 @@ minimal-root:
 
 base-root: minimal-root
 	mkdir -p ${RELEASE_BUILD}/baseroot
-	cp -R --preserve ${RELEASE_BUILD}/minroot/*            ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/gcc/_install/*        ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/binutils/_install/*   ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/make/_install/*       ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${RELEASE_BUILD}/minroot/*             ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/gcc/_install/*         ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/binutils/_install/*    ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/make/_install/*        ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/util-linux/_install/*  ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/syslinux/_install/* ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/headers/* ${RELEASE_BUILD}/baseroot/usr/include/
+	cp -R --preserve ${SRC_ROOT}/obj/syslinux/_install/*    ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/headers/*              ${RELEASE_BUILD}/baseroot/usr/include/
+	cp -R --preserve ${SRC_ROOT}/obj/m4/_install/*          ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/flex/_install/*        ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/bison/_install/*       ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/bc/_install/*          ${RELEASE_BUILD}/baseroot/
 
 
 base-tarball: base-root
