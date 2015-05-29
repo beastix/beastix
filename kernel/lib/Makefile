@@ -187,11 +187,10 @@ obj-$(CONFIG_OID_REGISTRY) += oid_registry.o
 $(obj)/oid_registry.o: $(obj)/oid_registry_data.c
 
 $(obj)/oid_registry_data.c: $(srctree)/include/linux/oid_registry.h \
-			    $(src)/build_OID_registry
-	$(call cmd,build_OID_registry)
+			    cp $(srctree)/lib/oid_registry_data.c $(obj)/
 
-quiet_cmd_build_OID_registry = GEN     $@
-      cmd_build_OID_registry = perl $(srctree)/$(src)/build_OID_registry $< $@
+#quiet_cmd_build_OID_registry = GEN     $@
+#      cmd_build_OID_registry = perl $(srctree)/$(src)/build_OID_registry $< $@
 
 clean-files	+= oid_registry_data.c
 
