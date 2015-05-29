@@ -68,7 +68,6 @@ release-final: release-final-dir base-tarball live-initrd installer-initrd sourc
 	cp -v ${RELEASE_BUILD}/live_initrd.img             ${RELEASE_FINAL}/
 	cp -v ${RELEASE_BUILD}/installer_initrd.img        ${RELEASE_FINAL}/
 	cp -v ${RELEASE_BUILD}/src.tar.gz                  ${RELEASE_FINAL}/
-	cp -v ${RELEASE_BUILD}/ports.tar.gz                ${RELEASE_FINAL}/
 	cp -rv ${RELEASE_BUILD}/doc                        ${RELEASE_FINAL}/doc
 	cp ${SRC_ROOT}/obj/kernel/arch/x86_64/boot/bzImage ${RELEASE_FINAL}/
 
