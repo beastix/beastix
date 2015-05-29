@@ -36,14 +36,14 @@ base-tarball: base-root
 	gzip ${RELEASE_BUILD}/base.tar
 
 live-initrd: base-root
-	cd ${RELEASE_BUILD}/baseroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/live_initrd.img
+	cd ${RELEASE_BUILD}/baseroot; find . | ${SRC_ROOT}/bootstrap/tools/bin/cpio -H newc -o | gzip > ${RELEASE_BUILD}/live_initrd.img
 
 installer-initrd: minimal-root
 	mkdir -p ${RELEASE_BUILD}/installerroot
 	cp -R --preserve ${RELEASE_BUILD}/minroot/*          ${RELEASE_BUILD}/installerroot/
 	cp -R --preserve ${SRC_ROOT}/installer/_install/*    ${RELEASE_BUILD}/installerroot/
 	cp -R --preserve ${SRC_ROOT}/obj/syslinux/_install/* ${RELEASE_BUILD}/installerroot/
-	cd ${RELEASE_BUILD}/installerroot; find . | cpio -H newc -o | gzip > ${RELEASE_BUILD}/installer_initrd.img
+	cd ${RELEASE_BUILD}/installerroot; find . | ${SRC_ROOT}/bootstrap/tools/bin/cpio -H newc -o | gzip > ${RELEASE_BUILD}/installer_initrd.img
 
 source-tarball:
 	git clone --single-branch ${SRC_ROOT} ${RELEASE_BUILD}/src
