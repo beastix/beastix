@@ -78,6 +78,8 @@ buildworld-flex:
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/flex install
 
 buildworld-bison:
+	touch ${SRC_ROOT}/world/bison/doc/bison.help
+	touch ${SRC_ROOT}/world/bison/doc/bison.1
 	mkdir -p ${WORLD_BUILD}/bison/_install
 	${WORLDENV} cd ${WORLD_BUILD}/bison; ${SRC_ROOT}/world/bison/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/bison/_install
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bison
