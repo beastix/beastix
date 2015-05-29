@@ -63,7 +63,7 @@ checksums:
 	cd ${RELEASE_FINAL}; sh -c "md5sum * >MD5SUMS; exit 0"
 	cd ${RELEASE_FINAL}; sh -c "sha256sum * >SHA256SUMS; exit 0"
 
-release-final: release-final-dir base-tarball live-initrd installer-initrd source-tarball ports-tarball place-docs
+release-final: release-final-dir base-tarball live-initrd installer-initrd source-tarball place-docs
 	cp -v ${RELEASE_BUILD}/base.tar.gz                 ${RELEASE_FINAL}/
 	cp -v ${RELEASE_BUILD}/live_initrd.img             ${RELEASE_FINAL}/
 	cp -v ${RELEASE_BUILD}/installer_initrd.img        ${RELEASE_FINAL}/
