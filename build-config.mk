@@ -10,7 +10,7 @@ BOOTSTRAP_CC      := x86_64-unknown-linux-musl-gcc
 WORLD_CC          := x86_64-unknown-linux-musl-gcc
 WORLD_CONFIG      := --target=x86_64-unknown-linux-musl --host=x86_64-unknown-linux-musl --disable-shared
 WORLD_CFLAGS      := -static -I${BOOTSTRAP_TOOLS}/usr/include/ ${CFLAGS}
-WORLD_CPPFLAGS    := I${BOOTSTRAP_TOOLS}/usr/include/
+WORLD_CPPFLAGS    := -I${BOOTSTRAP_TOOLS}/usr/include/
 WORLD_LDFLAGS     := -static ${LDFLAGS}
 WORLD_BUILD       := ${PWD}/obj
 SRC_ROOT          := ${PWD}
