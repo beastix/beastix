@@ -1,4 +1,4 @@
-WORLDENV := export PATH="${BOOTSTRAP_PATH}"; export CFLAGS="${WORLD_CFLAGS}"; export LDFLAGS="${WORLD_LDFLAGS}"; export CC="${WORLD_CC}";
+WORLDENV := export PATH="${BOOTSTRAP_PATH}"; export CFLAGS="${WORLD_CFLAGS}"; export LDFLAGS="${WORLD_LDFLAGS}"; export CC="${WORLD_CC}"; export CPPFLAGS="${WORLD_CPPFLAGS}"
 
 buildworld-busybox:
 	mkdir -p ${WORLD_BUILD}/busybox
