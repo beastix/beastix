@@ -1694,7 +1694,6 @@ ALLOCA
 GL_COND_LIBTOOL_FALSE
 GL_COND_LIBTOOL_TRUE
 XSLTPROC
-HELP2MAN
 PERL
 M4_DEBUGFILE
 M4_GNU
@@ -8933,12 +8932,6 @@ else
 $as_echo "no" >&6; }
 fi
 
-
-if test -z "$PERL"; then
-   as_fn_error $? "perl not found" "$LINENO" 5
-fi
-
-HELP2MAN=${HELP2MAN-"${am_missing_run}help2man"}
 
 # Extract the first word of "xsltproc", so it can be a program name with args.
 set dummy xsltproc; ac_word=$2
@@ -37293,23 +37286,23 @@ EOF
         if $JAVAC --version 2>/dev/null | sed -e 1q | grep gcj > /dev/null; then
             if $JAVAC --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | sed -e '/^4\.[012]/d' | grep '^[4-9]' >/dev/null; then
                         rm -f conftest.class
-        if { echo "$as_me:37296: $JAVAC -d . conftest.java" >&5
+        if { echo "$as_me:37289: $JAVAC -d . conftest.java" >&5
              $JAVAC -d . conftest.java >&5 2>&1
            } \
            && test -f conftest.class \
            && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5; then
                     rm -f conftest.class
           rm -f conftestfail.class
-          if { echo "$as_me:37303: $JAVAC -fsource=$source_version -d . conftest.java" >&5
+          if { echo "$as_me:37296: $JAVAC -fsource=$source_version -d . conftest.java" >&5
                $JAVAC -fsource="$source_version" -d . conftest.java >&5 2>&1
              } \
              && test -f conftest.class \
              && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5 \
-             && { echo "$as_me:37308: $JAVAC -d . conftestfail.java" >&5
+             && { echo "$as_me:37301: $JAVAC -d . conftestfail.java" >&5
                   $JAVAC -d . conftestfail.java >&5 2>&1
                 } \
              && test -f conftestfail.class \
-             && ! { echo "$as_me:37312: $JAVAC -fsource=$source_version -d . conftestfail.java" >&5
+             && ! { echo "$as_me:37305: $JAVAC -fsource=$source_version -d . conftestfail.java" >&5
                     $JAVAC -fsource="$source_version" -d . conftestfail.java >&5 2>&1
                   }; then
             CONF_JAVAC="$JAVAC -fsource=$source_version"
@@ -37323,7 +37316,7 @@ EOF
         else
                     rm -f conftest.class
           rm -f conftestfail.class
-          if { echo "$as_me:37326: $JAVAC -fsource=$source_version -ftarget=$target_version -d . conftest.java" >&5
+          if { echo "$as_me:37319: $JAVAC -fsource=$source_version -ftarget=$target_version -d . conftest.java" >&5
                $JAVAC -fsource="$source_version" -ftarget="$target_version" -d . conftest.java >&5 2>&1
              } \
              && test -f conftest.class \
@@ -37336,7 +37329,7 @@ EOF
       else
                 if test "$target_version" = 1.4 && test "$source_version" = 1.4; then
                     rm -f conftest.class
-          if { echo "$as_me:37339: $JAVAC -d . conftest.java" >&5
+          if { echo "$as_me:37332: $JAVAC -d . conftest.java" >&5
                $JAVAC -d . conftest.java >&5 2>&1
              } \
              && test -f conftest.class; then
@@ -37348,7 +37341,7 @@ EOF
           if test "$target_version" = 1.4 && test "$source_version" = 1.3; then
                                     javac_works=
             rm -f conftest.class
-            if { echo "$as_me:37351: $JAVAC -d . conftest.java" >&5
+            if { echo "$as_me:37344: $JAVAC -d . conftest.java" >&5
                  $JAVAC -d . conftest.java >&5 2>&1
                } \
                && test -f conftest.class; then
@@ -37356,7 +37349,7 @@ EOF
             fi
             javac_noassert_works=
             rm -f conftest.class
-            if { echo "$as_me:37359: $JAVAC -fno-assert -d . conftest.java" >&5
+            if { echo "$as_me:37352: $JAVAC -fno-assert -d . conftest.java" >&5
                  $JAVAC -fno-assert -d . conftest.java >&5 2>&1
                } \
                && test -f conftest.class; then
@@ -37364,11 +37357,11 @@ EOF
             fi
             if test -n "$javac_works" && test -n "$javac_noassert_works"; then
               rm -f conftestfail.class
-              if { echo "$as_me:37367: $JAVAC -d . conftestfail.java" >&5
+              if { echo "$as_me:37360: $JAVAC -d . conftestfail.java" >&5
                    $JAVAC -d . conftestfail.java >&5 2>&1
                  } \
                  && test -f conftestfail.class \
-                 && ! { echo "$as_me:37371: $JAVAC -fno-assert -d . conftestfail.java" >&5
+                 && ! { echo "$as_me:37364: $JAVAC -fno-assert -d . conftestfail.java" >&5
                         $JAVAC -fno-assert -d . conftestfail.java >&5 2>&1
                       }; then
                                 javac_works=
@@ -37390,23 +37383,23 @@ EOF
       fi
     else
                   rm -f conftest.class
-      if { echo "$as_me:37393: $JAVAC -d . conftest.java" >&5
+      if { echo "$as_me:37386: $JAVAC -d . conftest.java" >&5
            $JAVAC -d . conftest.java >&5 2>&1
          } \
          && test -f conftest.class \
          && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5; then
                 rm -f conftest.class
         rm -f conftestfail.class
-        if { echo "$as_me:37400: $JAVAC -source $source_version -d . conftest.java" >&5
+        if { echo "$as_me:37393: $JAVAC -source $source_version -d . conftest.java" >&5
              $JAVAC -source "$source_version" -d . conftest.java >&5 2>&1
            } \
            && test -f conftest.class \
            && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5 \
-           && { echo "$as_me:37405: $JAVAC -d . conftestfail.java" >&5
+           && { echo "$as_me:37398: $JAVAC -d . conftestfail.java" >&5
                 $JAVAC -d . conftestfail.java >&5 2>&1
               } \
            && test -f conftestfail.class \
-           && ! { echo "$as_me:37409: $JAVAC -source $source_version -d . conftestfail.java" >&5
+           && ! { echo "$as_me:37402: $JAVAC -source $source_version -d . conftestfail.java" >&5
                   $JAVAC -source "$source_version" -d . conftestfail.java >&5 2>&1
                 }; then
           CONF_JAVAC="$JAVAC -source $source_version"
@@ -37419,23 +37412,23 @@ EOF
         fi
       else
                         rm -f conftest.class
-        if { echo "$as_me:37422: $JAVAC -target $target_version -d . conftest.java" >&5
+        if { echo "$as_me:37415: $JAVAC -target $target_version -d . conftest.java" >&5
              $JAVAC -target "$target_version" -d . conftest.java >&5 2>&1
            } \
            && test -f conftest.class \
            && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5; then
                     rm -f conftest.class
           rm -f conftestfail.class
-          if { echo "$as_me:37429: $JAVAC -target $target_version -source $source_version -d . conftest.java" >&5
+          if { echo "$as_me:37422: $JAVAC -target $target_version -source $source_version -d . conftest.java" >&5
                $JAVAC -target "$target_version" -source "$source_version" -d . conftest.java >&5 2>&1
              } \
              && test -f conftest.class \
              && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5 \
-             && { echo "$as_me:37434: $JAVAC -target $target_version -d . conftestfail.java" >&5
+             && { echo "$as_me:37427: $JAVAC -target $target_version -d . conftestfail.java" >&5
                   $JAVAC -target "$target_version" -d . conftestfail.java >&5 2>&1
                 } \
              && test -f conftestfail.class \
-             && ! { echo "$as_me:37438: $JAVAC -target $target_version -source $source_version -d . conftestfail.java" >&5
+             && ! { echo "$as_me:37431: $JAVAC -target $target_version -source $source_version -d . conftestfail.java" >&5
                     $JAVAC -target "$target_version" -source "$source_version" -d . conftestfail.java >&5 2>&1
                   }; then
             CONF_JAVAC="$JAVAC -target $target_version -source $source_version"
@@ -37448,7 +37441,7 @@ EOF
           fi
         else
                                         rm -f conftest.class
-          if { echo "$as_me:37451: $JAVAC -target $target_version -source $source_version -d . conftest.java" >&5
+          if { echo "$as_me:37444: $JAVAC -target $target_version -source $source_version -d . conftest.java" >&5
                $JAVAC -target "$target_version" -source "$source_version" -d . conftest.java >&5 2>&1
              } \
              && test -f conftest.class \
@@ -37566,28 +37559,28 @@ fi
 
                 if test -z "$HAVE_JAVACOMP" && test -n "$HAVE_GCJ_IN_PATH"; then
             if gcj --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | sed -e '/^3\.[01]/d' | grep '^[3-9]' >/dev/null; then
-                if { echo "$as_me:37569: gcj -C -d . conftestlib.java" >&5
+                if { echo "$as_me:37562: gcj -C -d . conftestlib.java" >&5
              gcj -C -d . conftestlib.java >&5 2>&1
            }; then
                     if gcj --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | sed -e '/^4\.[012]/d' | grep '^[4-9]' >/dev/null; then
                                     rm -f conftest.class
-            if { echo "$as_me:37574: gcj -C -d . conftest.java" >&5
+            if { echo "$as_me:37567: gcj -C -d . conftest.java" >&5
                  gcj -C -d . conftest.java >&5 2>&1
                } \
                && test -f conftest.class \
                && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5; then
                             rm -f conftest.class
               rm -f conftestfail.class
-              if { echo "$as_me:37581: gcj -C -fsource=$source_version -d . conftest.java" >&5
+              if { echo "$as_me:37574: gcj -C -fsource=$source_version -d . conftest.java" >&5
                    gcj -C -fsource="$source_version" -d . conftest.java >&5 2>&1
                  } \
                  && test -f conftest.class \
                  && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5 \
-                 && { echo "$as_me:37586: gcj -C -d . conftestfail.java" >&5
+                 && { echo "$as_me:37579: gcj -C -d . conftestfail.java" >&5
                       gcj -C -d . conftestfail.java >&5 2>&1
                     } \
                  && test -f conftestfail.class \
-                 && ! { echo "$as_me:37590: gcj -C -fsource=$source_version -d . conftestfail.java" >&5
+                 && ! { echo "$as_me:37583: gcj -C -fsource=$source_version -d . conftestfail.java" >&5
                         gcj -C -fsource="$source_version" -d . conftestfail.java >&5 2>&1
                       }; then
                 CONF_JAVAC="gcj -C -fsource=$source_version"
@@ -37601,7 +37594,7 @@ fi
             else
                             rm -f conftest.class
               rm -f conftestfail.class
-              if { echo "$as_me:37604: gcj -C -fsource=$source_version -ftarget=$target_version -d . conftest.java" >&5
+              if { echo "$as_me:37597: gcj -C -fsource=$source_version -ftarget=$target_version -d . conftest.java" >&5
                    gcj -C -fsource="$source_version" -ftarget="$target_version" -d . conftest.java >&5 2>&1
                  } \
                  && test -f conftest.class \
@@ -37614,7 +37607,7 @@ fi
           else
                                                 if test "$target_version" = 1.4 && test "$source_version" = 1.4; then
               rm -f conftest.class
-              if { echo "$as_me:37617: gcj -C -d . conftest.java" >&5
+              if { echo "$as_me:37610: gcj -C -d . conftest.java" >&5
                    gcj -C -d . conftest.java >&5 2>&1
                  } \
                  && test -f conftest.class; then
@@ -37625,7 +37618,7 @@ fi
             else
               if test "$target_version" = 1.4 && test "$source_version" = 1.3; then
                                                 rm -f conftest.class
-                if { echo "$as_me:37628: gcj -C -fno-assert -d . conftest.java" >&5
+                if { echo "$as_me:37621: gcj -C -fno-assert -d . conftest.java" >&5
                      gcj -C -fno-assert -d . conftest.java >&5 2>&1
                    } \
                    && test -f conftest.class; then
@@ -37634,7 +37627,7 @@ fi
                   HAVE_JAVACOMP=1
                 else
                   rm -f conftest.class
-                  if { echo "$as_me:37637: gcj -C -d . conftest.java" >&5
+                  if { echo "$as_me:37630: gcj -C -d . conftest.java" >&5
                        gcj -C -d . conftest.java >&5 2>&1
                      } \
                      && test -f conftest.class; then
@@ -37653,23 +37646,23 @@ fi
             if { javac -version >/dev/null 2>/dev/null || test $? -le 2; } \
          && ( if javac -help 2>&1 >/dev/null | grep at.dms.kjc.Main >/dev/null && javac -help 2>/dev/null | grep 'released.*2000' >/dev/null ; then exit 1; else exit 0; fi ); then
                                 rm -f conftest.class
-        if { echo "$as_me:37656: javac -d . conftest.java" >&5
+        if { echo "$as_me:37649: javac -d . conftest.java" >&5
              javac -d . conftest.java >&5 2>&1
            } \
            && test -f conftest.class \
            && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5; then
                     rm -f conftest.class
           rm -f conftestfail.class
-          if { echo "$as_me:37663: javac -source $source_version -d . conftest.java" >&5
+          if { echo "$as_me:37656: javac -source $source_version -d . conftest.java" >&5
                javac -source "$source_version" -d . conftest.java >&5 2>&1
              } \
              && test -f conftest.class \
              && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5 \
-             && { echo "$as_me:37668: javac -d . conftestfail.java" >&5
+             && { echo "$as_me:37661: javac -d . conftestfail.java" >&5
                   javac -d . conftestfail.java >&5 2>&1
                 } \
              && test -f conftestfail.class \
-             && ! { echo "$as_me:37672: javac -source $source_version -d . conftestfail.java" >&5
+             && ! { echo "$as_me:37665: javac -source $source_version -d . conftestfail.java" >&5
                     javac -source "$source_version" -d . conftestfail.java >&5 2>&1
                   }; then
             CONF_JAVAC="javac -source $source_version"
@@ -37682,23 +37675,23 @@ fi
           fi
         else
                               rm -f conftest.class
-          if { echo "$as_me:37685: javac -target $target_version -d . conftest.java" >&5
+          if { echo "$as_me:37678: javac -target $target_version -d . conftest.java" >&5
                javac -target "$target_version" -d . conftest.java >&5 2>&1
              } \
              && test -f conftest.class \
              && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5; then
                         rm -f conftest.class
             rm -f conftestfail.class
-            if { echo "$as_me:37692: javac -target $target_version -source $source_version -d . conftest.java" >&5
+            if { echo "$as_me:37685: javac -target $target_version -source $source_version -d . conftest.java" >&5
                  javac -target "$target_version" -source "$source_version" -d . conftest.java >&5 2>&1
                } \
                && test -f conftest.class \
                && expr `func_classfile_version conftest.class` '<=' $cfversion >/dev/null 2>&5 \
-               && { echo "$as_me:37697: javac -target $target_version -d . conftestfail.java" >&5
+               && { echo "$as_me:37690: javac -target $target_version -d . conftestfail.java" >&5
                     javac -target "$target_version" -d . conftestfail.java >&5 2>&1
                   } \
                && test -f conftestfail.class \
-               && ! { echo "$as_me:37701: javac -target $target_version -source $source_version -d . conftestfail.java" >&5
+               && ! { echo "$as_me:37694: javac -target $target_version -source $source_version -d . conftestfail.java" >&5
                       javac -target "$target_version" -source "$source_version" -d . conftestfail.java >&5 2>&1
                     }; then
               CONF_JAVAC="javac -target $target_version -source $source_version"
@@ -37711,7 +37704,7 @@ fi
             fi
           else
                                                 rm -f conftest.class
-            if { echo "$as_me:37714: javac -target $target_version -source $source_version -d . conftest.java" >&5
+            if { echo "$as_me:37707: javac -target $target_version -source $source_version -d . conftest.java" >&5
                  javac -target "$target_version" -source "$source_version" -d . conftest.java >&5 2>&1
                } \
                && test -f conftest.class \

@@ -1,6 +1,6 @@
 For release 0.1:
 	man pages
-	Self-hosting build fully working: need cdrkit, flex, bison
+	Self-hosting build fully working: need cdrkit, flex, bison, m4, bc
 	ports fully working
 	Unattended build script fully working
 
