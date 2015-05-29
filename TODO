@@ -4,6 +4,7 @@ For release 0.1:
 	Self-hosting build fully working: need cdrkit, flex, bison, m4, bc
 	 fix bash issue in kernel build
 	Fix headers issue
+         Add headers to world build
 	ports fully working
 	Unattended build script fully working
 
