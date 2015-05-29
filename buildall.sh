@@ -5,4 +5,6 @@ make bootstrap
 make buildworld
 make build-installer
 pushd releng
+make -i clean
 make release-final
+popd
