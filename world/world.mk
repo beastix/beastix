@@ -1,4 +1,4 @@
-WORLDENV := export PATH="${BOOTSTRAP_PATH}"; export CFLAGS="${WORLD_CFLAGS}"; export LDFLAGS="${WORLD_LDFLAGS}"; export CC="${WORLD_CC}"; export CPPFLAGS="${WORLD_CPPFLAGS}"
+WORLDENV := export PATH="${BOOTSTRAP_PATH}"; export CFLAGS="${WORLD_CFLAGS}"; export LDFLAGS="${WORLD_LDFLAGS}"; export CC="${WORLD_CC}"; export CPPFLAGS="${WORLD_CPPFLAGS}";
 
 buildworld-busybox:
 	mkdir -p ${WORLD_BUILD}/busybox
@@ -63,29 +63,29 @@ clean-world:
 
 fixheaders:
 	mkdir -p ${WORLD_BUILD}/headers
-	cp -Rv ${WORLD_BUILD}/bootstrap/tools/include/* ${WORLD_BUILD}/headers/
+	cp -Rv ${SRC_ROOT}/bootstrap/tools/include/* ${WORLD_BUILD}/headers/
 
 buildworld-m4:
 	mkdir -p ${WORLD_BUILD}/m4/_install
-	${WORLDENV} cd ${WORLD_BUILD}/m4; ${SRC_ROOT}/world/m4/configure {WORLD_CONFIG}
+	${WORLDENV} cd ${WORLD_BUILD}/m4; ${SRC_ROOT}/world/m4/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/m4/_install
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/m4
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/m4 install
 
 buildworld-flex:
 	mkdir -p ${WORLD_BUILD}/flex/_install
-	${WORLDENV} cd ${WORLD_BUILD}/flex; ${SRC_ROOT}/world/m4/configure {WORLD_CONFIG}
+	${WORLDENV} cd ${WORLD_BUILD}/flex; ${SRC_ROOT}/world/m4/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/flex/_install
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/flex
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/flex install
 
 buildworld-bison:
 	mkdir -p ${WORLD_BUILD}/bison/_install
-	${WORLDENV} cd ${WORLD_BUILD}/bison; ${SRC_ROOT}/world/bison/configure ${WORLD_CONFIG}
+	${WORLDENV} cd ${WORLD_BUILD}/bison; ${SRC_ROOT}/world/bison/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/bison/_install
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bison
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bison install
 
 buildworld-bc:
 	mkdir -p ${WORLD_BUILD}/bc/_install
-	${WORLDENV} cd ${WORLD_BUILD}/bc; ${SRC_ROOT}/world/bc/configure ${WORLD_CONFIG}
+	${WORLDENV} cd ${WORLD_BUILD}/bc; ${SRC_ROOT}/world/bc/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/bc/_install
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bc
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bc install
 
