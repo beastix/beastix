@@ -29,6 +29,7 @@ base-root: minimal-root
 	cp -R --preserve ${SRC_ROOT}/obj/make/_install/*       ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/util-linux/_install/*  ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/syslinux/_install/* ${RELEASE_BUILD}/baseroot/
+	cp -R --preserve ${SRC_ROOT}/obj/headers/* ${RELEASE_BUILD}/baseroot/usr/include/
 
 
 base-tarball: base-root

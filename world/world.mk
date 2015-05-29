@@ -61,6 +61,10 @@ clean-world:
 	make -i -C ${WORLD_BUILD}/gcc distclean clean
 	make -i -C ${WORLD_BUILD}/musl distclean clean	
 
-buildworld: bootstrap buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux buildworld-syslinux
+fixheaders:
+	mkdir -p ${WORLD_BUILD}/headers
+	cp -Rv ${WORLD_BUILD}/bootstrap/tools/include/* ${WORLD_BUILD}/headers/
+
+buildworld: bootstrap fixheaders buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux buildworld-syslinux
 
 installworld:
