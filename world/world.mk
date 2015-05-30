@@ -72,6 +72,7 @@ buildworld-m4:
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/m4 install
 
 buildworld-flex:
+	touch ${SRC_ROOT}/world/flex/doc/*
 	mkdir -p ${WORLD_BUILD}/flex/_install
 	${WORLDENV} cd ${WORLD_BUILD}/flex; ${SRC_ROOT}/world/flex/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/flex/_install
 	echo "MAKEINFO = :" >> ${SRC_ROOT}/obj/flex/Makefile
