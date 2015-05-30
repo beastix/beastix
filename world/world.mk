@@ -73,7 +73,7 @@ buildworld-m4:
 
 buildworld-flex:
 	mkdir -p ${WORLD_BUILD}/flex/_install
-	${WORLDENV} cd ${WORLD_BUILD}/flex; ${SRC_ROOT}/world/m4/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/flex/_install
+	${WORLDENV} cd ${WORLD_BUILD}/flex; ${SRC_ROOT}/world/flex/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/flex/_install
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/flex
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/flex install
 
