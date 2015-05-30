@@ -59,7 +59,6 @@ include data/local.mk
 include djgpp/local.mk
 include doc/local.mk
 include etc/local.mk
-include examples/local.mk
 include lib/local.mk
 include src/local.mk
 include tests/local.mk
