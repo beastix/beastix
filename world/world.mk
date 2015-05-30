@@ -92,6 +92,6 @@ buildworld-bc:
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bc install
 
 
-buildworld: bootstrap fixheaders buildworld-m4 buildworld-flex buildworld-bison buildworld-bc buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux buildworld-syslinux
+buildworld:  fixheaders buildworld-m4 buildworld-flex buildworld-bison buildworld-bc buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux buildworld-syslinux
 
 installworld:
