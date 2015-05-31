@@ -91,6 +91,7 @@ buildworld-bison:
 buildworld-bc:
 	mkdir -p ${WORLD_BUILD}/bc/_install
 	${WORLDENV} cd ${WORLD_BUILD}/bc; ${SRC_ROOT}/world/bc/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/bc/_install
+	echo "MAKEINFO = :" >> ${SRC_ROOT}/obj/flex/Makefile
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bc
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bc install
 
