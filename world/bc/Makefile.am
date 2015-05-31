@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = lib bc dc doc
+SUBDIRS = lib bc dc 
 
 MAINTAINERCLEANFILES =  aclocal.m4 config.h.in configure Makefile.in \
 			$(distdir).tar.gz h/number.h
