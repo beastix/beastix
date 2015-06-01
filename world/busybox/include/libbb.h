@@ -10,6 +10,9 @@
 #ifndef LIBBB_H
 #define LIBBB_H 1
 
+#include <netinet/in.h>
+#include <netinet/in6.h>
+
 #include "platform.h"
 
 #include <ctype.h>
@@ -553,9 +556,6 @@ typedef struct len_and_sockaddr {
 	union {
 		struct sockaddr sa;
 		struct sockaddr_in sin;
-#if ENABLE_FEATURE_IPV6
-		struct sockaddr_in6 sin6;
-#endif
 	} u;
 } len_and_sockaddr;
 enum {
@@ -564,9 +564,6 @@ enum {
 		union {
 			struct sockaddr sa;
 			struct sockaddr_in sin;
-#if ENABLE_FEATURE_IPV6
-			struct sockaddr_in6 sin6;
-#endif
 		}
 	)
 };
