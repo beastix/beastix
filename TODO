@@ -8,6 +8,8 @@ For release 0.1:
 	ports fully working
 	Unattended build script fully working
 	dummy perl
+	add ports bootstrap to installer stage3
+	ensure PATH is set correctly in skeleton home
 
 For release 0.2:
 	Configuration files (/etc/rc.conf)
