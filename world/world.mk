@@ -48,7 +48,7 @@ buildworld-util-linux:
 
 buildworld-syslinux:
 	mkdir -p ${WORLD_BUILD}/syslinux/_install
-	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} O=${WORLD_BUILD}/syslinux installer
+	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} O=${WORLD_BUILD}/syslinux 
 	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} install O=${WORLD_BUILD}/syslinux INSTALLROOT=${WORLD_BUILD}/syslinux/_install
 
 buildworld-binutils:
