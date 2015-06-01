@@ -48,6 +48,7 @@ buildworld-util-linux:
 
 buildworld-syslinux:
 	mkdir -p ${WORLD_BUILD}/syslinux/_install
+	touch ${WORLD_BUILD}/syslinux/bios/core/ldlinux.bin
 	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} O=${WORLD_BUILD}/syslinux 
 	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} install O=${WORLD_BUILD}/syslinux INSTALLROOT=${WORLD_BUILD}/syslinux/_install
 
