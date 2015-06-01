@@ -5,6 +5,7 @@ buildkernel:
 	make -C kernel bzImage O=../obj/kernel/ 
 
 installkernel:
+	cp ${SRC_ROOT}/obj/kernel/arch/x86_64/boot/bzImage /boot/bzImage
 
 clean-kernel:
 	make -C kernel/ mrproper
