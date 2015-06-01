@@ -87,7 +87,7 @@ buildworld-bison:
 	mkdir -p ${WORLD_BUILD}/bison/_install
 	${WORLDENV} cd ${WORLD_BUILD}/bison; ${SRC_ROOT}/world/bison/configure ${WORLD_CONFIG} --prefix=${WORLD_BUILD}/bison/_install
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bison
-	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bison install
+	${WORLDENV} ${MAKE} -i -C ${WORLD_BUILD}/bison install
 
 buildworld-bc:
 	mkdir -p ${WORLD_BUILD}/bc/_install
