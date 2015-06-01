@@ -91,6 +91,7 @@ buildworld-flex:
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/flex install
 
 buildworld-bison:
+	mkdir -p ${WORLD_BUILD}/bison/examples
 	touch ${SRC_ROOT}/world/bison/doc/bison.help
 	touch ${SRC_ROOT}/world/bison/doc/bison.1
 	touch ${WORLD_BUILD}/bison/examples/extracted.stamp
