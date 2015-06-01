@@ -862,11 +862,7 @@ am__DIST_COMMON = $(dist_man_MANS) $(doc_bison_TEXINFOS) \
 	$(srcdir)/Makefile.in $(srcdir)/build-aux/local.mk \
 	$(srcdir)/data/local.mk $(srcdir)/djgpp/local.mk \
 	$(srcdir)/doc/local.mk $(srcdir)/etc/local.mk \
-	$(srcdir)/examples/calc++/local.mk $(srcdir)/examples/local.mk \
-	$(srcdir)/examples/mfcalc/local.mk \
-	$(srcdir)/examples/rpcalc/local.mk $(srcdir)/lib/gnulib.mk \
 	$(srcdir)/lib/local.mk $(srcdir)/src/local.mk \
-	$(srcdir)/tests/local.mk $(top_srcdir)/build-aux/compile \
 	$(top_srcdir)/build-aux/config.guess \
 	$(top_srcdir)/build-aux/config.rpath \
 	$(top_srcdir)/build-aux/config.sub \
@@ -2262,12 +2258,6 @@ BUILT_SOURCES = $(mfcalc_sources) $(rpcalc_sources) $(ALLOCA_H) \
 	$(top_srcdir)/.version
 CLEANFILES = doc/refcard.pdf $(FIGS_GV:.gv=.eps) $(FIGS_GV:.gv=.pdf) \
 	$(FIGS_GV:.gv=.png) doc/Doxyfile $(extracted) \
-	examples/extracted.stamp $(calcxx_sources_generated) \
-	examples/calc++/calc++-parser.output \
-	examples/calc++/calc++-parser.stamp \
-	examples/calc++/calc++-scanner.cc examples/mfcalc/mfcalc.[ch] \
-	examples/mfcalc/mfcalc.output examples/rpcalc/rpcalc.[ch] \
-	examples/rpcalc/rpcalc.output lib/configmake.h \
 	lib/configmake.h-t lib/charset.alias lib/ref-add.sed \
 	lib/ref-del.sed
 DISTCLEANFILES = tests/atconfig $(check_SCRIPTS)
@@ -2291,8 +2281,7 @@ MOSTLYCLEANFILES = $(top_srcdir)/doc/*.t lib/core lib/*.stackdump \
 	lib/wctype.h-t src/yacc
 SUFFIXES = .gv .eps .pdf .png .yy .stamp
 TESTS = $(dist_TESTS)
-dist_TESTS = $(am__append_3) examples/mfcalc/mfcalc.test \
-	examples/rpcalc/rpcalc.test
+dist_TESTS = $(am__append_3) 
 noinst_LIBRARIES = lib/libbison.a
 dist_pkgdata_DATA = \
   data/README                                   \
@@ -2364,7 +2353,7 @@ edit = sed -e 's,@PACKAGE_NAME\@,$(PACKAGE_NAME),g' \
 	   -e 's,@top_srcdir\@,$(top_srcdir),g'
 
 nodist_noinst_SCRIPTS = etc/bench.pl
-dist_noinst_SCRIPTS = examples/extexi examples/test
+dist_noinst_SCRIPTS = 
 TEST_LOG_COMPILER = $(top_srcdir)/examples/test
 AM_CXXFLAGS = \
   $(WARN_CXXFLAGS) $(WARN_CXXFLAGS_TEST) $(WERROR_CXXFLAGS)
