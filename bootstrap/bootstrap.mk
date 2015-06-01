@@ -12,6 +12,7 @@ bootstrap-gcc:
 	make -C ${SRC_ROOT}/bootstrap/gcc all-gcc install-gcc
 	make -C ${SRC_ROOT}/bootstrap/gcc all-target-libgcc install-target-libgcc
 	cd ${BOOTSTRAP_TOOLS}/bin; ln -sf x86_64-unknown-linux-musl-gcc x86_64-unknown-linux-musl-cc
+	cd ${BOOTSTRAP_TOOLS}/bin; ln -sf x86_64-unknown-linux-musl-gcc-ar x86_64-unknown-linux-musl-ar
 
 bootstrap-musl:
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; export CFLAGS=-fPIC; cd ${SRC_ROOT}/world/musl; ./configure ${BOOTSTRAP_CONFIG} --syslibdir=${BOOTSTRAP_TOOLS}/lib \
