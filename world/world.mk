@@ -54,8 +54,8 @@ buildworld-syslinux:
 	cp ${SRC_ROOT}/world/syslinux/bios/core/isolinux-debug.bin ${WORLD_BUILD}/syslinux/bios/core/isolinux-debug.bin
 	cp ${SRC_ROOT}/world/syslinux/bios/version.gen ${WORLD_BUILD}/syslinux/bios/version.gen
 	cp -Rv ${SRC_ROOT}/world/syslinux/codepage ${WORLD_BUILD}/syslinux/bios
-	${WORLDENV} make -i -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} O=${WORLD_BUILD}/syslinux 
-	${WORLDENV} make -i -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} install O=${WORLD_BUILD}/syslinux INSTALLROOT=${WORLD_BUILD}/syslinux/_install
+	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} O=${WORLD_BUILD}/syslinux 
+	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} install O=${WORLD_BUILD}/syslinux INSTALLROOT=${WORLD_BUILD}/syslinux/_install
 
 buildworld-binutils:
 	mkdir -p ${WORLD_BUILD}/binutils/_install
