@@ -5,6 +5,7 @@ buildworld-busybox:
 	make -C ${SRC_ROOT}/world/busybox O=${WORLD_BUILD}/busybox defconfig
 	sed -i "s/.*CONFIG_STATIC.*/CONFIG_STATIC=y/" -i ${WORLD_BUILD}/busybox/.config
 	sed -i 's/.*CONFIG_FEATURE_IPV6.*/CONFIG_FEATURE_IPV6=n/' -i ${WORLD_BUILD}/busybox/.config
+	sed -i 's/.*CONFIG_BRCTL.*/CONFIG_BRCTL=n/' -i ${WORLD_BUILD}/busybox/.config
 	sed -e 's/.*CONFIG_FEATURE_HAVE_RPC.*/CONFIG_FEATURE_HAVE_RPC=n/' -i ${WORLD_BUILD}/busybox/.config
 	sed -e 's/.*CONFIG_FEATURE_INETD_RPC.*/CONFIG_FEATURE_INETD_RPC=n/' -i ${WORLD_BUILD}/busybox/.config
 	${MAKE} -C ${WORLD_BUILD}/busybox/ 
