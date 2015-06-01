@@ -15,3 +15,7 @@ adduser $username
 read -p "What hostname for this system? " newhostname
 echo $newhostname >/etc/hostname
 
+echo
+echo "Upon rebooting, do the following to finish preparing your system:"
+echo "cd /usr/ports/bootstrap"
+echo "./bootstrap --full"
