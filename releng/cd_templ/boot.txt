@@ -1,5 +1,5 @@
 
-Welcome to Beastix-0.1-CURRENT!
+Welcome to Beastix-0.1-RELENG!
 
 To get started with the rescue/live system, press 1 and hit enter
 
