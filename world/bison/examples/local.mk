@@ -41,6 +41,3 @@ $(extracted): %D%/extracted.stamp
 	@test -f $@ || rm -f %D%/extracted.stamp
 	@test -f $@ || $(MAKE) $(AM_MAKEFLAGS) %D%/extracted.stamp
 
-include %D%/calc++/local.mk
-include %D%/mfcalc/local.mk
-include %D%/rpcalc/local.mk

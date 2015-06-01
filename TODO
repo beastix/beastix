@@ -7,6 +7,7 @@ For release 0.1:
          Add headers to world build
 	ports fully working
 	Unattended build script fully working
+	dummy perl
 
 For release 0.2:
 	Configuration files (/etc/rc.conf)
