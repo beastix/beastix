@@ -51,6 +51,7 @@ buildworld-syslinux:
 	mkdir -p ${WORLD_BUILD}/syslinux/bios/core/
 	cp ${SRC_ROOT}/world/syslinux/bios/core/ldlinux.bin ${WORLD_BUILD}/syslinux/bios/core/ldlinux.bin
 	cp ${SRC_ROOT}/world/syslinux/bios/core/isolinux.bin ${WORLD_BUILD}/syslinux/bios/core/isolinux.bin
+	cp ${SRC_ROOT}/world/syslinux/bios/core/isolinux-debug.bin ${WORLD_BUILD}/syslinux/bios/core/isolinux-debug.bin
 	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} O=${WORLD_BUILD}/syslinux 
 	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} install O=${WORLD_BUILD}/syslinux INSTALLROOT=${WORLD_BUILD}/syslinux/_install
 
