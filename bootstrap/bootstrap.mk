@@ -1,5 +1,5 @@
 bootstrap-binutils:
-	cd ${SRC_ROOT}/bootstrap/binutils; ${SRC_ROOT}/world/binutils/configure ${BOOTSTRAP_CONFIG} --disable-werror --without-docdir
+	cd ${SRC_ROOT}/bootstrap/binutils; ${SRC_ROOT}/world/binutils/configure ${BOOTSTRAP_CONFIG} --disable-werror --without-docdir --enable-plugins
 	echo "MAKEINFO = :" >> ${SRC_ROOT}/bootstrap/binutils/Makefile
 	${MAKE} -C ${SRC_ROOT}/bootstrap/binutils all
 	${MAKE} -C ${SRC_ROOT}/bootstrap/binutils install-gas install-ld install-binutils
