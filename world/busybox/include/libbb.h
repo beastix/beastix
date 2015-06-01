@@ -11,7 +11,6 @@
 #define LIBBB_H 1
 
 #include <netinet/in.h>
-#include <netinet/in6.h>
 
 #include "platform.h"
 
