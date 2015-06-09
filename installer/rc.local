@@ -31,6 +31,8 @@ install_stage_one() {
 	echo "LABEL Beastix" >/mnt/target/boot/extlinux.conf
 	echo "       KERNEL /boot/bzImage" >>/mnt/target/boot/extlinux.conf
 	echo "       APPEND root=/dev/sda init=/sbin/init" >>/mnt/target/boot/extlinux.conf
+	echo "" >> /mnt/target/boot/extlinux.conf
+	echo "default Beastix" >>/mnt/target/boot/extlinux.conf
 
 	echo "Installing kernel..."
 	cp /mnt/cdrom/bzImage /mnt/target/boot/
