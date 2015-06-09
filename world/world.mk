@@ -111,17 +111,17 @@ buildworld-bc:
 buildworld:  fixheaders buildworld-m4 buildworld-flex buildworld-bison buildworld-bc buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux buildworld-syslinux
 
 installworld:
-	cp -Ri --preserve ${SRC_ROOT}/world/rootfs/*             /
-	cp -R  --preserve ${SRC_ROOT}/obj/musl/_install/*        /
-	cp -R  --preserve ${SRC_ROOT}/obj/busybox/_install/*     /
-	cp -R  --preserve ${SRC_ROOT}/obj/gcc/_install/*         /
-	cp -R  --preserve ${SRC_ROOT}/obj/binutils/_install/*    /
-	cp -R  --preserve ${SRC_ROOT}/obj/make/_install/*        /
-	cp -R  --preserve ${SRC_ROOT}/obj/util-linux/_install/*  /
-	cp -R  --preserve ${SRC_ROOT}/obj/syslinux/_install/*    /
-	cp -R  --preserve ${SRC_ROOT}/obj/headers/*              /usr/include/
-	cp -R  --preserve ${SRC_ROOT}/obj/m4/_install/*          /
-	cp -R  --preserve ${SRC_ROOT}/obj/flex/_install/*        /
-	cp -R  --preserve ${SRC_ROOT}/obj/bison/_install/*       /
-	cp -R  --preserve ${SRC_ROOT}/obj/bc/_install/*          /
+	cp -Ri -p ${SRC_ROOT}/world/rootfs/*             /
+	cp -R  -p ${SRC_ROOT}/obj/musl/_install/*        /
+	cp -R  -p ${SRC_ROOT}/obj/busybox/_install/*     /
+	cp -R  -p ${SRC_ROOT}/obj/gcc/_install/*         /
+	cp -R  -p ${SRC_ROOT}/obj/binutils/_install/*    /
+	cp -R  -p ${SRC_ROOT}/obj/make/_install/*        /
+	cp -R  -p ${SRC_ROOT}/obj/util-linux/_install/*  /
+	cp -R  -p ${SRC_ROOT}/obj/syslinux/_install/*    /
+	cp -R  -p ${SRC_ROOT}/obj/headers/*              /usr/include/
+	cp -R  -p ${SRC_ROOT}/obj/m4/_install/*          /
+	cp -R  -p ${SRC_ROOT}/obj/flex/_install/*        /
+	cp -R  -p ${SRC_ROOT}/obj/bison/_install/*       /
+	cp -R  -p ${SRC_ROOT}/obj/bc/_install/*          /
 
