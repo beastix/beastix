@@ -9,6 +9,7 @@ mount -t devtmpfs none /dev
 mount -t proc none /proc
 mount -t sysfs none /sys
 mount -a
+mount -o remount,rw /
 
 mknod /dev/ram0    b  1  0
 mknod /dev/sr1     b 11  1
