@@ -1,4 +1,5 @@
 #! /bin/sh
+exit 0
 # Common wrapper for a few potentially missing GNU programs.
 
 scriptversion=2012-06-26.16; # UTC
