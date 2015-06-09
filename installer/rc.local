@@ -38,7 +38,7 @@ install_stage_one() {
 	cp /mnt/cdrom/bzImage /mnt/target/boot/
 	
 	echo "Installing rescue image..."
-	cp /mnt/cdrom/initrd_live.img /mnt/target/boot/rescue-initrd.img
+	cp /mnt/cdrom/live_initrd.img /mnt/target/boot/rescue-initrd.img
 }
 
 install_stage_two() {
