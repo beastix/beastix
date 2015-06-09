@@ -17,15 +17,13 @@ install_stage_one() {
 	echo "Last chance to reboot before data is wiped, press enter to continue"
 	read
 
-	echo "Creating partition..."
-	echo -e "o\nn\np\n1\n\n\nw" | fdisk $install_dest
 
 	echo "Formatting root filesystem..."
-	mke2fs ${install_dest}1
+	mke2fs ${install_dest}
 
 	echo "Mounting root filesystem..."
 	mkdir /mnt/target
-	mount ${install_dest}1 /mnt/target
+	mount ${install_dest} /mnt/target
 
 	echo "Installing bootloader..."
 	mkdir /mnt/target/boot
@@ -89,6 +87,7 @@ do_install() {
 	read
 
 	echo "Unmounting filesystem..."
+	cd /
 	umount /mnt/target
 	
 	echo "Rebooting in 10 seconds..."
