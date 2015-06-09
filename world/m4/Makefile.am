@@ -1,35 +1,47 @@
+## Makefile.am - template for generating Makefile via Automake
+##
+## Copyright (C) 2000-2001, 2003-2013 Free Software Foundation, Inc.
+##
 ## This file is part of GNU M4.
 ##
-## Copyright (C) 2000, 2001, 2003, 2004, 2005, 2006 Free Software
-## Foundation, Inc.
-##
-## This program is free software; you can redistribute it and/or modify
+## GNU M4 is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2 of the License, or
+## the Free Software Foundation, either version 3 of the License, or
 ## (at your option) any later version.
 ##
-## This program is distributed in the hope that it will be useful,
+## GNU M4 is distributed in the hope that it will be useful,
 ## but WITHOUT ANY WARRANTY; without even the implied warranty of
 ## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ## GNU General Public License for more details.
 ##
 ## You should have received a copy of the GNU General Public License
-## along with this program; see the file COPYING.  If not, write to
-## the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-## Boston, MA 02110-1301, USA.
+## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 ## Written by Gary V. Vaughan <gary@gnu.org>
 
-SUBDIRS = . examples lib src doc checks
-EXTRA_DIST = bootstrap c-boxes.el gendocs.sh GNUmakefile Makefile.maint \
-	m4/gnulib-cache.m4
+SUBDIRS = . examples lib src doc checks tests
+
+EXTRA_DIST = bootstrap c-boxes.el cfg.mk maint.mk \
+	.prev-version .version m4/gnulib-cache.m4
 DISTCLEANFILES = stamp-h
 ## maintainer-clean should remove as much as possible that ./bootstrap can
 ## recreate.  In the m4 directory, keep only gnulib-cache.m4.
-MAINTAINERCLEANFILES = COPYING INSTALL Makefile.in aclocal.m4 \
+MAINTAINERCLEANFILES = INSTALL Makefile.in aclocal.m4 \
 	config-h.in configure depcomp doc/fdl.texi gendocs.sh install-sh \
 	lib/[a-z]* m4/[a-fh-z]* m4/g[a-mo-z]* m4/gnulib-comp.m4 \
 	m4/gnulib-tool.m4 missing stamp-h.in
 
 ACLOCAL_AMFLAGS = -I m4
-DISTCHECK_CONFIGURE_FLAGS = --enable-changeword
+## Enough users install GNU M4 as gm4 that we make sure 'make installcheck'
+## will handle that, prior to making a release.
+DISTCHECK_CONFIGURE_FLAGS = --enable-changeword --program-prefix=g \
+	--enable-gcc-warnings --enable-silent-rules --enable-cxx
+
+BUILT_SOURCES = $(top_srcdir)/.version
+$(top_srcdir)/.version:
+	echo $(VERSION) > $@-t && mv $@-t $@
+
+# Arrange so that .tarball-version appears only in the distribution
+# tarball, and never in a checked-out repository.
+dist-hook:
+	echo $(VERSION) > $(distdir)/.tarball-version

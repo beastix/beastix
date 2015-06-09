@@ -1,23 +1,20 @@
 /* vasprintf and asprintf with out-of-memory checking.
-   Copyright (C) 1999, 2002-2004, 2006 Free Software Foundation, Inc.
+   Copyright (C) 1999, 2002-2004, 2006-2013 Free Software Foundation, Inc.
 
-   This program is free software; you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
-   You should have received a copy of the GNU General Public License along
-   with this program; if not, write to the Free Software Foundation,
-   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 /* Specification.  */
 #include "xvasprintf.h"
@@ -25,19 +22,14 @@
 #include <errno.h>
 #include <limits.h>
 #include <string.h>
+#include <stdio.h>
 
-#include "vasprintf.h"
 #include "xalloc.h"
 
 /* Checked size_t computations.  */
 #include "xsize.h"
 
-/* Some systems, like OSF/1 4.0 and Woe32, don't have EOVERFLOW.  */
-#ifndef EOVERFLOW
-# define EOVERFLOW E2BIG
-#endif
-
-static inline char *
+static char *
 xstrcat (size_t argcount, va_list args)
 {
   char *result;
@@ -66,7 +58,7 @@ xstrcat (size_t argcount, va_list args)
     }
 
   /* Allocate and fill the result string.  */
-  result = (char *) xmalloc (totalsize + 1);
+  result = XNMALLOC (totalsize + 1, char);
   p = result;
   for (i = argcount; i > 0; i--)
     {
@@ -94,23 +86,23 @@ xvasprintf (const char *format, va_list args)
 
     for (f = format;;)
       {
-	if (*f == '\0')
-	  /* Recognized the special case of string concatenation.  */
-	  return xstrcat (argcount, args);
-	if (*f != '%')
-	  break;
-	f++;
-	if (*f != 's')
-	  break;
-	f++;
-	argcount++;
+        if (*f == '\0')
+          /* Recognized the special case of string concatenation.  */
+          return xstrcat (argcount, args);
+        if (*f != '%')
+          break;
+        f++;
+        if (*f != 's')
+          break;
+        f++;
+        argcount++;
       }
   }
 
   if (vasprintf (&result, format, args) < 0)
     {
       if (errno == ENOMEM)
-	xalloc_die ();
+        xalloc_die ();
       return NULL;
     }
 

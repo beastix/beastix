@@ -1,6 +1,6 @@
-#serial 13
+#serial 23
 
-# Copyright (C) 2001, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2003-2007, 2009-2013 Free Software Foundation, Inc.
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -10,61 +10,73 @@
 # Other systems lack mkstemp altogether.
 # On OSF1/Tru64 V4.0F, the system-provided mkstemp function can create
 # only 32 files per process.
+# On some hosts, mkstemp creates files with mode 0666, which is a security
+# problem and a violation of POSIX 2008.
 # On systems like the above, arrange to use the replacement function.
 AC_DEFUN([gl_FUNC_MKSTEMP],
-[dnl
-  AC_REPLACE_FUNCS(mkstemp)
-  if test $ac_cv_func_mkstemp = no; then
-    gl_cv_func_mkstemp_limitations=yes
-  else
-    AC_CACHE_CHECK([for mkstemp limitations],
-      gl_cv_func_mkstemp_limitations,
+[
+  AC_REQUIRE([gl_STDLIB_H_DEFAULTS])
+  AC_REQUIRE([AC_CANONICAL_HOST]) dnl for cross-compiles
+
+  AC_CHECK_FUNCS_ONCE([mkstemp])
+  if test $ac_cv_func_mkstemp = yes; then
+    AC_CACHE_CHECK([for working mkstemp],
+      [gl_cv_func_working_mkstemp],
       [
         mkdir conftest.mkstemp
-	AC_TRY_RUN([
-#           include <stdlib.h>
-#           include <unistd.h>
-	    int main ()
-	    {
-	      int i;
-	      for (i = 0; i < 70; i++)
-		{
-		  char template[] = "conftest.mkstemp/coXXXXXX";
-		  int fd = mkstemp (template);
-		  if (fd == -1)
-		    exit (1);
-		  close (fd);
-		}
-	      exit (0);
-	    }
-	    ],
-	  gl_cv_func_mkstemp_limitations=no,
-	  gl_cv_func_mkstemp_limitations=yes,
-	  gl_cv_func_mkstemp_limitations=yes
-	  )
+        AC_RUN_IFELSE(
+          [AC_LANG_PROGRAM(
+            [AC_INCLUDES_DEFAULT],
+            [[int result = 0;
+              int i;
+              off_t large = (off_t) 4294967295u;
+              if (large < 0)
+                large = 2147483647;
+              umask (0);
+              for (i = 0; i < 70; i++)
+                {
+                  char templ[] = "conftest.mkstemp/coXXXXXX";
+                  int (*mkstemp_function) (char *) = mkstemp;
+                  int fd = mkstemp_function (templ);
+                  if (fd < 0)
+                    result |= 1;
+                  else
+                    {
+                      struct stat st;
+                      if (lseek (fd, large, SEEK_SET) != large)
+                        result |= 2;
+                      if (fstat (fd, &st) < 0)
+                        result |= 4;
+                      else if (st.st_mode & 0077)
+                        result |= 8;
+                      if (close (fd))
+                        result |= 16;
+                    }
+                }
+              return result;]])],
+          [gl_cv_func_working_mkstemp=yes],
+          [gl_cv_func_working_mkstemp=no],
+          [case "$host_os" in
+                     # Guess yes on glibc systems.
+             *-gnu*) gl_cv_func_working_mkstemp="guessing yes" ;;
+                     # If we don't know, assume the worst.
+             *)      gl_cv_func_working_mkstemp="guessing no" ;;
+           esac
+          ])
         rm -rf conftest.mkstemp
-      ]
-    )
-  fi
-
-  if test $gl_cv_func_mkstemp_limitations = yes; then
-    AC_LIBOBJ(mkstemp)
-    AC_LIBOBJ(tempname)
-    AC_DEFINE(mkstemp, rpl_mkstemp,
-      [Define to rpl_mkstemp if the replacement function should be used.])
-    gl_PREREQ_MKSTEMP
-    gl_PREREQ_TEMPNAME
+      ])
+    case "$gl_cv_func_working_mkstemp" in
+      *yes) ;;
+      *)
+        REPLACE_MKSTEMP=1
+        ;;
+    esac
+  else
+    HAVE_MKSTEMP=0
   fi
 ])
 
 # Prerequisites of lib/mkstemp.c.
 AC_DEFUN([gl_PREREQ_MKSTEMP],
 [
-])
-
-# Prerequisites of lib/tempname.c.
-AC_DEFUN([gl_PREREQ_TEMPNAME],
-[
-  AC_CHECK_HEADERS_ONCE(sys/time.h)
-  AC_CHECK_FUNCS(__secure_getenv gettimeofday)
 ])

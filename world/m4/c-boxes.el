@@ -1,7 +1,22 @@
 ;;; Boxed comments for C mode.
-;;; Copyright (C) 1991, 1992, 1993, 1994 Free Software Foundation, Inc.
+;;; Copyright (C) 1991-1994, 2008-2013 Free Software Foundation, Inc.
 ;;; Francois Pinard <pinard@iro.umontreal.ca>, April 1991.
 ;;;
+;;; This file is part of GNU M4.
+;;;
+;;; GNU M4 is free software: you can redistribute it and/or modify
+;;; it under the terms of the GNU General Public License as published by
+;;; the Free Software Foundation, either version 3 of the License, or
+;;; (at your option) any later version.
+;;;
+;;; GNU M4 is distributed in the hope that it will be useful,
+;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;; GNU General Public License for more details.
+;;;
+;;; You should have received a copy of the GNU General Public License
+;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 ;;; I often refill paragraphs inside C comments, while stretching or
 ;;; shrinking the surrounding box as needed.  This is a real pain to
 ;;; do by hand.  Here is the code I made to ease my life on this,
@@ -49,15 +64,15 @@
   (if c-mode-taarna-style
       (progn
 
-	(setq c-mode-taarna-style nil)
-	(setq c-indent-level 2)
-	(setq c-continued-statement-offset 2)
-	(setq c-brace-offset 0)
-	(setq c-argdecl-indent 5)
-	(setq c-label-offset -2)
-	(setq c-tab-always-indent t)
-	(setq c-box-default-style 'single)
-	(message "C mode: GNU style"))
+        (setq c-mode-taarna-style nil)
+        (setq c-indent-level 2)
+        (setq c-continued-statement-offset 2)
+        (setq c-brace-offset 0)
+        (setq c-argdecl-indent 5)
+        (setq c-label-offset -2)
+        (setq c-tab-always-indent t)
+        (setq c-box-default-style 'single)
+        (message "C mode: GNU style"))
 
     (setq c-mode-taarna-style t)
     (setq c-indent-level 4)
@@ -78,10 +93,10 @@
     (while (not (eobp))
       (skip-chars-forward " \t")
       (if (not (looking-at "\n"))
-	  (setq margin
-		(if (< margin 0)
-		    (current-column)
-		  (min margin (current-column)))))
+          (setq margin
+                (if (< margin 0)
+                    (current-column)
+                  (min margin (current-column)))))
       (forward-line 1))
     margin))
 
@@ -94,10 +109,10 @@
     (while (not (eobp))
       (end-of-line)
       (if (bobp)
-	  (setq period 0)
-	(backward-char 1)
-	(setq period (if (looking-at "[.?!]") 1 0))
-	(forward-char 1))
+          (setq period 0)
+        (backward-char 1)
+        (setq period (if (looking-at "[.?!]") 1 0))
+        (forward-char 1))
       (setq margin (max margin (+ (current-column) period)))
       (forward-char 1))
     margin))
@@ -114,9 +129,9 @@
 (defun rebox-c-comment-engine (flag refill)
   (save-restriction
     (let ((undo-list buffer-undo-list)
-	  (marked-point (point-marker))
-	  (saved-point (point))
-	  box-style left-margin right-margin)
+          (marked-point (point-marker))
+          (saved-point (point))
+          box-style left-margin right-margin)
 
       ;; First, find the limits of the block of comments following or
       ;; enclosing the cursor, or return an error if the cursor is not
@@ -127,57 +142,57 @@
 
       (skip-chars-forward " \t\n")
       (if (looking-at "/\\*")
-	  (forward-char 2))
+          (forward-char 2))
 
       (let ((here (point)) start end temp)
 
-	;; - identify a minimal comment block
+        ;; - identify a minimal comment block
 
-	(search-backward "/*")
-	(setq temp (point))
-	(beginning-of-line)
-	(setq start (point))
-	(skip-chars-forward " \t")
-	(if (< (point) temp)
-	    (progn
-	      (goto-char saved-point)
-	      (error "text before comment's start")))
-	(search-forward "*/")
-	(setq temp (point))
-	(end-of-line)
-	(if (looking-at "\n")
-	    (forward-char 1))
-	(setq end (point))
-	(skip-chars-backward " \t\n")
-	(if (> (point) temp)
-	    (progn
-	      (goto-char saved-point)
-	      (error "text after comment's end")))
-	(if (< end here)
-	    (progn
-	      (goto-char saved-point)
-	      (error "outside any comment block")))
+        (search-backward "/*")
+        (setq temp (point))
+        (beginning-of-line)
+        (setq start (point))
+        (skip-chars-forward " \t")
+        (if (< (point) temp)
+            (progn
+              (goto-char saved-point)
+              (error "text before comment's start")))
+        (search-forward "*/")
+        (setq temp (point))
+        (end-of-line)
+        (if (looking-at "\n")
+            (forward-char 1))
+        (setq end (point))
+        (skip-chars-backward " \t\n")
+        (if (> (point) temp)
+            (progn
+              (goto-char saved-point)
+              (error "text after comment's end")))
+        (if (< end here)
+            (progn
+              (goto-char saved-point)
+              (error "outside any comment block")))
 
-	;; - try to extend the comment block backwards
+        ;; - try to extend the comment block backwards
 
-	(goto-char start)
-	(while (and (not (bobp))
-		    (progn (previous-line 1)
-			   (beginning-of-line)
-			   (looking-at "[ \t]*/\\*.*\\*/[ \t]*$")))
-	  (setq start (point)))
+        (goto-char start)
+        (while (and (not (bobp))
+                    (progn (previous-line 1)
+                           (beginning-of-line)
+                           (looking-at "[ \t]*/\\*.*\\*/[ \t]*$")))
+          (setq start (point)))
 
-	;; - try to extend the comment block forward
+        ;; - try to extend the comment block forward
 
-	(goto-char end)
-	(while (looking-at "[ \t]*/\\*.*\\*/[ \t]*$")
-	  (forward-line 1)
-	  (beginning-of-line)
-	  (setq end (point)))
+        (goto-char end)
+        (while (looking-at "[ \t]*/\\*.*\\*/[ \t]*$")
+          (forward-line 1)
+          (beginning-of-line)
+          (setq end (point)))
 
-	;; - narrow to the whole block of comments
+        ;; - narrow to the whole block of comments
 
-	(narrow-to-region start end))
+        (narrow-to-region start end))
 
       ;; Second, remove all the comment marks, and move all the text
       ;; rigidly to the left to insure the left margin stays at the
@@ -185,60 +200,60 @@
       ;; style in BOX-STYLE.
 
       (let ((previous-margin (buffer-left-margin))
-	    actual-margin)
+            actual-margin)
 
-	;; - remove all comment marks
+        ;; - remove all comment marks
 
-	(goto-char (point-min))
-	(replace-regexp "^\\([ \t]*\\)/\\*" "\\1  ")
-	(goto-char (point-min))
-	(replace-regexp "^\\([ \t]*\\)|" "\\1 ")
-	(goto-char (point-min))
-	(replace-regexp "\\(\\*/\\||\\)[ \t]*" "")
-	(goto-char (point-min))
-	(replace-regexp "\\*/[ \t]*/\\*" " ")
+        (goto-char (point-min))
+        (replace-regexp "^\\([ \t]*\\)/\\*" "\\1  ")
+        (goto-char (point-min))
+        (replace-regexp "^\\([ \t]*\\)|" "\\1 ")
+        (goto-char (point-min))
+        (replace-regexp "\\(\\*/\\||\\)[ \t]*" "")
+        (goto-char (point-min))
+        (replace-regexp "\\*/[ \t]*/\\*" " ")
 
-	;; - remove the first and last dashed lines
+        ;; - remove the first and last dashed lines
 
-	(setq box-style 'plain)
-	(goto-char (point-min))
-	(if (looking-at "^[ \t]*-*[.\+\\]?[ \t]*\n")
-	    (progn
-	      (setq box-style 'single)
-	      (replace-match ""))
-	  (if (looking-at "^[ \t]*=*[.\+\\]?[ \t]*\n")
-	      (progn
-		(setq box-style 'double)
-		(replace-match ""))))
-	(goto-char (point-max))
-	(previous-line 1)
-	(beginning-of-line)
-	(if (looking-at "^[ \t]*[`\+\\]?*[-=]+[ \t]*\n")
-	    (progn
-	      (if (eq box-style 'plain)
-		  (setq box-style 'taarna))
-	      (replace-match "")))
+        (setq box-style 'plain)
+        (goto-char (point-min))
+        (if (looking-at "^[ \t]*-*[.\+\\]?[ \t]*\n")
+            (progn
+              (setq box-style 'single)
+              (replace-match ""))
+          (if (looking-at "^[ \t]*=*[.\+\\]?[ \t]*\n")
+              (progn
+                (setq box-style 'double)
+                (replace-match ""))))
+        (goto-char (point-max))
+        (previous-line 1)
+        (beginning-of-line)
+        (if (looking-at "^[ \t]*[`\+\\]?*[-=]+[ \t]*\n")
+            (progn
+              (if (eq box-style 'plain)
+                  (setq box-style 'taarna))
+              (replace-match "")))
 
-	;; - remove all spurious whitespace
+        ;; - remove all spurious whitespace
 
-	(goto-char (point-min))
-	(replace-regexp "[ \t]+$" "")
-	(goto-char (point-min))
-	(if (looking-at "\n+")
-	    (replace-match ""))
-	(goto-char (point-max))
-	(skip-chars-backward "\n")
-	(if (looking-at "\n\n+")
-	    (replace-match "\n"))
-	(goto-char (point-min))
-	(replace-regexp "\n\n\n+" "\n\n")
+        (goto-char (point-min))
+        (replace-regexp "[ \t]+$" "")
+        (goto-char (point-min))
+        (if (looking-at "\n+")
+            (replace-match ""))
+        (goto-char (point-max))
+        (skip-chars-backward "\n")
+        (if (looking-at "\n\n+")
+            (replace-match "\n"))
+        (goto-char (point-min))
+        (replace-regexp "\n\n\n+" "\n\n")
 
-	;; - move the text left is adequate
+        ;; - move the text left is adequate
 
-	(setq actual-margin (buffer-left-margin))
-	(if (not (= previous-margin actual-margin))
-	    (indent-rigidly (point-min) (point-max)
-			    (- previous-margin actual-margin))))
+        (setq actual-margin (buffer-left-margin))
+        (if (not (= previous-margin actual-margin))
+            (indent-rigidly (point-min) (point-max)
+                            (- previous-margin actual-margin))))
 
       ;; Third, select the new box style from the old box style and
       ;; the argument, choose the margins for this style and refill
@@ -247,16 +262,16 @@
       ;; - modify box-style only if flag is defined
 
       (if flag
-	  (setq box-style
-		(cond ((eq flag 0) 'plain)
-		      ((eq flag 1) 'single)
-		      ((eq flag 2) 'double)
-		      ((eq flag 3) 'taarna)
-		      ((eq flag '-) (setq c-box-default-style 'plain) 'plain)
-		      ((eq flag -1) (setq c-box-default-style 'single) 'single)
-		      ((eq flag -2) (setq c-box-default-style 'double) 'double)
-		      ((eq flag -3) (setq c-box-default-style 'taarna) 'taarna)
-		      (t c-box-default-style))))
+          (setq box-style
+                (cond ((eq flag 0) 'plain)
+                      ((eq flag 1) 'single)
+                      ((eq flag 2) 'double)
+                      ((eq flag 3) 'taarna)
+                      ((eq flag '-) (setq c-box-default-style 'plain) 'plain)
+                      ((eq flag -1) (setq c-box-default-style 'single) 'single)
+                      ((eq flag -2) (setq c-box-default-style 'double) 'double)
+                      ((eq flag -3) (setq c-box-default-style 'taarna) 'taarna)
+                      (t c-box-default-style))))
 
       ;; - compute the left margin
 
@@ -267,10 +282,10 @@
       (untabify (point-min) (point-max))
 
       (if refill
-	  (let ((fill-prefix (make-string left-margin ? ))
-		(fill-column (- fill-column
-				(if (memq box-style '(single double)) 4 6))))
-	    (fill-region (point-min) (point-max))))
+          (let ((fill-prefix (make-string left-margin ? ))
+                (fill-column (- fill-column
+                                (if (memq box-style '(single double)) 4 6))))
+            (fill-region (point-min) (point-max))))
 
       ;; - compute the right margin after refill
 
@@ -286,87 +301,87 @@
       ;; - move the right margin to account for left inserts
 
       (setq right-margin (+ right-margin
-			    (if (memq box-style '(single double))
-				2
-			      3)))
+                            (if (memq box-style '(single double))
+                                2
+                              3)))
 
       ;; - construct the box comment, from top to bottom
 
       (goto-char (point-min))
       (cond ((eq box-style 'plain)
 
-	     ;; - construct a plain style comment
+             ;; - construct a plain style comment
 
-	     (skip-chars-forward " " (+ (point) left-margin))
-	     (insert (make-string (- left-margin (current-column)) ? )
-		     "/* ")
-	     (end-of-line)
-	     (forward-char 1)
-	     (while (not (eobp))
-	       (skip-chars-forward " " (+ (point) left-margin))
-	       (insert (make-string (- left-margin (current-column)) ? )
-		       "   ")
-	       (end-of-line)
-	       (forward-char 1))
-	     (backward-char 1)
-	     (insert "  */"))
-	    ((eq box-style 'single)
+             (skip-chars-forward " " (+ (point) left-margin))
+             (insert (make-string (- left-margin (current-column)) ? )
+                     "/* ")
+             (end-of-line)
+             (forward-char 1)
+             (while (not (eobp))
+               (skip-chars-forward " " (+ (point) left-margin))
+               (insert (make-string (- left-margin (current-column)) ? )
+                       "   ")
+               (end-of-line)
+               (forward-char 1))
+             (backward-char 1)
+             (insert "  */"))
+            ((eq box-style 'single)
 
-	     ;; - construct a single line style comment
+             ;; - construct a single line style comment
 
-	     (indent-to left-margin)
-	     (insert "/*")
-	     (insert (make-string (- right-margin (current-column)) ?-)
-		     "-.\n")
-	     (while (not (eobp))
-	       (skip-chars-forward " " (+ (point) left-margin))
-	       (insert (make-string (- left-margin (current-column)) ? )
-		       "| ")
-	       (end-of-line)
-	       (indent-to right-margin)
-	       (insert " |")
-	       (forward-char 1))
-	     (indent-to left-margin)
-	     (insert "`")
-	     (insert (make-string (- right-margin (current-column)) ?-)
-		     "*/\n"))
-	    ((eq box-style 'double)
+             (indent-to left-margin)
+             (insert "/*")
+             (insert (make-string (- right-margin (current-column)) ?-)
+                     "-.\n")
+             (while (not (eobp))
+               (skip-chars-forward " " (+ (point) left-margin))
+               (insert (make-string (- left-margin (current-column)) ? )
+                       "| ")
+               (end-of-line)
+               (indent-to right-margin)
+               (insert " |")
+               (forward-char 1))
+             (indent-to left-margin)
+             (insert "`")
+             (insert (make-string (- right-margin (current-column)) ?-)
+                     "*/\n"))
+            ((eq box-style 'double)
 
-	     ;; - construct a double line style comment
+             ;; - construct a double line style comment
 
-	     (indent-to left-margin)
-	     (insert "/*")
-	     (insert (make-string (- right-margin (current-column)) ?=)
-		     "=\\\n")
-	     (while (not (eobp))
-	       (skip-chars-forward " " (+ (point) left-margin))
-	       (insert (make-string (- left-margin (current-column)) ? )
-		       "| ")
-	       (end-of-line)
-	       (indent-to right-margin)
-	       (insert " |")
-	       (forward-char 1))
-	     (indent-to left-margin)
-	     (insert "\\")
-	     (insert (make-string (- right-margin (current-column)) ?=)
-		     "*/\n"))
-	    ((eq box-style 'taarna)
+             (indent-to left-margin)
+             (insert "/*")
+             (insert (make-string (- right-margin (current-column)) ?=)
+                     "=\\\n")
+             (while (not (eobp))
+               (skip-chars-forward " " (+ (point) left-margin))
+               (insert (make-string (- left-margin (current-column)) ? )
+                       "| ")
+               (end-of-line)
+               (indent-to right-margin)
+               (insert " |")
+               (forward-char 1))
+             (indent-to left-margin)
+             (insert "\\")
+             (insert (make-string (- right-margin (current-column)) ?=)
+                     "*/\n"))
+            ((eq box-style 'taarna)
 
-	     ;; - construct a Taarna style comment
+             ;; - construct a Taarna style comment
 
-	     (while (not (eobp))
-	       (skip-chars-forward " " (+ (point) left-margin))
-	       (insert (make-string (- left-margin (current-column)) ? )
-		       "/* ")
-	       (end-of-line)
-	       (indent-to right-margin)
-	       (insert " */")
-	       (forward-char 1))
-	     (indent-to left-margin)
-	     (insert "/* ")
-	     (insert (make-string (- right-margin (current-column)) ?-)
-		     " */\n"))
-	    (t (error "unknown box style")))
+             (while (not (eobp))
+               (skip-chars-forward " " (+ (point) left-margin))
+               (insert (make-string (- left-margin (current-column)) ? )
+                       "/* ")
+               (end-of-line)
+               (indent-to right-margin)
+               (insert " */")
+               (forward-char 1))
+             (indent-to left-margin)
+             (insert "/* ")
+             (insert (make-string (- right-margin (current-column)) ?-)
+                     " */\n"))
+            (t (error "unknown box style")))
 
       ;; Fifth, retabify, restore the point position, then cleanup the
       ;; undo list of any boundary since we started.
@@ -375,10 +390,10 @@
 
       (goto-char (point-min))
       (while (re-search-forward "^[ \t][ \t][ \t]*" nil t)
-	(let ((column (current-column))
-	      (indent-tabs-mode t))
-	  (delete-region (match-beginning 0) (point))
-	  (indent-to column)))
+        (let ((column (current-column))
+              (indent-tabs-mode t))
+          (delete-region (match-beginning 0) (point))
+          (indent-to column)))
 
       ;; - restore the point position
 
@@ -387,11 +402,11 @@
       ;; - remove all intermediate boundaries from the undo list
 
       (if (not (eq buffer-undo-list undo-list))
-	  (let ((cursor buffer-undo-list))
-	    (while (not (eq (cdr cursor) undo-list))
-	      (if (car (cdr cursor))
-		  (setq cursor (cdr cursor))
-		(rplacd cursor (cdr (cdr cursor))))))))))
+          (let ((cursor buffer-undo-list))
+            (while (not (eq (cdr cursor) undo-list))
+              (if (car (cdr cursor))
+                  (setq cursor (cdr cursor))
+                (rplacd cursor (cdr (cdr cursor))))))))))
 
 ;;; Rebox a C comment without refilling it.
 

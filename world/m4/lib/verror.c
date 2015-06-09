@@ -1,25 +1,22 @@
 /* va_list error handler for noninteractive utilities
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2009-2013 Free Software Foundation, Inc.
 
-   This program is free software; you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
-   You should have received a copy of the GNU General Public License along
-   with this program; if not, write to the Free Software Foundation,
-   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* Written by Eric Blake.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include "verror.h"
 #include "xvasprintf.h"
@@ -30,15 +27,16 @@
 
 #if ENABLE_NLS
 # include "gettext.h"
+# define _(msgid) gettext (msgid)
 #endif
 
 #ifndef _
 # define _(String) String
 #endif
 
-/* Print a message with `vfprintf (stderr, FORMAT, ARGS)';
+/* Print a message with 'vfprintf (stderr, FORMAT, ARGS)';
    if ERRNUM is nonzero, follow it with ": " and strerror (ERRNUM).
-   If STATUS is nonzero, terminate the program with `exit (STATUS)'.
+   If STATUS is nonzero, terminate the program with 'exit (STATUS)'.
    Use the globals error_print_progname and error_message_count similarly
    to error().  */
 void
@@ -47,10 +45,10 @@ verror (int status, int errnum, const char *format, va_list args)
   verror_at_line (status, errnum, NULL, 0, format, args);
 }
 
-/* Print a message with `vfprintf (stderr, FORMAT, ARGS)';
+/* Print a message with 'vfprintf (stderr, FORMAT, ARGS)';
    if ERRNUM is nonzero, follow it with ": " and strerror (ERRNUM).
-   If STATUS is nonzero, terminate the program with `exit (STATUS)'.
-   If FNAME is not NULL, prepend the message with `FNAME:LINENO:'.
+   If STATUS is nonzero, terminate the program with 'exit (STATUS)'.
+   If FNAME is not NULL, prepend the message with "FNAME:LINENO:".
    Use the globals error_print_progname, error_message_count, and
    error_one_per_line similarly to error_at_line().  */
 void
@@ -61,8 +59,8 @@ verror_at_line (int status, int errnum, const char *file,
   if (message)
     {
       /* Until http://sourceware.org/bugzilla/show_bug.cgi?id=2997 is fixed,
-	 glibc violates GNU Coding Standards when the file argument to
-	 error_at_line is NULL.  */
+         glibc violates GNU Coding Standards when the file argument to
+         error_at_line is NULL.  */
       if (file)
         error_at_line (status, errnum, file, line_number, "%s", message);
       else

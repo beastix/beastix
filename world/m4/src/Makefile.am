@@ -1,29 +1,29 @@
+## Makefile.am - template for generating Makefile via Automake
+##
+## Copyright (C) 2006-2013 Free Software Foundation, Inc.
+##
 ## This file is part of GNU M4.
 ##
-## Copyright (C) 2006 Free Software Foundation, Inc.
-##
-## This program is free software; you can redistribute it and/or modify
+## GNU M4 is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2 of the License, or
+## the Free Software Foundation, either version 3 of the License, or
 ## (at your option) any later version.
 ##
-## This program is distributed in the hope that it will be useful,
+## GNU M4 is distributed in the hope that it will be useful,
 ## but WITHOUT ANY WARRANTY; without even the implied warranty of
 ## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ## GNU General Public License for more details.
 ##
 ## You should have received a copy of the GNU General Public License
-## along with this program; see the file COPYING.  If not, write to
-## the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-## Boston, MA 02110-1301, USA.
+## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 ## This file written by Eric Blake <ebb9@byu.net>
 
+AUTOMAKE_OPTIONS = nostdinc
 AM_CPPFLAGS = -I$(top_srcdir)/lib -I../lib
+AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
 bin_PROGRAMS = m4
-m4_SOURCES = m4.h m4.c builtin.c debug.c eval.c format.c freeze.c input.c \
+noinst_HEADERS = m4.h
+m4_SOURCES = m4.c builtin.c debug.c eval.c format.c freeze.c input.c \
 macro.c output.c path.c symtab.c
-if STACKOVF
-m4_SOURCES += stackovf.c
-endif
-m4_LDADD = ../lib/libm4.a
+m4_LDADD = ../lib/libm4.a $(LIBM4_LIBDEPS) $(LIBCSTACK) $(LIBTHREAD)
