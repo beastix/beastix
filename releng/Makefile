@@ -88,6 +88,6 @@ iso-image: iso-root
 	isohybrid ${RELEASE_FINAL}/beastix.iso
 
 blank-hdimage:
-	dd if=/dev/zero of=${RELEASE_BUILD}/beastix_hdd.img bs=1M count=4096
+	dd if=/dev/zero of=${RELEASE_BUILD}/beastix_hdd.img bs=1M count=8192
 
 clean: clean-build clean-final
