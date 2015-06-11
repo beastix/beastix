@@ -70,7 +70,7 @@ main ( int argc, char* argv[] )
     }
     fprintf(f_output, "\n};\n\n");
 
-    fprintf(f_output, "const int %s_length = %i;\n", ident, file_size);
+    fprintf(f_output, "const int %s_len = %i;\n", ident, file_size);
 
 
     fclose(f_output);

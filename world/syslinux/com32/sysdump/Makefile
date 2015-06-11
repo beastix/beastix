@@ -34,7 +34,7 @@ OBJS = $(subst $(SRC)/,,$(patsubst %.c,%.o,$(SRCS)))
 # official release.  Otherwise, substitute a hex string that is pretty much
 # guaranteed to be unique to be unique from build to build.
 ifndef HEXDATE
-HEXDATE := $(shell $(PERL) $(topdir)/now.pl $(SRCS) $(wildcard *.h))
+HEXDATE := $(shell $(topdir)/now.sh )
 endif
 ifndef DATE
 DATE    := $(shell sh $(topdir)/gen-id.sh $(VERSION) $(HEXDATE))

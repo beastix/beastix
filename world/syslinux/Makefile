@@ -158,7 +158,7 @@ INSTALLABLE_MODULES=
 
 # syslinux.exe is BTARGET so as to not require everyone to have the
 # mingw suite installed
-BTARGET  = version.gen version.h $(OBJDIR)/version.mk
+BTARGET  = 
 BOBJECTS = $(BTARGET) \
 	mbr/*.bin \
 	core/pxelinux.0 core/lpxelinux.0 \
@@ -189,9 +189,8 @@ BSUBDIRS = codepage com32 lzo core memdisk mbr gpxe sample \
 
 ITARGET  =
 IOBJECTS = $(ITARGET) \
-	utils/gethostip utils/isohybrid utils/mkdiskimage \
 	mtools/syslinux linux/syslinux extlinux/extlinux
-ISUBDIRS = libinstaller mtools linux extlinux utils
+ISUBDIRS = libinstaller mtools linux extlinux 
 
 # Things to install in /usr/bin
 INSTALL_BIN   =	mtools/syslinux
@@ -207,7 +206,7 @@ INSTALL_DIAG  =	diag/mbr/handoff.bin \
 		diag/geodsp/geodsp1s.img.xz diag/geodsp/geodspms.img.xz
 
 # These directories manage their own installables
-INSTALLSUBDIRS = com32 utils 
+INSTALLSUBDIRS = com32  
 
 # Things to install in /boot/extlinux
 EXTBOOTINSTALL = $(INSTALLABLE_MODULES)
@@ -299,7 +298,6 @@ $(BINFILES):
 # List the dependencies to help out parallel builds.
 dos extlinux linux mtools win32 win64: libinstaller
 libinstaller: core
-utils: mbr
 core: com32
 efi: core
 gpxe: core
@@ -320,10 +318,6 @@ strip: strip-local
 
 strip-local:
 
-version.gen: $(topdir)/version $(topdir)/version.pl
-	$(PERL) $(topdir)/version.pl $< $@ '%define < @'
-version.h: $(topdir)/version $(topdir)/version.pl
-	$(PERL) $(topdir)/version.pl $< $@ '#define < @'
 
 local-install: installer
 	mkdir -m 755 -p $(INSTALLROOT)$(BINDIR)

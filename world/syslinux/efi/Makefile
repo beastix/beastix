@@ -53,7 +53,7 @@ OBJS += $(objdir)/core/codepage.o $(ARCH)/linux.o
 # official release.  Otherwise, substitute a hex string that is pretty much
 # guaranteed to be unique to be unique from build to build.
 ifndef HEXDATE
-HEXDATE := $(shell $(PERL) $(SRC)/../now.pl $(SRCS))
+HEXDATE := $(shell $(SRC)/../now.sh )
 endif
 ifndef DATE
 DATE    := $(shell sh $(SRC)/../gen-id.sh $(VERSION) $(HEXDATE))

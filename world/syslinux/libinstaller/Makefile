@@ -9,21 +9,21 @@ VPATH = $(SRC)
 all: installer
 
 bootsect_bin.c: $(OBJ)/../core/ldlinux.bss bin2c.pl
-	$(PERL) $(SRC)/bin2c.pl syslinux_bootsect < $< > $@
+	bin2c $< $@ syslinux_bootsect
 
 ldlinux_bin.c: $(OBJ)/../core/ldlinux.sys bin2c.pl
-	$(PERL) $(SRC)/bin2c.pl syslinux_ldlinux 512 < $< > $@
+	bin2c $< $@ syslinux_ldlinux
 
 mbr_bin.c: $(OBJ)/../mbr/mbr.bin bin2c.pl
-	$(PERL) $(SRC)/bin2c.pl syslinux_mbr < $< > $@
+	bin2c $< $@ syslinux_mbr
 
 gptmbr_bin.c: $(OBJ)/../mbr/gptmbr.bin bin2c.pl
-	$(PERL) $(SRC)/bin2c.pl syslinux_gptmbr < $< > $@
+	bin2c $< $@ syslinux_gptmbr
 
 installer: $(BINFILES)
 
 ldlinuxc32_bin.c: $(OBJ)/../com32/elflink/ldlinux/ldlinux.c32 bin2c.pl
-	$(PERL) $(SRC)/bin2c.pl syslinux_ldlinuxc32 < $< > $@
+	bin2c $< $@ syslinux_ldlinuxc32
 
 tidy:
 	rm -f $(BINFILES)
