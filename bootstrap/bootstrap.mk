@@ -52,6 +52,9 @@ bootstrap-cpio:
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/cpio
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/cpio install
 
+bootstrap-dummyperl:
+	mkdir -p ${SRC_ROOT}/bootstrap/tools/bin
+	cp ${SRC_ROOT}/bootstrap/perldummy/perl ${SRC_ROOT}/bootstrap/tools/bin
 	
 
 bootstrap-syslinux:
@@ -63,4 +66,4 @@ clean-bootstrap:
 	make -i -C ${SRC_ROOT}/world/musl distclean clean
 	rm -rf ${SRC_ROOT}/tools/*
 
-bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-nasm bootstrap-bin2c bootstrap-syslinux bootstrap-cpio
+bootstrap: bootstrap-dummyperl bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-nasm bootstrap-bin2c bootstrap-syslinux bootstrap-cpio
