@@ -1,4 +1,5 @@
 #!/bin/bash
+git clean -fd
 make -i clean
 make buildkernel
 make bootstrap
