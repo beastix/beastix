@@ -44,6 +44,9 @@ bootstrap-nasm:
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm nasm 
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm install
 
+bootstrap-bin2c:
+	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; gcc ${SRC_ROOT}/bootstrap/bin2c/bin2c.c -o ${SRC_ROOT}/bootstrap/tools/bin
+
 bootstrap-cpio:
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; cd ${SRC_ROOT}/bootstrap/cpio; ${SRC_ROOT}/world/cpio/configure ${BOOTSTRAP_CONFIG} --disable-nls --without-libintl-prefix
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/cpio
@@ -60,4 +63,4 @@ clean-bootstrap:
 	make -i -C ${SRC_ROOT}/world/musl distclean clean
 	rm -rf ${SRC_ROOT}/tools/*
 
-bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-nasm bootstrap-syslinux bootstrap-cpio
+bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-nasm bootstrap-bin2c bootstrap-syslinux bootstrap-cpio
