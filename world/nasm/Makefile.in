@@ -53,7 +53,7 @@ endif
 .PHONY: install_doc everything install_everything strip perlreq dist tags TAGS
 
 .c.$(O):
-	$(CC) -c $(ALL_CFLAGS) -o $@ $<
+	$(CC) -c $< $(ALL_CFLAGS) -o $@ 
 
 .c.s:
 	$(CC) -S $(ALL_CFLAGS) -o $@ $<
