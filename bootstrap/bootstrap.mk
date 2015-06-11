@@ -45,7 +45,7 @@ bootstrap-nasm:
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; ${MAKE} -C ${SRC_ROOT}/bootstrap/nasm install
 
 bootstrap-bin2c:
-	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; gcc ${SRC_ROOT}/bootstrap/bin2c/bin2c.c -o ${SRC_ROOT}/bootstrap/tools/bin
+	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; gcc ${SRC_ROOT}/bootstrap/bin2c/bin2c.c -o ${SRC_ROOT}/bootstrap/tools/bin/bin2c
 
 bootstrap-cpio:
 	export PATH=${BOOTSTRAP_PATH}; export CC=${BOOTSTRAP_CC}; cd ${SRC_ROOT}/bootstrap/cpio; ${SRC_ROOT}/world/cpio/configure ${BOOTSTRAP_CONFIG} --disable-nls --without-libintl-prefix
