@@ -1,0 +1,4 @@
+#!/bin/sh
+# This is a dummy perl, it does nothing except satisfy build scripts that
+# look for perl despite not actually needing it
+exit 0
