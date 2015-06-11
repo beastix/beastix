@@ -76,6 +76,15 @@ release-final: release-final-dir base-tarball live-initrd installer-initrd sourc
 	cp -rv ${RELEASE_BUILD}/doc                        ${RELEASE_FINAL}/doc
 	cp ${SRC_ROOT}/obj/kernel/arch/x86_64/boot/bzImage ${RELEASE_FINAL}/
 
+release-final-selfhost: release-final-dir base-tarball live-initrd installer-initrd place-docs
+	cp -v ${RELEASE_BUILD}/base.tar.gz                 ${RELEASE_FINAL}/
+	cp -v ${RELEASE_BUILD}/live_initrd.img             ${RELEASE_FINAL}/
+	cp -v ${RELEASE_BUILD}/installer_initrd.img        ${RELEASE_FINAL}/
+	cp -v ${RELEASE_BUILD}/src.tar.gz                  ${RELEASE_FINAL}/
+	cp -rv ${RELEASE_BUILD}/doc                        ${RELEASE_FINAL}/doc
+	cp ${SRC_ROOT}/obj/kernel/arch/x86_64/boot/bzImage ${RELEASE_FINAL}/
+
+
 iso-root: checksums
 	mkdir -p ${RELEASE_BUILD}/isoroot
 	cp -R --preserve ${SRC_ROOT}/releng/cd_templ/* ${RELEASE_BUILD}/isoroot
