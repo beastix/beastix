@@ -11,9 +11,10 @@ release-final-dir:
 
 minimal-root:
 	mkdir -p ${RELEASE_BUILD}/minroot
-	cp -R --preserve ${SRC_ROOT}/world/rootfs/*         ${RELEASE_BUILD}/minroot/
-	cp -R --preserve ${SRC_ROOT}/obj/musl/_install/*    ${RELEASE_BUILD}/minroot/
-	cp -R --preserve ${SRC_ROOT}/obj/busybox/_install/* ${RELEASE_BUILD}/minroot/
+	cp -R --preserve ${SRC_ROOT}/world/rootfs/*          ${RELEASE_BUILD}/minroot/
+	cp -R --preserve ${SRC_ROOT}/obj/musl/_install/*     ${RELEASE_BUILD}/minroot/
+	cp -R --preserve ${SRC_ROOT}/obj/busybox/_install/*  ${RELEASE_BUILD}/minroot/
+	cp -R --preserve ${SRC_ROOT}/obj/bsdtools/_install/* ${RELEASE_BUILD}/minroot/
 	rm ${RELEASE_BUILD}/minroot/linuxrc
 	cd ${RELEASE_BUILD}/minroot; ln -sf /lib/libc.so bin/ldd
 	cd ${RELEASE_BUILD}/minroot; ln -sf /lib/libc.so lib/ld-musl-x86_64.so.1
@@ -24,7 +25,6 @@ minimal-root:
 base-root: minimal-root
 	mkdir -p ${RELEASE_BUILD}/baseroot
 	cp -R --preserve ${RELEASE_BUILD}/minroot/*             ${RELEASE_BUILD}/baseroot/
-	cp -R --preserve ${SRC_ROOT}/obj/bsdtools/_install/*    ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/gcc/_install/*         ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/binutils/_install/*    ${RELEASE_BUILD}/baseroot/
 	cp -R --preserve ${SRC_ROOT}/obj/make/_install/*        ${RELEASE_BUILD}/baseroot/
