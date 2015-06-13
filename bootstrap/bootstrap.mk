@@ -66,4 +66,4 @@ clean-bootstrap:
 	make -i -C ${SRC_ROOT}/world/musl distclean clean
 	rm -rf ${SRC_ROOT}/tools/*
 
-bootstrap: bootstrap-dummyperl bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-nasm bootstrap-bin2c bootstrap-syslinux bootstrap-cpio
+bootstrap: bootstrap-binutils bootstrap-gcc bootstrap-linux-headers bootstrap-musl bootstrap-util-linux bootstrap-nasm bootstrap-bin2c bootstrap-syslinux bootstrap-cpio

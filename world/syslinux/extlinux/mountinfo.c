@@ -82,7 +82,7 @@ static void parse_mountinfo(void)
 {
     FILE *f;
     struct mountinfo *m, *mm;
-    char string_buf[PATH_MAX*8];
+    char string_buf[4096*8];
     int n;
     char ec, *ep;
     unsigned int ma, mi;

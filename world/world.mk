@@ -76,15 +76,9 @@ buildworld-util-linux:
 
 buildworld-syslinux:
 	mkdir -p ${WORLD_BUILD}/syslinux/_install
-	mkdir -p ${WORLD_BUILD}/syslinux/bios/core/
-	cp ${SRC_ROOT}/world/syslinux/bios/core/ldlinux.bin ${WORLD_BUILD}/syslinux/bios/core/ldlinux.bin
-	cp ${SRC_ROOT}/world/syslinux/bios/core/isolinux.bin ${WORLD_BUILD}/syslinux/bios/core/isolinux.bin
-	cp ${SRC_ROOT}/world/syslinux/bios/core/isolinux-debug.bin ${WORLD_BUILD}/syslinux/bios/core/isolinux-debug.bin
-	cp ${SRC_ROOT}/world/syslinux/bios/version.gen ${WORLD_BUILD}/syslinux/bios/version.gen
-	cp ${SRC_ROOT}/world/syslinux/kwdhash.gen ${WORLD_BUILD}/syslinux/bios/core/kwdhash.gen
-	cp -Rv ${SRC_ROOT}/world/syslinux/codepage ${WORLD_BUILD}/syslinux/bios
-	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} O=${WORLD_BUILD}/syslinux 
-	${WORLDENV} make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} install O=${WORLD_BUILD}/syslinux INSTALLROOT=${WORLD_BUILD}/syslinux/_install
+	cd ${SRC_ROOT}/world/syslinux; ${WORLDENV} ${MAKE} -C ${SRC_ROOT}/world/syslinux -i clean
+	export PATH=${BOOTSTRAP_PATH}; make -C ${SRC_ROOT}/world/syslinux CC=${WORLD_CC} installer
+	make -C ${SRC_ROOT}/world/syslinux install INSTALLROOT=${WORLD_BUILD}/syslinux/_install
 
 buildworld-binutils:
 	mkdir -p ${WORLD_BUILD}/binutils/_install
@@ -136,7 +130,7 @@ buildworld-bc:
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/bc install
 
 
-buildworld:  fixheaders buildworld-sed buildworld-m4 buildworld-flex buildworld-bison buildworld-bc buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux buildworld-syslinux
+buildworld:  fixheaders buildworld-sed buildworld-m4 buildworld-flex buildworld-bison buildworld-bc buildworld-musl buildworld-busybox buildworld-binutils buildworld-gcc buildworld-make buildworld-util-linux 
 
 installworld:
 	cp -Ri -p ${SRC_ROOT}/world/rootfs/*             /
@@ -147,7 +141,6 @@ installworld:
 	cp -R  -p ${SRC_ROOT}/obj/binutils/_install/*    /
 	cp -R  -p ${SRC_ROOT}/obj/make/_install/*        /
 	cp -R  -p ${SRC_ROOT}/obj/util-linux/_install/*  /
-	cp -R  -p ${SRC_ROOT}/obj/syslinux/_install/*    /
 	cp -R  -p ${SRC_ROOT}/obj/headers/*              /usr/include/
 	cp -R  -p ${SRC_ROOT}/obj/m4/_install/*          /
 	cp -R  -p ${SRC_ROOT}/obj/flex/_install/*        /
