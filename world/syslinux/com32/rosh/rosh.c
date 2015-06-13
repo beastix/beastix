@@ -37,13 +37,7 @@
  * debugging enabled; Comment to remove.
  */
 #include "rosh.h"
-
-#define VERSION 6.03
-#define VERSION_STR "6.03"
-#define VERSION_MAJOR 6
-#define VERSION_MINOR 3
-#define YEAR 2014
-#define YEAR_STR "2014"
+#include "version.h"
 
 #define APP_LONGNAME	"Read-Only Shell"
 #define APP_NAME	"rosh"

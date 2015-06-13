@@ -14,7 +14,7 @@
 include $(MAKEDIR)/embedded.mk
 -include $(topdir)/version.mk
 
-INCLUDES = -I$(topdir) -I$(topdir)/com32/include -I$(objdir)
+INCLUDES = -I$(topdir)/com32/include -I$(objdir)
 CFLAGS  += -D__MEMDISK__ -DDATE='"$(DATE)"' -mregparm=3 -DREGPARM=3
 LDFLAGS  = $(GCCOPT) -g
 NASM     = nasm
@@ -29,7 +29,7 @@ SRCS	 = $(wildcard *.asm *.c *.h)
 # official release.  Otherwise, substitute a hex string that is pretty much
 # guaranteed to be unique to be unique from build to build.
 ifndef HEXDATE
-HEXDATE := $(shell $(SRC)/../now.sh)
+HEXDATE := $(shell $(PERL) $(SRC)/../now.pl $(SRCS))
 endif
 ifndef DATE
 DATE    := $(shell sh $(SRC)/../gen-id.sh $(VERSION) $(HEXDATE))

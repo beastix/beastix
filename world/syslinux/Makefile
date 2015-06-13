@@ -15,7 +15,7 @@
 # Main Makefile for SYSLINUX
 #
 
-all_firmware := bios 
+all_firmware := bios efi32 efi64
 
 #
 # topdir is only set when we are doing a recursive make. Do a bunch of
@@ -153,17 +153,18 @@ MODULES = com32/menu/*.c32 com32/modules/*.c32 com32/mboot/*.c32 \
 endif
 
 # List of module objects that should be installed for all derivatives
-#INSTALLABLE_MODULES = $(MODULES)
-INSTALLABLE_MODULES=
+INSTALLABLE_MODULES = $(MODULES)
 
 # syslinux.exe is BTARGET so as to not require everyone to have the
 # mingw suite installed
-BTARGET  = 
+BTARGET  = version.gen version.h $(OBJDIR)/version.mk
 BOBJECTS = $(BTARGET) \
 	mbr/*.bin \
 	core/pxelinux.0 core/lpxelinux.0 \
 	core/isolinux.bin core/isolinux-debug.bin \
-	gpxe/gpxelinux.0  \
+	gpxe/gpxelinux.0 dos/syslinux.com \
+	win32/syslinux.exe win64/syslinux64.exe \
+	dosutil/*.com dosutil/*.sys \
 	$(MODULES)
 
 # BSUBDIRs build the on-target binary components.
@@ -185,12 +186,13 @@ NETINSTALLABLE = efi/syslinux.efi $(INSTALLABLE_MODULES)
 else
 
 BSUBDIRS = codepage com32 lzo core memdisk mbr gpxe sample \
-	   diag libinstaller  txt
+	   diag libinstaller dos win32 win64 dosutil txt
 
 ITARGET  =
 IOBJECTS = $(ITARGET) \
+	utils/gethostip utils/isohybrid utils/mkdiskimage \
 	mtools/syslinux linux/syslinux extlinux/extlinux
-ISUBDIRS = libinstaller mtools linux extlinux 
+ISUBDIRS = libinstaller mtools linux extlinux utils
 
 # Things to install in /usr/bin
 INSTALL_BIN   =	mtools/syslinux
@@ -199,14 +201,14 @@ INSTALL_SBIN  = extlinux/extlinux
 # Things to install in /usr/lib/syslinux
 INSTALL_AUX   =	core/pxelinux.0 gpxe/gpxelinux.0 gpxe/gpxelinuxk.0 \
 		core/isolinux.bin core/isolinux-debug.bin \
-		core/lpxelinux.0 \
+		dos/syslinux.com core/lpxelinux.0 \
 		mbr/*.bin $(INSTALLABLE_MODULES)
 INSTALL_AUX_OPT = win32/syslinux.exe win64/syslinux64.exe
 INSTALL_DIAG  =	diag/mbr/handoff.bin \
 		diag/geodsp/geodsp1s.img.xz diag/geodsp/geodspms.img.xz
 
 # These directories manage their own installables
-INSTALLSUBDIRS = com32  
+INSTALLSUBDIRS = com32 utils dosutil
 
 # Things to install in /boot/extlinux
 EXTBOOTINSTALL = $(INSTALLABLE_MODULES)
@@ -298,6 +300,7 @@ $(BINFILES):
 # List the dependencies to help out parallel builds.
 dos extlinux linux mtools win32 win64: libinstaller
 libinstaller: core
+utils: mbr
 core: com32
 efi: core
 gpxe: core
@@ -318,6 +321,10 @@ strip: strip-local
 
 strip-local:
 
+version.gen: $(topdir)/version $(topdir)/version.pl
+	$(PERL) $(topdir)/version.pl $< $@ '%define < @'
+version.h: $(topdir)/version $(topdir)/version.pl
+	$(PERL) $(topdir)/version.pl $< $@ '#define < @'
 
 local-install: installer
 	mkdir -m 755 -p $(INSTALLROOT)$(BINDIR)
