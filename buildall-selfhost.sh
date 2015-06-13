@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 make -i clean
 make buildkernel
 make bootstrap
