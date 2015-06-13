@@ -9,8 +9,8 @@ buildworld-busybox:
 	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
 
 	sed "s/.*CONFIG_SED.*/CONFIG_SED=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
-rm ${WORLD_BUILD}/busybox/.config
-mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
+	rm ${WORLD_BUILD}/busybox/.config
+	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
 
 	sed "s/.*CONFIG_FEATURE_IPV6.*/CONFIG_FEATURE_IPV6=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
 	rm ${WORLD_BUILD}/busybox/.config
