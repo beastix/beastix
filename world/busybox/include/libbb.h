@@ -13,6 +13,7 @@
 #include <netinet/in.h>
 
 #include "platform.h"
+#define NAME_MAX 256
 
 #include <ctype.h>
 #include <dirent.h>
