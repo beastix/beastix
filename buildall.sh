@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 git clean -fd
 make -i clean
 make buildkernel
