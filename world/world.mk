@@ -3,13 +3,35 @@ WORLDENV := export PATH="${BOOTSTRAP_PATH}"; export CFLAGS="${WORLD_CFLAGS}"; ex
 buildworld-busybox:
 	mkdir -p ${WORLD_BUILD}/busybox
 	${WORLDENV} make -C ${SRC_ROOT}/world/busybox O=${WORLD_BUILD}/busybox defconfig
-	sed -i "s/.*CONFIG_STATIC.*/CONFIG_STATIC=y/" -i ${WORLD_BUILD}/busybox/.config
-	sed -i "s/.*CONFIG_SED.*/CONFIG_SED=n/" -i ${WORLD_BUILD}/busybox/.config
-	sed -i 's/.*CONFIG_FEATURE_IPV6.*/CONFIG_FEATURE_IPV6=n/' -i ${WORLD_BUILD}/busybox/.config
-	sed -i 's/.*CONFIG_BRCTL.*/CONFIG_BRCTL=n/' -i ${WORLD_BUILD}/busybox/.config
-	sed -i 's/.*CONFIG_IFPLUGD.*/CONFIG_IFPLUGD=n/' -i ${WORLD_BUILD}/busybox/.config
-	sed -e 's/.*CONFIG_FEATURE_HAVE_RPC.*/CONFIG_FEATURE_HAVE_RPC=n/' -i ${WORLD_BUILD}/busybox/.config
-	sed -e 's/.*CONFIG_FEATURE_INETD_RPC.*/CONFIG_FEATURE_INETD_RPC=n/' -i ${WORLD_BUILD}/busybox/.config
+
+	sed "s/.*CONFIG_STATIC.*/CONFIG_STATIC=y/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
+	rm ${WORLD_BUILD}/busybox/.config
+	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
+
+	sed "s/.*CONFIG_SED.*/CONFIG_SED=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
+rm ${WORLD_BUILD}/busybox/.config
+mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
+
+	sed "s/.*CONFIG_FEATURE_IPV6.*/CONFIG_FEATURE_IPV6=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
+	rm ${WORLD_BUILD}/busybox/.config
+	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
+
+	sed "s/.*CONFIG_BRCTL.*/CONFIG_BRCTL=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
+	rm ${WORLD_BUILD}/busybox/.config
+	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
+
+	sed "s/.*CONFIG_IFPLUGD.*/CONFIG_IFPLUGD=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
+	rm ${WORLD_BUILD}/busybox/.config
+	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
+
+	sed "s/.*CONFIG_FEATURE_HAVE_RPC.*/CONFIG_FEATURE_HAVE_RPC=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
+	rm ${WORLD_BUILD}/busybox/.config
+	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
+
+	sed "s/.*CONFIG_FEATURE_INETD_RPC.*/CONFIG_FEATURE_INETD_RPC=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
+	rm ${WORLD_BUILD}/busybox/.config
+	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
+
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/busybox/ 
 	${WORLDENV} ${MAKE} -C ${WORLD_BUILD}/busybox/ PREFIX=. install
 

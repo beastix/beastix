@@ -1,7 +1,9 @@
 buildkernel:
 	make -C kernel/ mrproper
 	make -C kernel defconfig O=../obj/kernel
-	sed -i "s/.*CONFIG_DEFAULT_HOSTNAME.*/CONFIG_DEFAULT_HOSTNAME=\"beastix\"/" obj/kernel/.config
+	sed "s/.*CONFIG_DEFAULT_HOSTNAME.*/CONFIG_DEFAULT_HOSTNAME=\"beastix\"/" obj/kernel/.config >obj/kernel/.config.new
+	rm obj/kernel/.config
+	mv obj/kernel/.config.new obj/kernel/.config
 	make -C kernel bzImage O=../obj/kernel/ 
 
 installkernel:
