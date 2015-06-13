@@ -120,6 +120,7 @@ installworld:
 	cp -Ri -p ${SRC_ROOT}/world/rootfs/*             /
 	cp -R  -p ${SRC_ROOT}/obj/musl/_install/*        /
 	cp -R  -p ${SRC_ROOT}/obj/busybox/_install/*     /
+	cp -R  -p ${SRC_ROOT}/obj/bsdtools/_install/*    /
 	cp -R  -p ${SRC_ROOT}/obj/gcc/_install/*         /
 	cp -R  -p ${SRC_ROOT}/obj/binutils/_install/*    /
 	cp -R  -p ${SRC_ROOT}/obj/make/_install/*        /
