@@ -1,5 +1,5 @@
 /* objalloc.h -- routines to allocate memory for objects
-   Copyright 1997, 2001 Free Software Foundation, Inc.
+   Copyright 1997-2012 Free Software Foundation, Inc.
    Written by Ian Lance Taylor, Cygnus Solutions.
 
 This program is free software; you can redistribute it and/or modify it
@@ -71,37 +71,7 @@ extern struct objalloc *objalloc_create (void);
 
 extern void *_objalloc_alloc (struct objalloc *, unsigned long);
 
-/* The macro version of objalloc_alloc.  We only define this if using
-   gcc, because otherwise we would have to evaluate the arguments
-   multiple times, or use a temporary field as obstack.h does.  */
-
-#if defined (__GNUC__) && defined (__STDC__) && __STDC__
-
-/* NextStep 2.0 cc is really gcc 1.93 but it defines __GNUC__ = 2 and
-   does not implement __extension__.  But that compiler doesn't define
-   __GNUC_MINOR__.  */
-#if __GNUC__ < 2 || (__NeXT__ && !__GNUC_MINOR__)
-#define __extension__
-#endif
-
-#define objalloc_alloc(o, l)						\
-  __extension__								\
-  ({ struct objalloc *__o = (o);					\
-     unsigned long __len = (l);						\
-     if (__len == 0)							\
-       __len = 1;							\
-     __len = (__len + OBJALLOC_ALIGN - 1) &~ (OBJALLOC_ALIGN - 1);	\
-     (__len <= __o->current_space					\
-      ? (__o->current_ptr += __len,					\
-	 __o->current_space -= __len,					\
-	 (void *) (__o->current_ptr - __len))				\
-      : _objalloc_alloc (__o, __len)); })
-
-#else /* ! __GNUC__ */
-
 #define objalloc_alloc(o, l) _objalloc_alloc ((o), (l))
-
-#endif /* ! __GNUC__ */
 
 /* Free an entire objalloc structure.  */
 
