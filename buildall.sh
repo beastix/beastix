@@ -5,6 +5,7 @@ make -i clean
 make buildkernel
 make bootstrap
 make buildworld
+make buildworld-syslinux
 make build-installer
 pushd releng
 make -i clean
