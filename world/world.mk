@@ -16,7 +16,7 @@ buildworld-busybox:
 # this will eventually be replaced with the whole bsdtools suite
 buildworld-sed:
 	mkdir -p ${WORLD_BUILD}/bsdtools/_install/usr/bin
-	${WORLDENV} ${CC} -I${SRC_ROOT}/world/bsdtools/include ${SRC_ROOT}/world/bsdtools/sed/*.c -o ${WORLD_BUILD}/bsdtools/_install/usr/bin/sed
+	${WORLDENV} ${WORLD_CC} ${WORLD_CFLAGS} -nostdinc -I${SRC_ROOT}/world/bsdtools/include ${SRC_ROOT}/world/bsdtools/sed/*.c -o ${WORLD_BUILD}/bsdtools/_install/usr/bin/sed
 
 # gcc can't build multicore
 buildworld-gcc: 
