@@ -4,6 +4,7 @@ buildworld-busybox:
 	mkdir -p ${WORLD_BUILD}/busybox
 	make -C ${SRC_ROOT}/world/busybox O=${WORLD_BUILD}/busybox defconfig
 	sed -i "s/.*CONFIG_STATIC.*/CONFIG_STATIC=y/" -i ${WORLD_BUILD}/busybox/.config
+	sed -i "s/.*CONFIG_SED.*/CONFIG_SED=n/" -i ${WORLD_BUILD}/busybox/.config
 	sed -i 's/.*CONFIG_FEATURE_IPV6.*/CONFIG_FEATURE_IPV6=n/' -i ${WORLD_BUILD}/busybox/.config
 	sed -i 's/.*CONFIG_BRCTL.*/CONFIG_BRCTL=n/' -i ${WORLD_BUILD}/busybox/.config
 	sed -i 's/.*CONFIG_IFPLUGD.*/CONFIG_IFPLUGD=n/' -i ${WORLD_BUILD}/busybox/.config
@@ -11,6 +12,11 @@ buildworld-busybox:
 	sed -e 's/.*CONFIG_FEATURE_INETD_RPC.*/CONFIG_FEATURE_INETD_RPC=n/' -i ${WORLD_BUILD}/busybox/.config
 	${MAKE} -C ${WORLD_BUILD}/busybox/ 
 	${MAKE} -C ${WORLD_BUILD}/busybox/ PREFIX=. install
+
+# this will eventually be replaced with the whole bsdtools suite
+buildworld-sed:
+	mkdir -p ${WORLD_BUILD}/bsdtools/_install/usr/bin
+	${WORLDENV} ${CC} -I${SRC_ROOT}/world/bsdtools/include ${SRC_ROOT}/world/bsdtools/sed/*.c -o ${WORLD_BUILD}/bsdtools/_install/usr/bin/sed
 
 # gcc can't build multicore
 buildworld-gcc: 
