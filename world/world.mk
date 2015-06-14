@@ -8,10 +8,6 @@ buildworld-busybox:
 	rm ${WORLD_BUILD}/busybox/.config
 	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
 
-	sed "s/.*CONFIG_SED.*/CONFIG_SED=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
-	rm ${WORLD_BUILD}/busybox/.config
-	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
-
 	sed "s/.*CONFIG_FEATURE_IPV6.*/CONFIG_FEATURE_IPV6=n/" ${WORLD_BUILD}/busybox/.config >${WORLD_BUILD}/busybox/.config.new
 	rm ${WORLD_BUILD}/busybox/.config
 	mv ${WORLD_BUILD}/busybox/.config.new ${WORLD_BUILD}/busybox/.config
@@ -136,7 +132,7 @@ installworld:
 	cp -Ri -p ${SRC_ROOT}/world/rootfs/*             /
 	cp -R  -p ${SRC_ROOT}/obj/musl/_install/*        /
 	cp -R  -p ${SRC_ROOT}/obj/busybox/_install/*     /
-	cp -R  -p ${SRC_ROOT}/obj/bsdtools/_install/*    /
+#	cp -R  -p ${SRC_ROOT}/obj/bsdtools/_install/*    /
 	cp -R  -p ${SRC_ROOT}/obj/gcc/_install/*         /
 	cp -R  -p ${SRC_ROOT}/obj/binutils/_install/*    /
 	cp -R  -p ${SRC_ROOT}/obj/make/_install/*        /
