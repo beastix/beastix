@@ -16,10 +16,6 @@ char *realpath(const char *restrict filename, char *restrict resolved)
 	struct stat st1, st2;
 	char buf[15+3*sizeof(int)];
 	char tmp[PATH_MAX];
-	if (strlen(resolved)>PATH_MAX) {
-		errno = ENAMETOOLONG;
-		return 0;
-	}
 
 	if (!filename) {
 		errno = EINVAL;
